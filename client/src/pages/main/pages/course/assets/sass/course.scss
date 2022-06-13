@@ -1,0 +1,35 @@
+@use 'assets/sass/variables';
+
+.courses-page {
+    .title-decoration {
+        background: variables.$Light-Blue;
+
+        .ilustration {
+            width: 6rem;
+            
+            position: absolute;
+            bottom: -1rem;
+        }
+
+        .ilustration-one {
+            left: 10rem;
+        }
+
+        .ilustration-two {
+            left: 15rem;
+        }
+
+        .ilustration-three {
+            right: 5rem;
+        }
+
+        .ilustration-four {
+            right: 12rem;
+        }
+
+        .ilustration-three, .ilustration-four {
+            transform: rotateY(180deg);
+        }
+
+    }
+}

@@ -1,0 +1,121 @@
+@use './variables';
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+
+}
+
+*::-webkit-scrollbar {
+    background: transparent;
+    border-radius: 5rem;
+
+    width: .5rem;
+}
+
+*::-webkit-scrollbar-thumb {
+    background: variables.$Light-Gray;
+    border-radius: 5rem;
+}
+
+
+body {
+    background: variables.$Background;
+    font-family: 'Karla', sans-serif;
+    color: variables.$Text;
+    font-size: 2rem;
+    scroll-behavior: smooth;
+    
+    min-height: 100vh;
+    
+}
+
+li {
+    list-style: none;
+}
+
+a {
+    color: variables.$Text;
+    text-decoration: none;
+}
+
+textarea {
+    font-size: 1.1rem;
+    font-family: 'Karla', sans-serif;
+    outline: transparent;
+    color: variables.$Text;
+
+    min-width: 100%;
+    min-height: 20vh;
+    max-height: 40vh;
+
+    padding: .5rem;
+    margin: .5rem 0;
+}
+
+// Buttons config
+
+button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .icon {
+        color: variables.$Text;
+        font-size: 1rem;
+    }
+
+    .with-text {
+        margin: 0 .2rem 0 0;
+    }
+}
+
+.button {
+    background: variables.$White;
+    border: 1px solid variables.$Text;
+    border-radius: .3rem;
+
+    padding: .5rem 1rem;
+    margin: .2rem 0;
+    
+    transition: all .1s linear;
+
+    &:hover {
+        background: variables.$Background;
+    }
+
+    &:active {
+        background: variables.$Darker-Background;
+    }
+
+    &:disabled {
+        opacity: .5;
+
+        &:hover {
+            background: variables.$Light-White;
+        }
+    }
+}
+
+.button-red {
+    &:hover {
+        background: variables.$Light-Red;
+    }
+}
+
+.button-green {
+    &:hover {
+        background: variables.$Light-Green;
+    }
+}
+
+.button-blue {
+    &:hover {
+        background: variables.$Light-Blue;
+    }
+}

@@ -1,0 +1,35 @@
+@use 'assets/sass/variables';
+
+.student-page {
+
+    .title-decoration {
+        background: variables.$Light-Green;
+
+        .ilustration {
+            position: absolute;
+            bottom: -.7rem;
+            width: 5rem;
+        }
+
+        .ilustration-one {
+            left: 8rem;
+        }
+
+        .ilustration-two {
+            right: 8rem;
+        }
+
+        .ilustration-three {
+            right: 12rem;
+        }
+
+        .ilustration-two, .ilustration-three {
+            transform: rotateY(180deg);
+        }
+    }
+
+    
+}
+
+
+

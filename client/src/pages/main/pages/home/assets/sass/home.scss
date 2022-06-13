@@ -1,0 +1,188 @@
+@use 'assets/sass/variables';
+
+.home-page {
+    .welcome-section {
+        background: variables.$Light-White;
+        color: variables.$Text;
+
+        height: 90vh;
+        padding: 1.5rem;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        
+        position: relative;
+
+        .title {
+            display: flex;
+            align-items: center;
+
+            .logo {
+                font-size: 4.5rem;
+                margin: 0;
+            }
+
+            h2 {
+                font-size: 4rem;
+                margin: 0 1rem;
+            }
+        }
+
+        p {
+            font-size: 1.5rem;
+            
+            width: 50%;
+            min-width: 20rem;
+
+            margin: .5rem 0 1rem 0;
+        }
+
+        .button {
+            background: variables.$Text;
+            font-size: 1.2rem;
+            color: variables.$White;
+
+            width: fit-content;
+            padding: 1rem 3.5rem;
+
+            &:hover {
+                background: variables.$White;
+                color: variables.$Text;
+            }
+        }
+
+        .ilustration {
+            width: 15rem;
+        }
+
+        .ilustration-one {
+            position: absolute;
+            right: 25rem;
+            bottom: 0;
+        }
+
+        .ilustration-two {
+            position: absolute;
+            right: 10rem;
+            bottom: 0;
+
+            transform: rotateY(180deg);
+        }
+    }
+
+    .promotion-section {
+        padding: 0 1.5rem;
+        margin: 2rem 0;
+
+        h3 {
+            font-size: 2.2rem;
+        }
+
+        p {
+            font-size: 1.5rem;
+            margin: 0 0 1rem 0;
+        }
+
+        .advantages {
+            h4 {
+                font-size: 2rem;
+                margin: 1.8rem 0 .5rem 0;
+            }
+
+            .advantages-list {
+                margin: .5rem 0 0 0;
+                display: flex;
+                justify-content: center;
+                
+
+                li {
+                    width: calc(100% / 3);
+
+                    padding: 1.5rem 0;
+                    margin: 0 1rem;
+
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+
+                    .icon {
+                        font-size: 5rem;
+                        margin: 0 0 2rem 0;
+                    }
+
+                    p {
+                        text-align: center;
+                        font-size: 1.5rem;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+@media (max-width: 1250px) {
+    .home-page {
+        .welcome-section {
+            height: 75vh;
+
+            .title {
+                .logo {
+                    font-size: 2rem;
+                }
+                
+                h2 {
+                    font-size: 2.5rem;
+                    margin: 0 .2rem;
+                }
+            }
+
+            p {
+                font-size: 1.2rem;
+                width: 80%;
+            }
+
+            .button {
+                font-size: 1rem;
+            }
+
+            .ilustration {
+                display: none;
+            }
+        }
+
+        .promotion-section {
+            padding: 0 1.5rem;
+            margin: 2rem 0;
+
+            h3 {
+                font-size: 2rem;
+            }
+
+            p {
+                font-size: 1;
+                margin: 0 0 1rem 0;
+            }
+
+            .advantages {
+                .advantages-list {
+                    flex-direction: column;
+
+                    li {
+                        width: 100%;
+
+                        margin: 1rem 0;
+                        padding: 0 1rem;
+
+                        flex-direction: column;
+
+                        p {
+                            margin: .5rem 0 0 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

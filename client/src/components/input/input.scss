@@ -1,0 +1,61 @@
+@use 'assets/sass/variables';
+
+.input {
+    width: 100%;
+    margin: .8rem 0;
+    position: relative;
+
+    label {
+        font-size: 1.1rem;
+        font-weight: 700;
+        margin: .2rem 0;
+    }
+
+    .input-container {
+        width: 100%;
+        padding: .1rem .2rem;
+
+        display: flex;
+        align-items: center;
+
+    }
+
+    input {
+        background: transparent;
+        border: 2px solid variables.$Text;
+        color: variables.$Text;
+        outline: transparent;
+        font-size: 1.2rem;
+
+        width: 100%;
+        padding: .2rem .1rem;
+        transition: border-bottom .2s linear;
+        
+        &:focus {
+            border: .15rem solid variables.$White;
+        }
+        
+    }
+
+    .icon {
+        font-weight: 900;
+        position: absolute;
+        right: .4rem;
+    }
+
+    .correct {
+        color: variables.$Light-Green;
+    }
+
+    .incorrect {
+        color: variables.$Light-Red;
+    }
+
+    .error-message {
+        color: variables.$Detailed-Red;
+        font-size: .8rem;
+        margin: -.5rem 0;
+        position: absolute;
+        bottom: -.5rem;
+    }
+}

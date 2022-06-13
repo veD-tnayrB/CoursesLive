@@ -1,0 +1,23 @@
+{
+  "name": "courseslive",
+  "version": "1.0.0",
+  "description": "This is CoursesLive.",
+  "private": true,
+  "main": "index.js",
+  "workspaces": [
+    "server",
+    "client"
+  ],
+  "scripts": {
+    "server": "npm start --workspace=server",
+    "client": "npm start --workspace=client"
+  },
+  "keywords": [
+    "React",
+    "MongoDB",
+    "Node",
+    "Express"
+  ],
+  "author": "BryantDev_",
+  "license": "MIT"
+}

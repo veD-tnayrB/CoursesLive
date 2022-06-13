@@ -1,0 +1,16 @@
+@use 'assets/sass/variables';
+
+.modal-container {
+    .modal-window {
+        article {
+            form {
+                padding: 0;
+
+                .user-already-exist-message {
+                    font-size: 1.5rem;
+                    color: variables.$Light-Red;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,14 @@
+@use 'assets/sass/variables';
+
+.modal-container {
+    .modal-window {
+        article {
+            form {
+                .basic-info {
+                    display: flex;
+                    align-items: center;
+                }
+            }
+        }
+    }
+}

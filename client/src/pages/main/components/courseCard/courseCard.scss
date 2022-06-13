@@ -1,0 +1,88 @@
+@use 'assets/sass/variables';
+
+.course-item {
+    .card {
+        background: variables.$White;
+        border: 1px solid variables.$Text;
+        border-radius: .2rem;
+
+        width: 21rem;
+        min-width: fit-content;
+
+        padding: .5rem 1.5rem;
+        margin: 1rem .1rem;
+        
+            h3 {
+                font-size: 1.5rem;
+                margin: .5rem 0;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: normal;
+
+                line-height: 2rem;
+                -webkit-line-clamp: 1;
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+            }
+
+        h4 {
+            font-size: 1rem;
+            margin: .1rem 0 0 0;
+        }
+
+        ul {
+            font-size: .8rem;
+            height: 2.8rem;
+
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+
+            .day-item {
+                background: variables.$Background;
+                font-weight: 700;
+
+                padding: .2rem .4rem;
+                margin: 0 .3rem 0 0;
+            }
+        }
+
+        .buttons-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            .admin-action-container {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                .button {
+                    padding: .5rem;
+                    margin: 0 .2rem;
+                }
+            }
+
+            .action-container {
+                width: 100%;
+
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                .button {
+                    padding: .5rem 2rem;
+                    margin: 1rem 0;
+                }
+
+                .unsuscribe-button {
+                    padding: .5rem;
+                }
+
+                .occupied-date {
+                    padding: .5rem 1rem;
+                }
+            }
+        }
+    }
+}

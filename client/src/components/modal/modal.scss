@@ -1,0 +1,18 @@
+.modal-window {
+    background: #000000be;
+
+    height: 100vh;
+    padding: 1rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0; 
+
+    z-index: 3;
+}
