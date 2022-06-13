@@ -9,18 +9,15 @@ const login = (req, res, next) => {
         const userDoesntExist = !user;
 
         if (userDoesntExist) {
-            return res.status(404).json({ message: 'Looks like the info is incorrect!' });
+            throw Error('UserNotFound');
         }
 
-        const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET);
+        const token = jwt.sign({ id: user.id, role: user.role }, process.env.JWT_SECRET);
         return res.status(200).json({ user, token });
 
     })
-    .catch(err => {
-        return res.status(403).json({ message: 'something went wrong' });
-    })
-
-
+    .catch(error => next(error))
+    
 }
 
 
@@ -32,12 +29,10 @@ const signup = (req, res, next) => {
     User.findOne({ mail: newUserInfo.mail })
     .then(userAlreadyExist => {
         if (userAlreadyExist) {
-            return res.status(403).json({
-                message: 'Oops looks like theres some user with the same information'
-            });
+            throw Error('TheUserAlreadyExist');
         }
     })
-    .catch(err => res.status(202));
+    .catch(error => next(error));
 
 
     // Create the user and send the token
@@ -47,13 +42,18 @@ const signup = (req, res, next) => {
         courses: []
     })
     .then(user => {
-        if (user) {
-            const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET);
-            user.save();
-            return res.status(200).json({ user, token })
+        const userWasntCreated = !user;
+
+        if (userWasntCreated) {
+            throw Error('UserWasntCreated');
         }
+
+        const token = jwt.sign({ id: user.id, role: user.role }, process.env.JWT_SECRET);
+        user.save();
+
+        return res.status(200).json({ user, token })
     })
-    .catch(err => res.status(202))
+    .catch(error => next(error))
 
 }
 

@@ -3,10 +3,17 @@ import jwt from 'jsonwebtoken';
 const isTokenValid = (req, res, next) => {
     const { authorization: token } = req.headers;
 
-    const { id } = jwt.verify(token, process.env.JWT_SECRET);
+    try {
+        const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+        const isDecodedTokenIncorrect = !decodedToken;
 
-    if (!id) {
-        res.status(403).json({ message: 'Oops it looks like the entered token is incorrect 😟' })
+        if (isDecodedTokenIncorrect) {
+            throw Error('TokenIncorrect');
+
+        }
+
+    } catch (error) {
+        next(error);
     }
 
     next();

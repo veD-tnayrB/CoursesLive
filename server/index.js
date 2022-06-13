@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 
 // Routers imports
+import errorHandler from './middlewares/errorHandler.js';
 import authRouter from './routes/auth.js';
 
 
@@ -16,6 +17,8 @@ app.use(express.json());
 
 // Routes
 app.use('/auth/', authRouter);
+
+app.use(errorHandler)
 
 
 // Connect with the data base and then start to listen

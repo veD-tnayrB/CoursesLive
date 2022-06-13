@@ -16,12 +16,17 @@ const isBodyAUser = (req, res, next) => {
         isPasswordIncorrect: password && !passwordPattern.test(password)
     }
 
-    const somethingWrong = Object.keys(validators).some(validator => validators[validator]); 
+    try {
+        const somethingWrong = Object.keys(validators).some(validator => validators[validator]); 
 
-    if (somethingWrong) {
-        return res.status(403).json({ 
-            message: 'Oops, it looks like some of the data doesnt meet the requirements'
-        });
+        if (somethingWrong) {
+            throw Error('TheInfoDoesntMeetTheRequirements');
+
+        }
+        
+    } catch (error) {
+        next(error);
+
     }
 
     next()
