@@ -1,22 +1,22 @@
 // Validators
-const namePattern = /^[A-Z]{1,1}[a-z]$/;
+const namePattern = /^[A-Z]{1,1}[a-z]+$/;
 const lastNamePattern = /^[A-Z]{1,1}[a-z]+$/;
 const mailPattern = /^[a-z_0-9]+@[a-z_]+?\.[a-zA-Z]{2,3}$/;
 const passwordPattern = /[\w]{8,16}/;
 
 
 const isBodyAUser = (req, res, next) => {
-    const { name, lastName, mail, password, age } = req.body;
+    const { name, lastName, mail, password } = req.body;
 
+    // It first checks if the property exists and then checks if it is correct based on its pattern.
     const validators = {
-        isNameIncorrect: !namePattern.test(name),
-        isLastNameIncorrect: !lastNamePattern.test(lastName),
-        isMailIncorrect: !mailPattern.test(mail),
-        isPasswordIncorrect: !passwordPattern.test(password),
-        isAgeIncorrect: age <= 5 && age >= 120
+        isNameIncorrect: name && !namePattern.test(name),
+        isLastNameIncorrect: lastName && !lastNamePattern.test(lastName),
+        isMailIncorrect: mail && !mailPattern.test(mail),
+        isPasswordIncorrect: password && !passwordPattern.test(password)
     }
 
-    const somethingWrong = Object.keys(validators).some(validator => validator === true); 
+    const somethingWrong = Object.keys(validators).some(validator => validators[validator]); 
 
     if (somethingWrong) {
         return res.status(403).json({ 

@@ -2,19 +2,25 @@ import jwt from 'jsonwebtoken';
 import User from '../models/user.js';
 
 const login = (req, res, next) => {
-    const userInfo = req.body;
+    const { mail, password } = req.body;
 
-    User.findOne(userInfo)
+    User.findOne({ mail, password })
     .then(user => {
-        if (user) {
-            const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET);
-            
-            return res.status(200).json({ user, token });
+        const userDoesntExist = !user;
+
+        if (userDoesntExist) {
+            return res.status(404).json({ message: 'Looks like the info is incorrect!' });
         }
+
+        const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET);
+        return res.status(200).json({ user, token });
+
     })
     .catch(err => {
-        return res.status(403);
-    }) 
+        return res.status(403).json({ message: 'something went wrong' });
+    })
+
+
 }
 
 
