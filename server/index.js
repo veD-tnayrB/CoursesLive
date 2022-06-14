@@ -3,8 +3,11 @@ import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 
 // Routers imports
-import errorHandler from './middlewares/errorHandler.js';
 import authRouter from './routes/auth.js';
+import courseRouter from './routes/course.js';
+
+// Middlewares imports
+import errorHandler from './middlewares/errorHandler.js';
 
 
 dotenv.config(); // This is for enviroment variables
@@ -17,6 +20,7 @@ app.use(express.json());
 
 // Routes
 app.use('/auth/', authRouter);
+app.use('/courses/', courseRouter);
 
 app.use(errorHandler)
 

@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 const { Schema, model } = mongoose;
 
-const courseSchema = new Shchema({
+const courseSchema = new Schema({
     name: {
         type: String,
         required: true
@@ -20,5 +20,27 @@ const courseSchema = new Shchema({
     tags: {
         type: [String],
         required: true
+    },
+
+    creator: {
+        type: Schema.Types.ObjectId,
+        required: true
+    },
+
+    subscribers: {
+        type: [Schema.Types.ObjectId]
     }
 })
+
+courseSchema.set('toJSON', {
+    transform: (document, returnedObject) => {
+        returnedObject.id = returnedObject._id;
+
+        delete returnedObject._id;
+        delete returnedObject.__v;
+    }
+})
+
+const Course = model('Course', courseSchema);
+
+export default Course;

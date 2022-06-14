@@ -28,7 +28,7 @@ const userSchema = new Schema({
     },
 
     courses: {
-        type: [String]
+        type: [Schema.Types.ObjectId]
     }
 })
 
