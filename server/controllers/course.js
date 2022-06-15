@@ -2,6 +2,7 @@ import jwt from 'jsonwebtoken';
 import User from '../models/user.js';
 import Course from '../models/course.js';
 
+
 // Get all the courses from data base
 const getAll = (req, res, next) => {
     Course.find({  })
@@ -9,6 +10,41 @@ const getAll = (req, res, next) => {
         return res.status(200).json({ results });
     })
     .catch(error => next(error))
+}
+
+// Create a course
+const create = (req, res, next) => {
+    const courseInfo = req.body;
+
+    // Check if the course already exist
+    Course.find({ name: courseInfo.name })
+    .then(courseAlreadyExists => {
+        if (courseAlreadyExists) {
+            throw Error('CourseAlreadyExist');
+        }
+    })
+    .catch(error => next(error));
+
+    // Create the course
+    Course.create({
+        name: courseInfo.name,
+        description: courseInfo.description,
+        level: courseInfo.level,
+        tags: courseInfo.tags,
+        creator: courseInfo.creator,
+        suscribers: []
+    })
+    .then(course => {
+        const courseWasntCreated = !course;
+
+        if (courseWasntCreated) {
+            throw Error('CourseWasntCreated');
+        }
+
+        course.save();
+        return res.status(202).json(course);
+    })
+    .catch(eror => next(error));
 }
 
 // Suscribe the user to a course
@@ -40,7 +76,7 @@ const unsuscribe = (req, res, next) => {
 
     const { id: userId } = jwt.verify(token, process.env.JWT_SECRET);
 
-    // Remove the user id from the suscribe array
+    // Remove the user id from the suscribers array
     Course.findByIdAndUpdate(courseId, { $pullAll: { suscribers: userId }})
     .then(() => {
 
