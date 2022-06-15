@@ -1,6 +1,6 @@
-import { Router } from 'mongoose';
+import { Router } from 'express';
 import { getAll, create, suscribe, unsuscribe } from '../controllers/course.js';
-import { isUserAdminOrTeacher } from '../middlewares/isUser.js';
+import { isUserAdminOrTeacher } from '../middlewares/isUserRole.js';
 
 const courseRouter = Router();
 

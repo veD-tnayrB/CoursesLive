@@ -25,15 +25,17 @@ const create = (req, res, next) => {
     })
     .catch(error => next(error));
 
-    // Create the course
-    Course.create({
+    const newCourse = { 
         name: courseInfo.name,
         description: courseInfo.description,
         level: courseInfo.level,
         tags: courseInfo.tags,
         creator: courseInfo.creator,
         suscribers: []
-    })
+    }
+
+    // Create the course
+    Course.create(newCourse)
     .then(course => {
         const courseWasntCreated = !course;
 
@@ -92,4 +94,4 @@ const unsuscribe = (req, res, next) => {
 
 
 
-export default { getAll, suscribe, unsuscribe };
+export { getAll, create, suscribe, unsuscribe };

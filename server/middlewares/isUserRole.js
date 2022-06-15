@@ -20,7 +20,15 @@ const isRoleValid = (rolesToCheck, req, res, next) => {
             next(error)
         }
     })
-    
+
 }
 
-export default isRoleValid;
+const isUserTeacher = () => isRoleValid(['teacher']);
+
+const isUserAdmin = () => isRoleValid(['admin']);
+
+const isUserAdminOrTeacher = () => isRoleValid(['admin', 'teacher']);
+
+const isUserStudent = () => isRoleValid(['student']);
+
+export { isUserTeacher, isUserAdmin, isUserAdminOrTeacher, isUserStudent };

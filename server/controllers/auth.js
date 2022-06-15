@@ -23,10 +23,10 @@ const login = (req, res, next) => {
 
 // Register a user
 const signup = (req, res, next) => {
-    const newUserInfo = req.body;
+    const userInfo = req.body;
 
     // Search for a user with the same mail
-    User.findOne({ mail: newUserInfo.mail })
+    User.findOne({ mail: userInfo.mail })
     .then(userAlreadyExist => {
         if (userAlreadyExist) {
             throw Error('TheUserAlreadyExist');
@@ -34,13 +34,17 @@ const signup = (req, res, next) => {
     })
     .catch(error => next(error));
 
+    const newUser = {
+        name: userInfo.name,
+        lastName: userInfo.lastName,
+        mail: userInfo.mail,
+        password: userInfo.password,
+        role: 'student',
+        courses: []
+    }
 
     // Create the user and send the token
-    User.create({
-        role: 'student',
-        ...newUserInfo,
-        courses: []
-    })
+    User.create(newUser)
     .then(user => {
         const userWasntCreated = !user;
 
