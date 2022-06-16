@@ -23,12 +23,12 @@ const isRoleValid = (rolesToCheck, req, res, next) => {
 
 }
 
-const isUserTeacher = () => isRoleValid(['teacher']);
+const isUserTeacher = (req, res, next) => isRoleValid(['teacher'], req, res, next);
 
-const isUserAdmin = () => isRoleValid(['admin']);
+const isUserAdmin = (req, res, next) => isRoleValid(['admin'], req, res, next);
 
-const isUserAdminOrTeacher = () => isRoleValid(['admin', 'teacher']);
+const isUserAdminOrTeacher = (req, res, next) => isRoleValid(['admin', 'teacher'], req, res, next);
 
-const isUserStudent = () => isRoleValid(['student']);
+const isUserStudent = (req, res, next) => isRoleValid(['student'], req, res, next);
 
 export { isUserTeacher, isUserAdmin, isUserAdminOrTeacher, isUserStudent };

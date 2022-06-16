@@ -4,39 +4,40 @@ import Course from '../models/course.js';
 
 
 // Get all the courses from data base
-const getAll = (req, res, next) => {
-    Course.find({  })
-    .then(results => {
-        return res.status(200).json({ results });
-    })
-    .catch(error => next(error))
+const getAll = async (req, res, next) => {
+    try {
+        const courses = await Course.find({});
+        
+        return res.status(200).json(courses);
+            
+    } catch (error) {
+        next(error);
+    }
 }
 
 // Create a course
-const create = (req, res, next) => {
+const create = async (req, res, next) => {
     const courseInfo = req.body;
 
-    // Check if the course already exist
-    Course.find({ name: courseInfo.name })
-    .then(courseAlreadyExists => {
-        if (courseAlreadyExists) {
+    try {
+        // Check if the course already exist
+        const courseAlreadyExist = await Course.find({ name: courseInfo.name });
+
+        if (courseAlreadyExist) {
             throw Error('CourseAlreadyExist');
         }
-    })
-    .catch(error => next(error));
 
-    const newCourse = { 
-        name: courseInfo.name,
-        description: courseInfo.description,
-        level: courseInfo.level,
-        tags: courseInfo.tags,
-        creator: courseInfo.creator,
-        suscribers: []
-    }
+        const newCourse = {
+            name: courseInfo.name,
+            description: courseInfo.description,
+            level: courseInfo.level,
+            tags: courseInfo.tags,
+            creator: courseInfo.creator,
+            suscribers: []
+        }
 
-    // Create the course
-    Course.create(newCourse)
-    .then(course => {
+        // Create the course
+        const course = await Course.create(newCourse);
         const courseWasntCreated = !course;
 
         if (courseWasntCreated) {
@@ -44,52 +45,60 @@ const create = (req, res, next) => {
         }
 
         course.save();
-        return res.status(202).json(course);
-    })
-    .catch(eror => next(error));
+        return res.status(201).json(course);
+
+    } catch (error) {
+        next(error);
+    }
 }
 
 // Suscribe the user to a course
-const suscribe = (req, res, next) => {
+const suscribe = async (req, res, next) => {
     const { authorization: token } = req.body;
     const { courseId } = req.params;
 
     const { id: userId } = jwt.verify(token, process.env.JWT_SECRET);
 
-    // Add the user id to the suscribers array
-    Course.findByIdAndUpdate(courseId, { $push: { suscribers: userId }})
-    .then(() => {
+    try {
+        // Add the user id to the suscribers array
+        const courseToSuscribe = await Course.findByIdAndUpdate(courseId, { $push: { suscribers: userId } });
+        const courseDoesntExist = !courseToSuscribe;
 
+        if (courseDoesntExist) {
+            throw Error('CourseDoesntExist');
+        }
+        
         // Update the user information
-        User.findByIdAndUpdate(userId, { $push: { courses: courseId } }, { new: true })
-        .then(userUpdated => {
+        const updatedUser = await User.findByIdAndUpdate(userId, { $push: { courses: courseId } }, { new: true });
+        return res.status(202).json({ user: updatedUser });
 
-            return res.status(202).json({ user: userUpdated });
-        })
-        .catch(error => next(error));
-    })
-    .catch(error => next(error));
+    } catch (error) {
+        next(error);
+    }
 }
 
 // Unsuscribe the user
-const unsuscribe = (req, res, next) => {
+const unsuscribe = async (req, res, next) => {
     const { authorization: token } = req.body;
     const { courseId } = req.params;
 
     const { id: userId } = jwt.verify(token, process.env.JWT_SECRET);
 
-    // Remove the user id from the suscribers array
-    Course.findByIdAndUpdate(courseId, { $pullAll: { suscribers: userId }})
-    .then(() => {
+    try {
+        // Remove the user id from the suscribers array
+        const courseToUnsuscribe = await Course.findByIdAndUpdate(courseId, { $pullAll: { suscribers: userId } })
+        const courseDoesntExist = !courseToUnsuscribe;
 
-        // Update again the user information
-        User.findByIdAndUpdate(userId, { $pullAll: { courses: courseId }}, { new: true })
-        .then(userUpdated => {
-            return res.status().json({ user: userUpdated });
-        })
-        .catch(error => next(error));
-    })
-    .catch(error => next(error));
+        if (courseDoesntExist) {
+            throw Error('CourseDoesntExist');
+        }
+
+        const updatedUser = await User.findByIdAndUpdate(userId, { $push: { courses: courseId } }, { new: true });
+        return res.status(202).json({ user: updatedUser });
+
+    } catch (error) {
+        next(error);
+    }
 }
 
 

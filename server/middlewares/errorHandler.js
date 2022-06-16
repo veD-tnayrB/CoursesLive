@@ -18,10 +18,10 @@ const errorHandler = (error, req, res, next) => {
             return res.status(403).json({ message: 'Oops it looks like the entered token is incorrect 😟' });
     
         case '':
-            return res.status(123).json({ message: '' });
+            return res.status(403).json({ message: 'Este es un error personalizado' });
     
         default:
-            return res.status(500).json({ message: 'Oops, looks like the server has a problem' });
+            return res.status(500).json({ message: 'Oops, looks like the server has a problem ' });
     }
 }
 

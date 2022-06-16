@@ -1,11 +1,13 @@
 import jwt from 'jsonwebtoken';
 import User from '../models/user.js';
 
-const login = (req, res, next) => {
+// Log the user
+const login = async (req, res, next) => {
     const { mail, password } = req.body;
 
-    User.findOne({ mail, password })
-    .then(user => {
+    try {
+        // Log the user by sending the token to the client and the user information
+        const user = await User.findOne({ mail, password });
         const userDoesntExist = !user;
 
         if (userDoesntExist) {
@@ -13,54 +15,55 @@ const login = (req, res, next) => {
         }
 
         const token = jwt.sign({ id: user.id, role: user.role }, process.env.JWT_SECRET);
-        return res.status(200).json({ user, token });
+        return res.status(100).json({ user, token });
 
-    })
-    .catch(error => next(error))
+    } catch (error) {
+        next(error);
+    }
     
 }
 
 
 // Register a user
-const signup = (req, res, next) => {
-    const userInfo = req.body;
+const signup = async (req, res, next) => {
+    const newUserDetails = req.body;
 
-    // Search for a user with the same mail
-    User.findOne({ mail: userInfo.mail })
-    .then(userAlreadyExist => {
+    try {
+        // Search for a user with the same mail
+        const user = await User.findOne({ mail: newUserDetails.mail });
+        const userAlreadyExist = user;
+
         if (userAlreadyExist) {
             throw Error('TheUserAlreadyExist');
         }
-    })
-    .catch(error => next(error));
 
-    const newUser = {
-        name: userInfo.name,
-        lastName: userInfo.lastName,
-        mail: userInfo.mail,
-        password: userInfo.password,
-        role: 'student',
-        courses: []
-    }
+        const newUserInformaton = {
+            name: newUserDetails.name,
+            lastName: newUserDetails.lastName,
+            mail: newUserDetails.mail,
+            password: newUserDetails.password,
+            role: 'student',
+            courses: []
+        }
 
-    // Create the user and send the token
-    User.create(newUser)
-    .then(user => {
-        const userWasntCreated = !user;
+        // Create the user and send the token
+        const newUser = await User.create(newUserInformaton);
+        const userWasntCreated = !newUser;
 
         if (userWasntCreated) {
             throw Error('UserWasntCreated');
         }
 
-        const token = jwt.sign({ id: user.id, role: user.role }, process.env.JWT_SECRET);
-        user.save();
+        const token = jwt.sign({ id: newUser.id, role: newUser.role }, process.env.JWT_SECRET);
+        newUser.save();
 
-        return res.status(200).json({ user, token })
-    })
-    .catch(error => next(error))
+        return res.status(201).json({ user: newUser, token });
+    
+    } catch (error) {
+        next(error);
+    }
 
 }
 
-    
 
 export { login, signup };
