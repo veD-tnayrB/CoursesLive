@@ -3,19 +3,19 @@ import User from '../models/user.js';
 
 // Log the user
 const login = async (req, res, next) => {
-    const { mail, password } = req.body;
+    const userDetails = req.body;
 
     try {
         // Log the user by sending the token to the client and the user information
-        const user = await User.findOne({ mail, password });
+        const user = await User.findOne({ mail: userDetails.mail, password: userDetails.password });
         const userDoesntExist = !user;
-
+        
         if (userDoesntExist) {
-            throw Error('UserNotFound');
+            throw Error('user not found');
         }
-
+        
         const token = jwt.sign({ id: user.id, role: user.role }, process.env.JWT_SECRET);
-        return res.status(100).json({ user, token });
+        return res.status(200).json({ user, token });
 
     } catch (error) {
         next(error);
@@ -34,7 +34,7 @@ const signup = async (req, res, next) => {
         const userAlreadyExist = user;
 
         if (userAlreadyExist) {
-            throw Error('TheUserAlreadyExist');
+            throw Error('the user already exist');
         }
 
         const newUserInformaton = {
@@ -51,7 +51,7 @@ const signup = async (req, res, next) => {
         const userWasntCreated = !newUser;
 
         if (userWasntCreated) {
-            throw Error('UserWasntCreated');
+            throw Error('user wasnt created');
         }
 
         const token = jwt.sign({ id: newUser.id, role: newUser.role }, process.env.JWT_SECRET);

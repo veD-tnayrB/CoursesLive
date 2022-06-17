@@ -29,7 +29,8 @@ const courseSchema = new Schema({
     },
 
     subscribers: {
-        type: [Schema.Types.ObjectId]
+        type: [Schema.Types.ObjectId],
+        ref: 'User'
     }
 })
 

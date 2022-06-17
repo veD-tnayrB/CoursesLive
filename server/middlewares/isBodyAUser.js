@@ -20,7 +20,7 @@ const isBodyAUser = (req, res, next) => {
         const somethingWrong = Object.values(validators).some(validator => validator); 
 
         if (somethingWrong) {
-            throw Error('TheInfoDoesntMeetTheRequirements');
+            throw Error('info doesnt meet the requirements');
 
         }
         
