@@ -3,7 +3,7 @@ const errorHandler = (error, req, res, next) => {
 
     switch(error.message) {
         case 'user not found':
-            return res.status(404).json({ message: 'Oops, it seems that there is no record with that information 😞' })
+            return res.status(404).json({ message: 'Oops, it seems that there is no user with such information 😞' })
 
         case 'the user already exist':
             return res.status(409).json({ message: 'Try to put a different password or email 😔' });
@@ -28,6 +28,9 @@ const errorHandler = (error, req, res, next) => {
     
         case 'user not authorized':
             return res.status(401).json({ message: 'You do not have the necessary permissions to make this request 🤨' });
+
+        case 'user is already suscribed':
+            return res.status(406).json({ message: 'You are already suscribed to this course. 😡' })
 
         case '':
             return res.status(505).json({ message: 'UNA POLLA COMO EL BRAZO DE UN NIñO CHICO AGARRANDO UNA MANZANA' })

@@ -1,7 +1,6 @@
 import jwt from 'jsonwebtoken';
 import User from '../models/user.js';
 import Course from '../models/course.js';
-import mongoose from 'mongoose';
 
 
 // Get all the courses from data base
@@ -80,15 +79,31 @@ const remove = async (req, res, next) => {
 
 // Suscribe the user to a course
 const suscribe = async (req, res, next) => {
-    const { authorization: token } = req.body;
+    const { authorization: token } = req.headers;
     const { courseId } = req.params;
 
-    const { id: userId } = jwt.verify(token, process.env.JWT_SECRET);
-
     try {
+        const { id: userId } = jwt.verify(token, process.env.JWT_SECRET);
+
+        // Check if the user already exist
+        const userToSuscribe = await User.findById(userId);
+        const userDoesntExist = !userToSuscribe;
+
+        if (userDoesntExist) {
+            throw Error('user not found');
+        }
+
+        // Check if the user is already suscribed
+        const isUserAlreadySuscribed = userToSuscribe.courses.some(course => String(course) === courseId);
+
+        if (isUserAlreadySuscribed) {
+            throw Error('user is already suscribed');
+        }
+
         // Add the user id to the suscribers array
-        const courseToSuscribe = await Course.findByIdAndUpdate(courseId, { $push: { suscribers: userId } });
+        const courseToSuscribe = await Course.findByIdAndUpdate(courseId, { $push: { subscribers: userId } }, { new: true });
         const courseDoesntExist = !courseToSuscribe;
+        console.log(courseToSuscribe)
 
         if (courseDoesntExist) {
             throw Error('course doesnt exist');
@@ -96,7 +111,7 @@ const suscribe = async (req, res, next) => {
         
         // Update the user information
         const updatedUser = await User.findByIdAndUpdate(userId, { $push: { courses: courseId } }, { new: true });
-        return res.status(202).json({ user: updatedUser });
+        return res.status(202).json({ user: updatedUser, course: courseToSuscribe });
 
     } catch (error) {
         next(error);
@@ -105,7 +120,7 @@ const suscribe = async (req, res, next) => {
 
 // Unsuscribe the user
 const unsuscribe = async (req, res, next) => {
-    const { authorization: token } = req.body;
+    const { authorization: token } = req.headers;
     const { courseId } = req.params;
 
     const { id: userId } = jwt.verify(token, process.env.JWT_SECRET);
