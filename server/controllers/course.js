@@ -68,7 +68,7 @@ const remove = async (req, res, next) => {
             throw Error('course doesnt exist');
         }
 
-        await User.findOne({ courses: { $in: courseToRemove.id } });
+        await User.updateMany({ courses: { $in: courseToRemoveId } }, { $pull: { courses: courseToRemoveId } });
 
         return res.status(200).json({ removedCourse: courseToRemove });
 
@@ -103,7 +103,6 @@ const suscribe = async (req, res, next) => {
         // Add the user id to the suscribers array
         const courseToSuscribe = await Course.findByIdAndUpdate(courseId, { $push: { subscribers: userId } }, { new: true });
         const courseDoesntExist = !courseToSuscribe;
-        console.log(courseToSuscribe)
 
         if (courseDoesntExist) {
             throw Error('course doesnt exist');
