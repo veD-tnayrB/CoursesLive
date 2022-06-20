@@ -13,6 +13,8 @@ authRouter.post('/login', isBodyAUser, login);
 // Register the user
 authRouter.post('/signup', isBodyAUser, signup);
 
+
+
 // TEMPORAL
 authRouter.patch('/admin/:userId', (req, res, next) => {
     const { userId } = req.params;

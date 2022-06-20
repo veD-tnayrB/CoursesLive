@@ -10,6 +10,8 @@ courseRouter.get('/', getAll);
 // Create
 courseRouter.post('/new', isUserAdminOrTeacher, create);
 
+// Update
+
 // Remove
 courseRouter.delete('/remove/:id', isUserAdminOrTeacher, remove);
 
