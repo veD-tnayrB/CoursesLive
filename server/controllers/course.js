@@ -57,13 +57,60 @@ const create = async (req, res, next) => {
 }
 
 // Update course
+const update = async (req, res, next) => {
+    const { authorization: token } = req.headers;
+    const newCourseInformation = req.body;
+    const { courseId } = req.params;
 
+    const modifiedInformation = {
+        name: newCourseInformation.name,
+        description: newCourseInformation.description,
+        level: newCourseInformation.level,
+        tags: newCourseInformation.tags
+    }
+
+    try {
+        const { id: userId } = jwt.verify(token, process.env.JWT_SECRET);
+
+        // Check if the user exist
+        const user = await User.findById(userId);
+        const userDoesntExist = !user;
+
+        if (userDoesntExist) {
+            throw Error('user doesnt exist');
+        }
+
+        // Update the course
+        const updatedCourse = await Course.findByIdAndUpdate(courseId, modifiedInformation, { new: true })
+        const courseWasntUpdated = !updatedCourse;
+
+        if (courseWasntUpdated) {
+            throw Error('the course wasnt updated');
+        }
+
+        return res.status(200).json(updatedCourse);
+    } catch (error) {
+        next(error);
+    }
+}
 
 // Remove course
 const remove = async (req, res, next) => {
-    const courseToRemoveId = req.params.id;
+    const { authorization: token } = req.headers;
+    const courseToRemoveId = req.params.courseId;
 
     try {
+        const { id: userId } = jwt.verify(token, process.env.JWT_SECRET);
+
+        // Check if the user exist
+        const user = await User.findById(userId);
+        const userDoesntExist = !user;
+
+        if (userDoesntExist) {
+            throw Error('user doesnt exist');
+        }
+
+        // Remove the course
         const courseToRemove = await Course.findByIdAndRemove(courseToRemoveId);
         const courseDoesntExist = !courseToRemove;
 
@@ -125,9 +172,9 @@ const unsuscribe = async (req, res, next) => {
     const { authorization: token } = req.headers;
     const { courseId } = req.params;
 
-    const { id: userId } = jwt.verify(token, process.env.JWT_SECRET);
-
     try {
+        const { id: userId } = jwt.verify(token, process.env.JWT_SECRET);
+
         // Check if the user already exist
         const userToUnsuscribe = await User.findById(userId);
         const userDoesntExist = !userToUnsuscribe;
@@ -163,4 +210,4 @@ const unsuscribe = async (req, res, next) => {
 
 
 
-export { getAll, create, remove, suscribe, unsuscribe };
+export { getAll, create, update, remove, suscribe, unsuscribe };

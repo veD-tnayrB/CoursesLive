@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getAll, create, remove, suscribe, unsuscribe } from '../controllers/course.js';
+import { getAll, create, update, remove, suscribe, unsuscribe } from '../controllers/course.js';
 import { isUserAdminOrTeacher } from '../middlewares/isUserRole.js';
 
 const courseRouter = Router();
@@ -11,9 +11,10 @@ courseRouter.get('/', getAll);
 courseRouter.post('/new', isUserAdminOrTeacher, create);
 
 // Update
+courseRouter.patch('/update/:courseId', isUserAdminOrTeacher, update);
 
 // Remove
-courseRouter.delete('/remove/:id', isUserAdminOrTeacher, remove);
+courseRouter.delete('/remove/:courseId', isUserAdminOrTeacher, remove);
 
 // Suscribe
 courseRouter.patch('/suscribe/:courseId', suscribe);
