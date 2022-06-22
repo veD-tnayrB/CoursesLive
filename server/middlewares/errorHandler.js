@@ -35,9 +35,6 @@ const errorHandler = (error, req, res, next) => {
         case 'user isnt suscribed':
             return res.status(400).json({ message: 'You arent suscribed to this course 💀' }) 
 
-        case '':
-            return res.status(505).json({ message: 'UNA POLLA COMO EL BRAZO DE UN NIñO CHICO AGARRANDO UNA MANZANA' })
-        
         default:
             return res.status(500).json({ message: 'Oops, looks like the server has a problem ' });
     }

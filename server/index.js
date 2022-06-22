@@ -5,6 +5,7 @@ import mongoose from 'mongoose';
 // Routers imports
 import authRouter from './routes/auth.js';
 import courseRouter from './routes/course.js';
+import userRouter from './routes/user.js';
 
 // Middlewares imports
 import errorHandler from './middlewares/errorHandler.js';
@@ -21,6 +22,7 @@ app.use(express.json());
 // Routes
 app.use('/auth/', authRouter);
 app.use('/courses/', courseRouter);
+app.use('/users/', userRouter);
 
 app.use(errorHandler)
 

@@ -26,10 +26,4 @@ authRouter.patch('/admin/:userId', (req, res, next) => {
     .catch(error => next(error))
 })
 
-// ALSO TEMPORAL
-authRouter.get('/', async (req, res, next) => {
-    const users = await User.find({ });
-    res.status(200).json(users);
-})
-
 export default authRouter;
