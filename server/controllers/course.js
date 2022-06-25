@@ -107,7 +107,7 @@ const remove = async (req, res, next) => {
         const userDoesntExist = !user;
 
         if (userDoesntExist) {
-            throw Error('user doesnt exist');
+            throw Error('user not found');
         }
 
         // Remove the course

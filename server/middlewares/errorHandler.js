@@ -36,6 +36,11 @@ const ERRORS = {
         status: 404
     },
 
+    'user wasnt edited': {
+        message: 'The user could not be edited for some reason 😟',
+        status: 304
+    },
+
     'course wasnt created': {
         message: 'The course could not be created for some reason, please try again 🙊',
         status: 417
@@ -71,11 +76,11 @@ const errorHandler = (error, req, res, next) => {
 
     // Detect if theres any error for this case, if the answer is no send the server error message
     if (theresNoErrorForThisCase) {
-        const serverProblemError = ERRORS['server error'];
+        const serverError = ERRORS['server error'];
 
-        return res.status(serverProblemError.status).json({ 
-            message: serverProblemError.message, 
-            status: serverProblemError.status 
+        return res.status(serverError.status).json({ 
+            message: serverError.message, 
+            status: serverError.status 
         });
     }
     

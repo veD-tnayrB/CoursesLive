@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getAll, edit } from '../controllers/user.js'
+import { getAll, edit, remove } from '../controllers/user.js'
 import isBodyAUser from '../middlewares/isBodyAUser.js'
 
 const userRouter = Router();
@@ -9,6 +9,9 @@ userRouter.get('/', getAll);
 
 // Edit user info
 userRouter.patch('/me/edit', isBodyAUser, edit);
+
+// Delete the user
+userRouter.delete('/delete/:userId', remove);
 
 
 export default userRouter;

@@ -1,4 +1,5 @@
 import User from '../models/user.js';
+import Course from '../models/course.js';
 import jwt from 'jsonwebtoken';
 
 // Get all users
@@ -42,5 +43,31 @@ const edit = async (req, res, next) => {
     }
 } 
 
+// Remove the user
+const remove = async (req, res, next) => {
+    const { authorization: token } = req.headers;
+    const userToRemoveId = req.params.userId;
 
-export { getAll, edit }
+    try {
+        const { id: userId } = jwt.verify(token, process.env.JWT_SECRET);
+
+        // Check if the user already exist
+        const userToRemove = await User.findById(userId);
+        const userDoesntExist = !userToRemove;
+
+        if (userDoesntExist) {
+            throw Error('user not found');
+        }
+
+        // Remove the use
+        const removedUser = await User.findByIdAndRemove(userToRemove.id);
+        
+        subscribers// Update the subscribers array removing the remove user
+        await Course.updateMany({ subscribers: { $in: userToRemoveId } }, { $pull: { subscribers: userToRemoveId } });
+
+        return res.status(200).json(removedUser);
+    } catch (error) {
+        next(error);
+    }
+}
+export { getAll, edit, remove };
