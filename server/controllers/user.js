@@ -51,18 +51,18 @@ const remove = async (req, res, next) => {
     try {
         const { id: userId } = jwt.verify(token, process.env.JWT_SECRET);
 
-        // Check if the user already exist
-        const userToRemove = await User.findById(userId);
-        const userDoesntExist = !userToRemove;
+        // Check if the user who is removing the other exist
+        const user = await User.findById(userId);
+        const userDoesntExist = !user;
 
         if (userDoesntExist) {
             throw Error('user not found');
         }
 
-        // Remove the use
-        const removedUser = await User.findByIdAndRemove(userToRemove.id);
+        // Remove the user
+        const removedUser = await User.findByIdAndRemove(userToRemoveId);
         
-        subscribers// Update the subscribers array removing the remove user
+        // Update the subscribers array of all courses that the user was suscribed to
         await Course.updateMany({ subscribers: { $in: userToRemoveId } }, { $pull: { subscribers: userToRemoveId } });
 
         return res.status(200).json(removedUser);
