@@ -51,7 +51,7 @@ const remove = async (req, res, next) => {
     try {
         const { id: userId } = jwt.verify(token, process.env.JWT_SECRET);
 
-        // Check if the user who is removing the other exist
+        // Check if the user who is performing the operation exists
         const user = await User.findById(userId);
         const userDoesntExist = !user;
 
@@ -70,4 +70,36 @@ const remove = async (req, res, next) => {
         next(error);
     }
 }
-export { getAll, edit, remove };
+
+// Promote user
+const promote = async (req, res, next) => {
+    const { authorization: token } = req.headers;
+    const userToPromoteId = req.params.userId;
+    const rankToBePromoted = req.params.rank;
+
+    try {
+        // Check if the role is correct
+        if (rankToBePromoted !== 'admin' && rankToBePromoted !== 'teacher') {
+            throw Error('role invalid');
+        }
+
+        const { id: userId } = jwt.verify(token, process.env.JWT_SECRET);
+
+        // Check if the user who is performing the operation exists
+        const user = await User.findById(userId);
+        const userDoesntExist = !user;
+        
+        if (userDoesntExist) {
+            throw Error('user doesnt exist');
+        }
+
+        // Update the promoted user role
+        const updatedUser = await User.findByIdAndUpdate(userToPromoteId, { role: rankToBePromoted }, { new: true });
+
+        return res.status(200).json(updatedUser);
+    } catch (error) {
+        next(error);
+    }
+}
+
+export { getAll, edit, promote, remove };

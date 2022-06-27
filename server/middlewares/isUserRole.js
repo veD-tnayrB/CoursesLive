@@ -8,9 +8,9 @@ const isRoleValid = (rolesToCheck, req, res, next) => {
         try {
             const { role: userRole } = jwt.verify(token, process.env.JWT_SECRET);
 
-            const isUserValid = rolesToCheck.includes(role => role === userRole);
+            const isUserValid = rolesToCheck.some(role => role === userRole);
             const isUserInvalid = !isUserValid;
-
+            
             if (isUserInvalid) {
                 throw Error('user not authorized');
             }

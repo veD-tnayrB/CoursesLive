@@ -11,6 +11,11 @@ const ERRORS = {
         status: 409
     },
 
+    'role invalid': {
+        message: 'The role you are trying to request is invalid 🤨',
+        status: 400
+    },
+
     'info doesnt meet the requirements': {
         message: 'The information passed does not meet the minimum accepted requirements 😕',
         status: 401
