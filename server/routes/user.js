@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getAll, edit, promote, remove } from '../controllers/user.js'
+import { getAll, edit, editRange, remove } from '../controllers/user.js'
 import isBodyAUser from '../middlewares/isBodyAUser.js'
 import { isUserAdmin } from '../middlewares/isUserRole.js';
 
@@ -12,7 +12,7 @@ userRouter.get('/', getAll);
 userRouter.patch('/me/edit', isBodyAUser, edit);
 
 // Promote the user
-userRouter.patch('/promote/:userId/:rank', isUserAdmin, promote);
+userRouter.patch('/edit/range/:userId/:rank', isUserAdmin, editRange);
 
 // Delete the user
 userRouter.delete('/delete/:userId', isUserAdmin, remove);

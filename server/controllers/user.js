@@ -71,15 +71,15 @@ const remove = async (req, res, next) => {
     }
 }
 
-// Promote user
-const promote = async (req, res, next) => {
+// Edit the user range
+const editRange = async (req, res, next) => {
     const { authorization: token } = req.headers;
     const userToPromoteId = req.params.userId;
-    const rankToBePromoted = req.params.rank;
+    const rank = req.params.rank;
 
     try {
         // Check if the role is correct
-        if (rankToBePromoted !== 'admin' && rankToBePromoted !== 'teacher') {
+        if (rank !== 'admin' && rank !== 'teacher' && rank) {
             throw Error('role invalid');
         }
 
@@ -94,7 +94,7 @@ const promote = async (req, res, next) => {
         }
 
         // Update the promoted user role
-        const updatedUser = await User.findByIdAndUpdate(userToPromoteId, { role: rankToBePromoted }, { new: true });
+        const updatedUser = await User.findByIdAndUpdate(userToPromoteId, { role: rank }, { new: true });
 
         return res.status(200).json(updatedUser);
     } catch (error) {
@@ -102,4 +102,4 @@ const promote = async (req, res, next) => {
     }
 }
 
-export { getAll, edit, promote, remove };
+export { getAll, edit, editRange, remove };

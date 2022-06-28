@@ -10,7 +10,7 @@
   ],
   "scripts": {
     "server": "npm start --workspace=server",
-    "client": "npm start --workspace=client"
+    "client": "vite --workspace=client"
   },
   "keywords": [
     "React",
