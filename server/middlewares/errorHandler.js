@@ -1,6 +1,9 @@
 
 // This is where I handle every errors
 const ERRORS = {
+
+    // USER ERRORS
+
     'user not found': {
         message: 'Oops, it seems that there is no user with such information 😞',
         status: 404
@@ -26,29 +29,9 @@ const ERRORS = {
         status: 409
     },
 
-    'invalid token': {
-        message: 'Oops it looks like the entered token is incorrect 😟',
-        status: 403
-    },
-
-    'course already exist': {
-        message: 'Oops it seems that a course with that name already exists 😥',
-        status: 409
-    },
-
-    'course doesnt exist': {
-        message: 'We couldn\'t find the course you requested 😧',
-        status: 404
-    },
-
     'user wasnt edited': {
         message: 'The user could not be edited for some reason 😟',
         status: 304
-    },
-
-    'course wasnt created': {
-        message: 'The course could not be created for some reason, please try again 🙊',
-        status: 417
     },
 
     'user not authorized': {
@@ -64,6 +47,35 @@ const ERRORS = {
     'user isnt suscribed': {
         message: 'You arent suscribed to this course 💀',
         status: 400
+    },
+
+    'invalid token': {
+        message: 'Oops it looks like the entered token is incorrect 😟',
+        status: 403
+    },
+
+    // COURSE ERRORS
+
+    'course already exist': {
+        message: 'Oops it seems that a course with that name already exists 😥',
+        status: 409
+    },
+
+    'course doesnt exist': {
+        message: 'We couldn\'t find the course you requested 😧',
+        status: 404
+    },
+
+
+    'course wasnt created': {
+        message: 'The course could not be created for some reason, please try again 🙊',
+        status: 417
+    },
+
+    // EPISODE ERRORS
+
+    'course hasnt episodes': {
+        message: 'The specified course has no episodes... still 😉'
     },
 
     'server error': {

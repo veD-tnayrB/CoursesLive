@@ -11,15 +11,15 @@ courseRouter.get('/', getAll);
 courseRouter.post('/new', isUserAdminOrTeacher, create);
 
 // Update
-courseRouter.patch('/update/:courseId', isUserAdminOrTeacher, update);
+courseRouter.patch('/:courseId/update', isUserAdminOrTeacher, update);
 
 // Remove
-courseRouter.delete('/remove/:courseId', isUserAdminOrTeacher, remove);
+courseRouter.delete('/:courseId/remove', isUserAdminOrTeacher, remove);
 
 // Suscribe
-courseRouter.patch('/suscribe/:courseId', suscribe);
+courseRouter.patch('/:courseId/suscribe', suscribe);
 
 // Unsuscribe
-courseRouter.patch('/unsuscribe/:courseId', unsuscribe);
+courseRouter.patch('/:courseId/unsuscribe', unsuscribe);
 
 export default courseRouter;

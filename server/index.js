@@ -6,6 +6,7 @@ import mongoose from 'mongoose';
 import authRouter from './routes/auth.js';
 import courseRouter from './routes/course.js';
 import userRouter from './routes/user.js';
+import episodeRouter from './routes/episode.js';
 
 // Middlewares imports
 import errorHandler from './middlewares/errorHandler.js';
@@ -15,7 +16,6 @@ dotenv.config(); // This is for enviroment variables
 const app = express();
 
 
-
 // Middlewares
 app.use(express.json());
 
@@ -23,6 +23,7 @@ app.use(express.json());
 app.use('/auth/', authRouter);
 app.use('/courses/', courseRouter);
 app.use('/users/', userRouter);
+app.use('/course/', episodeRouter);
 
 app.use(errorHandler)
 
