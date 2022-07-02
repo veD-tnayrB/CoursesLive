@@ -18,15 +18,15 @@ const edit = async (req, res, next) => {
     const { authorization: token } = req.headers;
     const newUserInfo = req.body;
 
+    const editedUser = {
+        name: newUserInfo.name,
+        lastName: newUserInfo.lastName,
+        mail: newUserInfo.mail,
+        password: newUserInfo.password,
+    }
+
     try {
         const { id: userId } = jwt.verify(token, process.env.JWT_SECRET);
-
-        const editedUser = {
-            name: newUserInfo.name,
-            lastName: newUserInfo.lastName,
-            mail: newUserInfo.mail,
-            password: newUserInfo.password,
-        }
 
         // Verify if the user already exist and update it
         const user = await User.findByIdAndUpdate(userId, editedUser, { new: true });
@@ -49,14 +49,14 @@ const remove = async (req, res, next) => {
     const userToRemoveId = req.params.userId;
 
     try {
-        const { id: userId } = jwt.verify(token, process.env.JWT_SECRET);
+        const remover = jwt.verify(token, process.env.JWT_SECRET);
 
         // Check if the user who is performing the operation exists
-        const user = await User.findById(userId);
-        const userDoesntExist = !user;
+        const user = await User.findOne({ id: remover.id, role: remover.role });
+        const userIsntAdmin = !user;
 
-        if (userDoesntExist) {
-            throw Error('user not found');
+        if (userIsntAdmin) {
+            throw Error('user not authorized');
         }
 
         // Remove the user
@@ -83,14 +83,14 @@ const editRange = async (req, res, next) => {
             throw Error('role invalid');
         }
 
-        const { id: userId } = jwt.verify(token, process.env.JWT_SECRET);
+        const editor = jwt.verify(token, process.env.JWT_SECRET);
 
-        // Check if the user who is performing the operation exists
-        const user = await User.findById(userId);
-        const userDoesntExist = !user;
+        // Check if the user who is performing the operation exists and if is admin
+        const user = await User.findOne({ id: editor.id, role: editor.role });
+        const userIsntAdmin = !user;
         
-        if (userDoesntExist) {
-            throw Error('user doesnt exist');
+        if (userIsntAdmin) {
+            throw Error('user not authorized');
         }
 
         // Update the promoted user role

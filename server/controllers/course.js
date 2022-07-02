@@ -21,15 +21,22 @@ const create = async (req, res, next) => {
     const courseInfo = req.body;
 
     try {
+        const creator = jwt.verify(token, process.env.JWT_SECRET);
+
+        // Check if the user is a real admin
+        const creatorIsAdmin = User.findOne({ id: creator.id, role: creator.role });
+        const creatorIsntAdmin = !creatorIsAdmin;
+
+        if (creatorIsntAdmin) {
+            throw Error('user not authorized');
+        }
+
         // Check if the course already exist
         const courseAlreadyExist = await Course.findOne({ name: courseInfo.name });
 
         if (courseAlreadyExist) {
             throw Error('course already exist');
         }
-
-        // Formulate the new course to be created
-        const creator = jwt.verify(token, process.env.JWT_SECRET);
 
         const newCourse = {
             name: courseInfo.name,
@@ -100,14 +107,14 @@ const remove = async (req, res, next) => {
     const courseToRemoveId = req.params.courseId;
 
     try {
-        const { id: userId } = jwt.verify(token, process.env.JWT_SECRET);
+        const user = jwt.verify(token, process.env.JWT_SECRET);
 
-        // Check if the user exist
-        const user = await User.findById(userId);
-        const userDoesntExist = !user;
+        // Check if the user is admin
+        const userIsAdmin = await User.findOne({ id: user.id, role: user.role });
+        const userIsntAdmin = !userIsAdmin;
 
-        if (userDoesntExist) {
-            throw Error('user not found');
+        if (userIsntAdmin) {
+            throw Error('user not authorized');
         }
 
         // Remove the course

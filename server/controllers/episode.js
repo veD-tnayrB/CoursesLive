@@ -2,7 +2,7 @@ import Course from '../models/course.js';
 import Episode from '../models/episode.js';
 
 // Gets the episodes of a course
-const getEpisodes = async (req, res, next) => {
+const getAll = async (req, res, next) => {
     const { courseId } = req.params;
 
     try {
@@ -29,4 +29,4 @@ const getEpisodes = async (req, res, next) => {
 }
 
 
-export { getEpisodes }
+export { getAll }

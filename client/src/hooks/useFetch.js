@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
+axios.defaults.baseURL = 'http://localhost:3001';
+
 function useFetch(url, body, requestType) {
     const [data, setData] = useState([]);
     const [error, setError] = useState('');
@@ -22,7 +24,7 @@ function useFetch(url, body, requestType) {
                     throw Error(content);
                 }
 
-                setData(content);
+                setData(content.data);
                 setIsLoading(false);
 
             } catch (error) {

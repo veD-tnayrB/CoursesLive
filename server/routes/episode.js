@@ -1,8 +1,8 @@
 import { Router } from 'express';
-import { getEpisodes } from '../controllers/episode';
+import { getAll } from '../controllers/episode.js';
 
 const episodeRouter = Router();
 
-episodeRouter.get('/:courseId/episodes/', getEpisodes);
+episodeRouter.get('/:courseId/episodes/', getAll);
 
 export default episodeRouter;
