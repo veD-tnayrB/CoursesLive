@@ -28,6 +28,11 @@ const courseSchema = new Schema({
         required: true
     },
 
+    episodes: {
+        type: [Schema.Types.ObjectId],
+        ref: 'Episode'
+    },
+
     subscribers: {
         type: [Schema.Types.ObjectId],
         ref: 'User'

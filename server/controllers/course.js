@@ -63,8 +63,8 @@ const create = async (req, res, next) => {
     }
 }
 
-// Update course
-const update = async (req, res, next) => {
+// Edit the course
+const edit = async (req, res, next) => {
     const { authorization: token } = req.headers;
     const newCourseInformation = req.body;
     const { courseId } = req.params;
@@ -87,7 +87,7 @@ const update = async (req, res, next) => {
             throw Error('user doesnt exist');
         }
 
-        // Update the course
+        // edit the course
         const updatedCourse = await Course.findByIdAndUpdate(courseId, modifiedInformation, { new: true })
         const courseWasntUpdated = !updatedCourse;
 

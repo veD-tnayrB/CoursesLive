@@ -72,10 +72,22 @@ const ERRORS = {
         status: 417
     },
 
+    'course hasnt episodes': {
+        message: 'The specified course has no episodes... still 😉',
+        status: 204
+    },
+
+
     // EPISODE ERRORS
 
-    'course hasnt episodes': {
-        message: 'The specified course has no episodes... still 😉'
+    'episode already exist': {
+        message: 'Oops it seems that there is already an episode with this video 🤡',
+        status: 409
+    },
+
+    'episode wasnt modified': {
+        message: 'For some unknown reason the episode could not be modified 😮',
+        status: 304
     },
 
     'server error': {

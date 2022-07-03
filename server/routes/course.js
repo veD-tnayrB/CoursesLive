@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getAll, create, update, remove, suscribe, unsuscribe } from '../controllers/course.js';
+import { getAll, create, edit, remove, suscribe, unsuscribe } from '../controllers/course.js';
 import { isUserAdminOrTeacher } from '../middlewares/isUserRole.js';
 
 const courseRouter = Router();
@@ -8,10 +8,10 @@ const courseRouter = Router();
 courseRouter.get('/', getAll);
 
 // Create
-courseRouter.post('/new', isUserAdminOrTeacher, create);
+courseRouter.post('/create', isUserAdminOrTeacher, create);
 
 // Update
-courseRouter.patch('/:courseId/update', isUserAdminOrTeacher, update);
+courseRouter.patch('/:courseId/edit', isUserAdminOrTeacher, edit);
 
 // Remove
 courseRouter.delete('/:courseId/remove', isUserAdminOrTeacher, remove);
