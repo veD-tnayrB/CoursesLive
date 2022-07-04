@@ -217,4 +217,4 @@ const unsuscribe = async (req, res, next) => {
 
 
 
-export { getAll, create, update, remove, suscribe, unsuscribe };
+export { getAll, create, edit, remove, suscribe, unsuscribe };

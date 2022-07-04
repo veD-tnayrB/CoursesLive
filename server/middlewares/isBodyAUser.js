@@ -17,7 +17,7 @@ const isBodyAUser = (req, res, next) => {
     }
 
     try {
-        const thereSomethingWrong = Object.values(validators).some(validator => validator === false); 
+        const thereSomethingWrong = Object.values(validators).some(validator => validator); 
 
         if (thereSomethingWrong) {
             throw Error('info doesnt meet the requirements');

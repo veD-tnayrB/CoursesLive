@@ -30,8 +30,10 @@ const getAll = async (req, res, next) => {
     }
 }
 
+// Create a episode
 const create = async (req, res, next) => {
     const { authorization: token } = req.headers;
+    const newEpisodeInfo = req.body;
     const { courseId } = req.params;
 
     try {
@@ -46,7 +48,8 @@ const create = async (req, res, next) => {
         }
 
         // Check if the episode already exist
-        const episodeAlreadyExist = await Episode.findOne({ course: courseId, $or: [{ title: newEpisodeInfo.title }, { video: newEpisodeInfo.video }] });
+        const episodeAlreadyExist = await Episode.findOne({ course: courseId, $and: [ { $or: [{ title: newEpisodeInfo.title }, { video: newEpisodeInfo.video }] } ] });
+        console.log(episodeAlreadyExist);
 
         if (episodeAlreadyExist) {
             throw Error('episode already exist');
@@ -62,7 +65,7 @@ const create = async (req, res, next) => {
             comments: []
         }
 
-        // Create the episode
+        // Create the episode and save it
         const episode = await Episode.create(newEpisode);
         const episodeWasntCreated = !episode;
 
@@ -71,7 +74,16 @@ const create = async (req, res, next) => {
         }
 
         episode.save();
-        return res.status(201).json(episode);
+
+        // Update the course information
+        const updatedCourse = await Course.findByIdAndUpdate(courseId, { $push: { episodes: episode.id } }, { new: true });
+        const courseWasntUpdated = !updatedCourse;
+
+        if (courseWasntUpdated) {
+            throw Error('course wasnt updated');
+        }
+
+        return res.status(201).json(updatedCourse);
 
     } catch (error) {
         next(error);
@@ -132,6 +144,46 @@ const edit = async (req, res, next) => {
     }
 }
 
+// Remove a episode
+const remove = async (req, res, next) => {
+    const { authorization: token } = req.headers;
+    const { courseId, episodeId } = req.params;
+
+    try {
+        const remover = jwt.verify(token, process.env.JWT_SECRET);
+
+        // Check if the user remover is actually authorized
+        const user = await User.findOne({ id: remover.id, role: remover.role });
+        const userIsntAuthorized = !user;
+
+        if (userIsntAuthorized) {
+            throw Error('user not authorized');
+        }
+
+        // Check if the episode exist
+        const episodeExist = await Episode.findById(episodeId);
+        const episodeDoesntExist = !episodeExist;
+
+        if (episodeDoesntExist) {
+            throw Error('episode doesnt exist');
+        }
+
+        // Remove the episode
+        const episode = await Episode.findByIdAndRemove(episodeId);
+        const episodeWasntRemoved = !episode;
+
+        if (episodeWasntRemoved)  {
+            throw Error('episode wasnt removed');
+        }
+
+        // Update the course information
+        const updatedCourse = await Course.findByIdAndUpdate(courseId, { $pull: { episodes: episodeId } });
+        
+        return res.status(202).json(updatedCourse);
+    } catch (error) {
+        next(error);
+    }
+}
 
 
-export { getAll, create, edit };
+export { getAll, create, edit, remove };

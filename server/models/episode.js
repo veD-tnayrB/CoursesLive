@@ -45,7 +45,7 @@ const episodeSchema = new Schema({
 episodeSchema.set('toJSON', {
     transform: (document, returnedObject) => {
         returnedObject.id = returnedObject._id;
-        returnObject.peopleWhoLikedIt = returnedObject.people_who_liked_it;
+        returnedObject.peopleWhoLikedIt = returnedObject.people_who_liked_it;
 
         delete returnedObject._id;
         delete returnedObject.__v;
