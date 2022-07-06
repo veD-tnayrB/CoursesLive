@@ -87,6 +87,8 @@ const edit = async (req, res, next) => {
             throw Error('user doesnt exist');
         }
 
+        // Check if the edited course already exist
+
         // edit the course
         const updatedCourse = await Course.findByIdAndUpdate(courseId, modifiedInformation, { new: true })
         const courseWasntUpdated = !updatedCourse;
@@ -110,7 +112,7 @@ const remove = async (req, res, next) => {
         const user = jwt.verify(token, process.env.JWT_SECRET);
 
         // Check if the user is admin
-        const userIsAdmin = await User.findOne({ id: user.id, role: user.role });
+        const userIsAdmin = await User.findOne({ _id: user.id, role: user.role });
         const userIsntAdmin = !userIsAdmin;
 
         if (userIsntAdmin) {

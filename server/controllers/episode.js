@@ -30,7 +30,7 @@ const getAll = async (req, res, next) => {
     }
 }
 
-// Get one
+// Get one episode
 const getEpisode = async (req, res, next) => {
     const { courseId, episodeId } = req.params;
 
@@ -68,7 +68,6 @@ const create = async (req, res, next) => {
 
         // Check if the episode already exist
         const episodeAlreadyExist = await Episode.findOne({ course: courseId, $and: [ { $or: [{ title: newEpisodeInfo.title }, { video: newEpisodeInfo.video }] } ] });
-        console.log(episodeAlreadyExist);
 
         if (episodeAlreadyExist) {
             throw Error('episode already exist');
@@ -109,7 +108,7 @@ const create = async (req, res, next) => {
     }
 }
 
-// Edit the episode
+// Edit a episode
 const edit = async (req, res, next) => {
     const { authorization: token } = req.headers;
     const { courseId, episodeId } = req.params;
@@ -135,7 +134,15 @@ const edit = async (req, res, next) => {
             throw Error('user not authorized');
         }
 
-        // Check if the episode already exist
+        // Check if the course exist
+        const course = await Course.findById(courseId);
+        const courseDoesntExist = !course;
+
+        if (courseDoesntExist) {
+            throw Error('course doesnt exist');
+        }
+
+        // Check if the modified episode already exist
         const episodeAlreadyExist = await Episode.findOne({ course: courseId, $or: [{ title: modifiedEpisodeInfo.title }, { video: modifiedEpisodeInfo.video }] });
 
         if (episodeAlreadyExist) {
@@ -171,20 +178,21 @@ const remove = async (req, res, next) => {
     try {
         const remover = jwt.verify(token, process.env.JWT_SECRET);
 
-        // Check if the user remover is actually authorized
-        const user = await User.findOne({ id: remover.id, role: remover.role });
-        const userIsntAuthorized = !user;
-
-        if (userIsntAuthorized) {
-            throw Error('user not authorized');
-        }
-
         // Check if the episode exist
-        const episodeExist = await Episode.findById(episodeId);
-        const episodeDoesntExist = !episodeExist;
+        const episodeToRemove = await Episode.findById(episodeId);
+        const episodeDoesntExist = !episodeExistToRemove;
 
         if (episodeDoesntExist) {
             throw Error('episode doesnt exist');
+        }
+
+        // Check if the user remover is actually authorized
+        const user = await User.findOne({ _id: remover.id, role: remover.role });
+        const userIsntAuthorized = !user;
+        const userIsntOwner = String(episodeToRemove.creator) !== remover.id;
+
+        if (userIsntAuthorized || userIsntOwner) {
+            throw Error('user not authorized');
         }
 
         // Remove the episode
@@ -196,7 +204,7 @@ const remove = async (req, res, next) => {
         }
 
         // Update the course information
-        const updatedCourse = await Course.findByIdAndUpdate(courseId, { $pull: { episodes: episodeId } });
+        const updatedCourse = await Course.findByIdAndUpdate(courseId, { $pull: { episodes: episodeId } }, { new: true });
         
         return res.status(202).json(updatedCourse);
     } catch (error) {
@@ -204,5 +212,52 @@ const remove = async (req, res, next) => {
     }
 }
 
+// Like a episode
+const like = async (req, res, next) => {
+    const { authorization: token } = req.headers;
+    const { courseId, episodeId } = req.params;
 
-export { getAll, getEpisode, create, edit, remove };
+    try {
+        const liker = jwt.verify(token, process.env.JWT_SECRET);
+
+        // Check if the liker exist
+        const user = await User.findOne({ _id: liker.id, role: liker.role });
+        const userDoesntExist = !user;
+
+        if (userDoesntExist) {
+            throw Error('user doesnt exist');
+        }
+
+        // Check if the course exist
+        const course = await Course.findById(courseId);
+        const courseDoesntExist = !course;
+
+        if (courseDoesntExist) {
+            throw Error('course doesnt exist');
+        }
+
+        // Check if the episode exists and if it's part of the course
+        const episode = await Episode.findOne({ _id: episodeId, course: courseId });
+        const episodeDoesntExist = !episode;
+
+        if (episodeDoesntExist) {
+            throw Error('episode doesnt exist');
+        }
+
+        // Update the people who liked it array
+        const updatedEpisode = await Episode.findByIdAndUpdate(episodeId, { $push: { people_who_liked_it: liker.id } }, { new: true });
+        const episodeWasntUpdated = !updatedEpisode;
+
+        if (episodeWasntUpdated) {
+            throw Error('episode wasnt updated');
+        }
+
+        return res.status(200).json(updatedEpisode);
+
+    } catch (error) {
+        next(error);
+    }
+}
+
+
+export { getAll, getEpisode, create, edit, like, remove };
