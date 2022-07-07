@@ -1,13 +1,13 @@
 import jwt from 'jsonwebtoken';
 import User from '../models/user.js';
 import Course from '../models/course.js';
+import Episode from '../models/episode.js';
 
 
 // Get all the courses from data base
 const getAll = async (req, res, next) => {
     try {
-        const courses = await Course.find({});
-        
+        const courses = await Course.find({  });
         return res.status(200).json(courses);
             
     } catch (error) {
@@ -77,10 +77,10 @@ const edit = async (req, res, next) => {
     }
 
     try {
-        const { id: userId } = jwt.verify(token, process.env.JWT_SECRET);
+        const editor = jwt.verify(token, process.env.JWT_SECRET);
 
         // Check if the user exist
-        const user = await User.findById(userId);
+        const user = await User.findOne({ _id: editor.id, role: editor.role });
         const userDoesntExist = !user;
 
         if (userDoesntExist) {
@@ -88,6 +88,11 @@ const edit = async (req, res, next) => {
         }
 
         // Check if the edited course already exist
+        const courseAlreadyExist = await Course.findOne(modifiedInformation);
+
+        if (courseAlreadyExist) {
+            throw Error('course already exist');
+        }
 
         // edit the course
         const updatedCourse = await Course.findByIdAndUpdate(courseId, modifiedInformation, { new: true })
@@ -111,7 +116,7 @@ const remove = async (req, res, next) => {
     try {
         const user = jwt.verify(token, process.env.JWT_SECRET);
 
-        // Check if the user is admin
+        // Check if the user info is correct and if it is admin
         const userIsAdmin = await User.findOne({ _id: user.id, role: user.role });
         const userIsntAdmin = !userIsAdmin;
 
@@ -119,7 +124,7 @@ const remove = async (req, res, next) => {
             throw Error('user not authorized');
         }
 
-        // Remove the course
+        // Check if the course exist and then remove it
         const courseToRemove = await Course.findByIdAndRemove(courseToRemoveId);
         const courseDoesntExist = !courseToRemove;
 
@@ -128,6 +133,9 @@ const remove = async (req, res, next) => {
         }
 
         await User.updateMany({ courses: { $in: courseToRemoveId } }, { $pull: { courses: courseToRemoveId } });
+
+        // Delete all episodes
+        await Episode.deleteMany({ course: courseToRemoveId });
 
         return res.status(200).json({ removedCourse: courseToRemove });
 
@@ -182,10 +190,10 @@ const unsuscribe = async (req, res, next) => {
     const { courseId } = req.params;
 
     try {
-        const { id: userId } = jwt.verify(token, process.env.JWT_SECRET);
+        const unsuscriber = jwt.verify(token, process.env.JWT_SECRET);
 
-        // Check if the user already exist
-        const userToUnsuscribe = await User.findById(userId);
+        // Check if the user info actually exist
+        const userToUnsuscribe = await User.findOne({ _id: unsuscriber.id, role: unsuscriber.role });
         const userDoesntExist = !userToUnsuscribe;
 
         if (userDoesntExist) {

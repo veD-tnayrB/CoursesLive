@@ -4,7 +4,17 @@ import jwt from 'jsonwebtoken';
 
 // Get all users
 const getAll = async (req, res, next) => {
+    const { authorization: token } = req.headers;
     try {
+        const user = jwt.verify(token, process.env.JWT_SECRET);
+        
+        const userIsAuthorized = User.findOne({ _id: user.id, role: user.role });
+        const userIsntAuthorized = !userIsAuthorized;
+
+        if (userIsntAuthorized) {
+            throw Error('user not authorized');
+        }
+
         const allUsers = await User.find({ });
 
         return res.status(200).json({ users: allUsers });
@@ -28,7 +38,7 @@ const edit = async (req, res, next) => {
     try {
         const { id: userId } = jwt.verify(token, process.env.JWT_SECRET);
 
-        // Verify if the user already exist and update it
+        // Check if the user already exist and update it
         const user = await User.findByIdAndUpdate(userId, editedUser, { new: true });
         const userWasntEdited = !user;
 

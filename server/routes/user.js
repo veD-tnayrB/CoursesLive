@@ -6,7 +6,7 @@ import { isUserAdmin } from '../middlewares/isUserRole.js';
 const userRouter = Router();
 
 // Get all users
-userRouter.get('/', getAll);
+userRouter.get('/', isUserAdmin, getAll);
 
 // Edit user info
 userRouter.patch('/me/edit', isBodyAUser, edit);

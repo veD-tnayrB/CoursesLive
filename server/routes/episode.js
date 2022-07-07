@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getAll, getEpisode, create, edit, remove } from '../controllers/episode.js';
+import { getAll, getEpisode, create, edit, like, dislike, remove } from '../controllers/episode.js';
 import { isUserAdminOrTeacher } from '../middlewares/isUserRole.js';
 
 // TEMPORAL
@@ -23,12 +23,14 @@ episodeRouter.patch('/:courseId/episodes/:episodeId/edit', isUserAdminOrTeacher,
 episodeRouter.delete('/:courseId/episodes/:episodeId/delete', isUserAdminOrTeacher, remove);
 
 // Like
+episodeRouter.patch('/:courseId/episodes/:episodeId/like', like);
 
+// Dislike
+episodeRouter.patch('/:courseId/episodes/:episodeId/dislike', dislike);
 
-// Remove Like
 
 // TEMPORAL
-// GET ALL EPISODE
+// GET ALL EPISODES
 episodeRouter.get('/episodes', async (req, res, next) => {
     const episodes = await Episode.find({  });
     return res.status(200).json(episodes);
