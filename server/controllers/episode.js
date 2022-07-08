@@ -68,7 +68,7 @@ const create = async (req, res, next) => {
     try {
         const creator = jwt.verify(token, process.env.JWT_SECRET);
         
-        // Check if the user info is correct and if is authorized
+        // Check if the user creator info is correct and if is authorized
         const user = await User.findOne({ _id: creator.id, role: creator.role });
         const userIsntAuthorized = !user;
 

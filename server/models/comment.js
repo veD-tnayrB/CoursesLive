@@ -21,6 +21,16 @@ const commentSchema = new Schema({
     answers: {
         type: [Schema.Types.ObjectId],
         ref: 'Comment'
+    },
+
+    episode: {
+        type: Schema.Types.ObjectId,
+        ref: 'Episode'
+    },
+
+    date: {
+        type: Schema.Types.Date,
+        required: true
     }
 })
 
