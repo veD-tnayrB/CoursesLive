@@ -1,5 +1,6 @@
 import Comment from '../models/comment.js';
 
+// Get all comments of a episode
 const getAll = async (req, res, next) => {
     const episodeId = req.params.episodeId;
 
@@ -12,8 +13,10 @@ const getAll = async (req, res, next) => {
             throw Error('episode doesnt exist');
         }
 
-        // Get all the comments
-        const comments = await Comment.find({ episode: episodeId });
+        // Get all the comments and the answers
+        const comments = await Comment.find({ episode: episodeId }).populate('answers', {
+
+        });
         const theresNoComments = !comments;
 
         if (theresNoComments) {
@@ -27,31 +30,47 @@ const getAll = async (req, res, next) => {
 
 }
 
-const getAnswers = (req, res, next) => {
-    const { episodeId, commentId } = req.params;
+// Create a comment
+const create = async (req, res, next) => {
+    const { authorization: token } = req.headers;
+    const { episodeId } = req.params;
+    const commentInfo = req.body;
 
     try {
-        // Check if the comment exist
-        const comment = await Comment.findById(commentId);
-        const commentDoesntExist = !comment;
+        const creator = jwt.verify(token, process.env.JWT_SECRET);
 
-        if (commentDoesntExist) {
-            throw Error('comment doesnt exist');
+        // Check if the episode exist
+        const episode = await Episode.findById(episodeId);
+        const episodeDoesntExist = !episode;
+
+        if (episodeDoesntExist) {
+            throw Error('episode doesnt exist');
+        }
+        /*
+            title: 
+            content: 
+            creator: 
+            answers: 
+            episode: 
+            date: 
+        */
+        const newComment = {
+            title: commentInfo.title,
+            content: commentInfo.content,
+            creator: creator.id,
+            answers: [],
+            episode: episodeId,
+            date: new Date().now()
         }
 
-        // Get all the answers
-        const answers = await Comment.find({ episode: episodeId, _id: { $in: comment.answers } });
-        const theresNoAnswers = !answers;
+        // Create the episode
+        const comment = await Comment.create(newComment);
 
-        if (theresNoAnswers) {
-            throw Error('theres no answers');
-        }
-
-        return res.status(200).json(answers);
+        return res.status(202).json(comment);
 
     } catch (error) {
-
+        next(error);
     }
 }
 
-export { getAll, getAnswers };
+export { getAll, create };

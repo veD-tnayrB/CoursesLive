@@ -8,6 +8,7 @@ import authRouter from './routes/auth.js';
 import courseRouter from './routes/course.js';
 import userRouter from './routes/user.js';
 import episodeRouter from './routes/episode.js';
+import commentRouter from './routes/comment.js';
 
 // Middlewares imports
 import errorHandler from './middlewares/errorHandler.js';
@@ -26,6 +27,7 @@ app.use('/auth/', authRouter);
 app.use('/courses/', courseRouter);
 app.use('/users/', userRouter);
 app.use('/course/', episodeRouter);
+app.use('/episode/', commentRouter);
 
 app.use(errorHandler)
 

@@ -8,6 +8,7 @@ const getAll = async (req, res, next) => {
     try {
         const user = jwt.verify(token, process.env.JWT_SECRET);
         
+        // Check if the consulting user is authorized
         const userIsAuthorized = User.findOne({ _id: user.id, role: user.role });
         const userIsntAuthorized = !userIsAuthorized;
 
