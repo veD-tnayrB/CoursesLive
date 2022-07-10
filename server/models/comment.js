@@ -17,12 +17,7 @@ const commentSchema = new Schema({
         ref: 'User',
         required: true
     },
-
-    answers: {
-        type: [Schema.Types.ObjectId],
-        ref: 'Comment'
-    },
-
+    
     episode: {
         type: Schema.Types.ObjectId,
         ref: 'Episode'

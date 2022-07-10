@@ -1,4 +1,6 @@
 import Comment from '../models/comment.js';
+import Episode from '../models/episode.js';
+import jwt from 'jsonwebtoken';
 
 // Get all comments of a episode
 const getAll = async (req, res, next) => {
@@ -54,17 +56,22 @@ const create = async (req, res, next) => {
             episode: 
             date: 
         */
+        const date = new Date();
+
         const newComment = {
             title: commentInfo.title,
             content: commentInfo.content,
             creator: creator.id,
-            answers: [],
             episode: episodeId,
-            date: new Date().now()
+            date: date.toISOString()
         }
 
         // Create the episode
         const comment = await Comment.create(newComment);
+        comment.save();
+
+        // Update the episode comments
+        await Episode.findByIdAndUpdate(episodeId, { $push: { comments: comment } }, { new: true });
 
         return res.status(202).json(comment);
 
@@ -72,5 +79,6 @@ const create = async (req, res, next) => {
         next(error);
     }
 }
+
 
 export { getAll, create };
