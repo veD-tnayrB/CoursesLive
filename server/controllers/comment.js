@@ -1,5 +1,6 @@
 import Comment from '../models/comment.js';
 import Episode from '../models/episode.js';
+import User from '../models/user.js';
 import jwt from 'jsonwebtoken';
 
 // Get all comments of a episode
@@ -48,25 +49,18 @@ const create = async (req, res, next) => {
         if (episodeDoesntExist) {
             throw Error('episode doesnt exist');
         }
-        /*
-            title: 
-            content: 
-            creator: 
-            answers: 
-            episode: 
-            date: 
-        */
-        const date = new Date();
+
+        const today = new Date();
 
         const newComment = {
             title: commentInfo.title,
             content: commentInfo.content,
             creator: creator.id,
             episode: episodeId,
-            date: date.toISOString()
+            date: today.toISOString()
         }
 
-        // Create the episode
+        // Create the comment
         const comment = await Comment.create(newComment);
         comment.save();
 
@@ -80,5 +74,46 @@ const create = async (req, res, next) => {
     }
 }
 
+// Delete comment
+const remove = async (req, res, next) => {
+    const { authorization: token } = req.headers;
+    const { episodeId, commentId } = req.params;
 
-export { getAll, create };
+    try {
+        // Check if the comment exist
+        const comment = await Comment.findById(commentId);
+        const commentDoesntExist = !comment;
+
+        if (commentDoesntExist) {
+            throw Error('comment doesnt exist');
+        }
+
+        const commentator = jwt.verify(token, process.env.JWT_SECRET);
+
+        // Check if the user exist and if its authorized
+        const user = await User.findOne({ _id: commentator.id, role: commentator.role });
+        const userDoesntExist = !user;
+
+        if (userDoesntExist) {
+            throw Error('user doesnt exist');
+        }
+
+        const userIsntCreator = comment.creator !== commentator.id;
+        const userIsntAdmin = commentator.role === 'admin';
+
+        if (userIsntCreator || userIsntAdmin) {
+            throw Error('user not authorized');
+        }
+
+        // Delete the comment and update the episode info
+        const deletedComment = await Comment.findByIdAndRemove(commentId);
+        
+        await Episode.findByIdAndUpdate(episodeId, { $pull: { comments: commentId } }, { new: true });
+
+        return res.status(200).json(deletedComment);
+    } catch (error) {
+        next(error);
+    }
+}
+
+export { getAll, create, remove };

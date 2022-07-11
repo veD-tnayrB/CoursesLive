@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getAll, create } from '../controllers/comment.js';
+import { getAll, create, remove } from '../controllers/comment.js';
 
 const commentRouter = Router();
 
@@ -9,5 +9,7 @@ commentRouter.get('/:episodeId/comments/', getAll);
 // Create comment
 commentRouter.post('/:episodeId/comment/create', create);
 
+// Delete comment
+commentRouter.delete('/:episodeId/comment/:commentId/remove', remove);
 
 export default commentRouter;
