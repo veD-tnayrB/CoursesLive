@@ -26,4 +26,6 @@ where we will provide you with all the necessary tools to share your knowledge i
 - 🐦 [BryantDev_](https://twitter.com/BryantDev_)
 - 🐙 [veD-tnayrB](https://github.com/veD-tnayrB/)
 
+<br />
+
 <h4 align="center">Made with 💖 by Bryant Caballero</h4>
