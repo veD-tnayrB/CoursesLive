@@ -116,4 +116,48 @@ const remove = async (req, res, next) => {
     }
 }
 
-export { getAll, create, remove };
+const edit = async (req, res, next) => {
+    const { authorization: token } = req.headers;
+    const { commentId } = req.params;
+    const { newComment } = req.body;
+
+    try {
+        // Check if the comment exist
+        const comment = await Comment.findById(commentId);
+        const commentDoesntExist = !comment;
+
+        if (commentDoesntExist) {
+            throw Error('comment doesnt exist');
+        }
+
+        // Check if the editor exist and if its the creator
+        const editor = jwt.verify(token, process.env.JWT_SECRET);
+
+        const user = await User.findOne({ _id: editor.id, role: editor.role });
+        const userDoesntExist = !user;
+
+        if (userDoesntExist) {
+            throw Error('user doesnt exist');
+        }
+
+        const isntEditorTheCreator = comment.creator !== editor.id;
+
+        if (isntEditorTheCreator) {
+            throw Error('user not authorized');
+        }
+
+        // Update the comment
+        const newCommentInfo = {
+            title: newComment.title,
+            content: newComment.content
+        }
+
+        const modifiedComment = await Comment.findByIdAndUpdate(commentId, newCommentInfo, { new: true }); 
+        
+        return res.status(200).json(modifiedComment);
+    } catch (error) {
+        next(error);
+    }
+}
+
+export { getAll, create, edit, remove };
