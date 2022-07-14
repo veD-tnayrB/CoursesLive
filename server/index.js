@@ -9,6 +9,7 @@ import courseRouter from './routes/course.js';
 import userRouter from './routes/user.js';
 import episodeRouter from './routes/episode.js';
 import commentRouter from './routes/comment.js';
+import testRouter from './routes/test.js';
 
 // Middlewares imports
 import errorHandler from './middlewares/errorHandler.js';
@@ -28,6 +29,7 @@ app.use('/courses/', courseRouter);
 app.use('/users/', userRouter);
 app.use('/course/', episodeRouter);
 app.use('/episode/', commentRouter);
+app.use('/episode/', testRouter); // WORK IN PROGRESS
 
 app.use(errorHandler)
 

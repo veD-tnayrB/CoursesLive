@@ -116,6 +116,7 @@ const remove = async (req, res, next) => {
     }
 }
 
+// Edit a comment
 const edit = async (req, res, next) => {
     const { authorization: token } = req.headers;
     const { commentId } = req.params;

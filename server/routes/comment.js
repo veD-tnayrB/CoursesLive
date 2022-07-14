@@ -12,7 +12,7 @@ commentRouter.post('/:episodeId/comment/create', create);
 // Edit comment
 commentRouter.patch('/:episodeId/comment/:commentId/edit', edit);
 
-// Delete comment
+// Remove comment
 commentRouter.delete('/:episodeId/comment/:commentId/remove', remove);
 
 export default commentRouter;
