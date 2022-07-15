@@ -6,17 +6,17 @@ const passwordPattern = /[\w]{8,16}/;
 
 
 const isBodyAUser = (req, res, next) => {
-    const { name, lastName, mail, password } = req.body;
-
-    // It first checks if the property exists and then checks if it is correct based on its pattern.
-    const validators = {
-        isNameIncorrect: name && !namePattern.test(name),
-        isLastNameIncorrect: lastName && !lastNamePattern.test(lastName),
-        isMailIncorrect: mail && !mailPattern.test(mail),
-        isPasswordIncorrect: password && !passwordPattern.test(password)
-    }
-
     try {
+        const { name, lastName, mail, password } = req.body;
+
+        // It first checks if the property exists and then checks if it is correct based on its pattern.
+        const validators = {
+            isNameIncorrect: name && !namePattern.test(name),
+            isLastNameIncorrect: lastName && !lastNamePattern.test(lastName),
+            isMailIncorrect: mail && !mailPattern.test(mail),
+            isPasswordIncorrect: password && !passwordPattern.test(password)
+        }
+
         const thereSomethingWrong = Object.values(validators).some(validator => validator); 
 
         if (thereSomethingWrong) {
@@ -32,4 +32,4 @@ const isBodyAUser = (req, res, next) => {
     next()
 }
 
-export default isBodyAUser;
+export { isBodyAUser };

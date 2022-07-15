@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import isBodyAUser from '../middlewares/isBodyAUser.js';
+import isBodyAUser from '../dtos/isBodyAUser.js';
 import { login, signup } from '../controllers/auth.js';
 
 // ALSO TEMPORAL

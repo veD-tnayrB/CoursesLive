@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { getAll, edit, editRange, remove } from '../controllers/user.js'
-import isBodyAUser from '../middlewares/isBodyAUser.js'
+import isBodyAUser from '../dtos/';
 import { isUserAdmin } from '../middlewares/isUserRole.js';
 
 const userRouter = Router();
@@ -15,7 +15,7 @@ userRouter.patch('/me/edit', isBodyAUser, edit);
 userRouter.patch('/edit/range/:userId/:rank', isUserAdmin, editRange);
 
 // Delete the user
-userRouter.delete('/delete/:userId', isUserAdmin, remove);
+userRouter.delete('/:userId/remove', isUserAdmin, remove);
 
 
 export default userRouter;
