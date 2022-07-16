@@ -14,11 +14,13 @@ const testSchema = new Schema({
 
     episode: {
         type: Schema.Types.ObjectId,
+        ref: 'Episode',
         required: true
     },
 
     questions: {
         type: [Schema.Types.ObjectId],
+        ref: 'AQUI VAN LAS PREGUNTAS',
         required: true
     }
 });
@@ -31,7 +33,6 @@ testSchema.set('toJSON', {
         delete returnedObject.__v;
     }
 })
-
 
 const Test = model('Test', testSchema);
 

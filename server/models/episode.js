@@ -35,6 +35,12 @@ const episodeSchema = new Schema({
         required: true
     },
 
+    test: {
+        type: Schema.Types.ObjectId,
+        ref: 'Test',
+        required: false
+    },
+
     comments: {
         type: [Schema.Types.ObjectId],
         ref: 'Comment',

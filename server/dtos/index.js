@@ -1,3 +1,4 @@
-export { isBodyACourse } from './isBodyACourse';
-export { isBodyAUser } from './isBodyAUser';
-export { isBodyAEpisode } from './isBodyAEpisode';
+export { isBodyACourse } from './isBodyACourse.js';
+export { isBodyAUser } from './isBodyAUser.js';
+export { isBodyAEpisode } from './isBodyAEpisode.js';
+export { isBodyAComment } from './isBodyAComment.js';
