@@ -3,7 +3,7 @@ const { Schema, model } = mongoose;
 
 const testSchema = new Schema({
     title: {
-        type: string,
+        type: String,
         required: true
     },
 
@@ -20,7 +20,7 @@ const testSchema = new Schema({
 
     questions: {
         type: [Schema.Types.ObjectId],
-        ref: 'AQUI VAN LAS PREGUNTAS',
+        ref: 'Question',
         required: true
     }
 });
