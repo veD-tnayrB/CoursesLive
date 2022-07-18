@@ -96,12 +96,6 @@ const create = async (req, res, next) => {
 
         // Create the episode and save it
         const episode = await Episode.create(newEpisode);
-        const episodeWasntCreated = !episode;
-
-        if (episodeWasntCreated) {
-            throw Error('episode wasnt created');
-        }
-
         episode.save();
 
         // Update the course information
