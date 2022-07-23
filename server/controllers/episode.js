@@ -100,11 +100,6 @@ const create = async (req, res, next) => {
 
         // Update the course information
         const updatedCourse = await Course.findByIdAndUpdate(courseId, { $push: { episodes: episode.id } }, { new: true });
-        const courseWasntUpdated = !updatedCourse;
-
-        if (courseWasntUpdated) {
-            throw Error('course wasnt updated');
-        }
 
         return res.status(201).json(updatedCourse);
 

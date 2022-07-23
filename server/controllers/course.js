@@ -57,13 +57,8 @@ const create = async (req, res, next) => {
 
         // Create the course
         const course = await Course.create(newCourse);
-        const courseWasntCreated = !course;
-
-        if (courseWasntCreated) {
-            throw Error('course wasnt created');
-        }
-
         course.save();
+        
         return res.status(201).json(course);
 
     } catch (error) {

@@ -41,10 +41,10 @@ const edit = async (req, res, next) => {
 
         // Check if the user already exist and update it
         const user = await User.findByIdAndUpdate(userId, editedUser, { new: true });
-        const userWasntEdited = !user;
+        const userDoesntExist = !user;
 
-        if (userWasntEdited) {
-            throw Error('user wasnt edited');
+        if (userDoesntExist) {
+            throw Error('user not found');
         }
 
         return res.status(200).json({ editedUser: user });

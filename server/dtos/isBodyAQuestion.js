@@ -8,7 +8,8 @@ const isBodyAQuestion = (req, res, next) => {
         // Check if the property exist, then check if their valur is incorrect or doesnt meet the requirements
         const validators = {
             isQuestionIncorrect: question && !questionPattern.test(question),
-            areOptionsIncorrect: options.length > 1
+            areOptionsIncorrect: options.length < 2,
+            theresntSomeTrueOption: options.every(option => option.isCorrect === false)
         }
 
         const thereSomethingWrong = Object.values(validators).some(validator => validator);
