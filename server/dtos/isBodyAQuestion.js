@@ -17,12 +17,12 @@ const isBodyAQuestion = (req, res, next) => {
         if (thereSomethingWrong) {
             throw Error('info doesnt meet the requirements');
         }
+        
+        next();
 
     } catch (error) {
         next(error);
     }
-
-    next();
 }
 
-export { isBodyAQuestion };
+export default isBodyAQuestion;

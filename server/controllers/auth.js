@@ -36,12 +36,14 @@ const signup = async (req, res, next) => {
             throw Error('the user already exist');
         }
 
+        const DEFAULT_ROLE = 'student';
+
         const newUserInformaton = {
             name: newUserDetails.name,
             lastName: newUserDetails.lastName,
             mail: newUserDetails.mail,
             password: newUserDetails.password,
-            role: 'student',
+            role: DEFAULT_ROLE,
             courses: []
         }
 

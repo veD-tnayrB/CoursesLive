@@ -1,6 +1,6 @@
 // Validators
-const namePattern = /\w/;
-const descriptionPattern = /\w/;
+const namePattern = /./;
+const descriptionPattern = /./;
 const levelPattern = /^[A-Z]+[a-z]+/;
 
 const isBodyACourse = (req, res, next) => {
@@ -9,25 +9,24 @@ const isBodyACourse = (req, res, next) => {
 
         // Check if the property exist, then check if their valur is incorrect or doesnt meet the requirements
         const validators = {
-            isNameIncorrect: name && !namePattern.test(name),
-            isDescriptionIncorrect: description && !descriptionPattern.test(description),
-            isLevelIncorrect: level && !levelPattern.test(level),
-            isTagIncorrect: !tags.isArray()
+            isNameIncorrect: !namePattern.test(name),
+            isDescriptionIncorrect: !descriptionPattern.test(description),
+            isLevelIncorrect: !levelPattern.test(level),
+            isTagIncorrect: tags && tags.length < 2
         }
     
+        // Check if some validator is incorrect
         const thereSomethingWrong = Object.values(validators).some(validator => validator);
 
         if (thereSomethingWrong) {
             throw Error('info doesnt meet the requirements');
         }
 
-        
+        next();
 
     } catch (error) {
         next(error);
     }
-
-    next();
 }
 
-export { isBodyACourse }
+export default isBodyACourse;

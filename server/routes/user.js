@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { getAll, edit, editRange, remove } from '../controllers/user.js'
-import isBodyAUser from '../dtos/';
 import { isUserAdmin } from '../middlewares/isUserRole.js';
+import isBodyAUser from '../dtos/isBodyAUser.js';
 
 const userRouter = Router();
 

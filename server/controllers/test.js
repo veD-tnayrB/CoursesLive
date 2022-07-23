@@ -38,7 +38,7 @@ const create = async (req, res, next) => {
         }
 
         // Check if the creator is actually the creator
-        const creatorIsntAuthorized = creator.id !== episode.creator;
+        const creatorIsntAuthorized = episode.creator.toString() !== creator.id;
 
         if (creatorIsntAuthorized) {
             throw Error('user not authorized');
@@ -112,4 +112,19 @@ const edit = async (req, res, next) => {
     }
 }
 
-export { getATest, create, edit };
+const remove = () => {
+    const { authorization: token } = req.headers;
+    const { testId } = req.params;
+
+    try {
+        const remover = jwt.verify(token, process.env.JWT_SECRET);
+
+        // Check if the user is correct
+        
+
+    } catch (error) {
+        next(error);
+    }
+}
+
+export { getATest, create, edit, remove };

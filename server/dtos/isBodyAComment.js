@@ -18,14 +18,14 @@ const isBodyACourse = (req, res, next) => {
             throw Error('info doesnt meet the requirements');
         }
 
+        next();
+
     } catch (error) {
         next(error);
     }
-
-    next();
 }
 
-export { isBodyACourse }
+export default isBodyACourse;
 
 
 

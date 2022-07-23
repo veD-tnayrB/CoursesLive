@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import isBodyAUser from '../dtos/isBodyAUser.js';
 import { login, signup } from '../controllers/auth.js';
+import isBodyAUser from '../dtos/isBodyAUser.js';
 
 // ALSO TEMPORAL
 import User from '../models/user.js';

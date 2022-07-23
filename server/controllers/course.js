@@ -29,15 +29,8 @@ const create = async (req, res, next) => {
     const courseInfo = req.body;
 
     try {
-        const creator = jwt.verify(token, process.env.JWT_SECRET);
-
-        // Check if the user is a real admin
-        const creatorIsAdmin = User.findOne({ id: creator.id, role: creator.role });
-        const creatorIsntAdmin = !creatorIsAdmin;
-
-        if (creatorIsntAdmin) {
-            throw Error('user not authorized');
-        }
+        const creator = req.user;
+        console.log(creator);
 
         // Check if the course already exist
         const courseAlreadyExist = await Course.findOne({ name: courseInfo.name });

@@ -9,21 +9,23 @@ const isBodyATest = (req, res, next) => {
 
         // Check if the property exist, then check if their valur is incorrect or doesnt meet the requirements
         const validators = {
-            isTitleIncorrect: title && !titlePattern.test(title),
-            isLevelIncorrect: level && !levelPattern.test(level),
+            isTitleIncorrect: !titlePattern.test(title),
+            isLevelIncorrect: !levelPattern.test(level),
         }
 
+        // Check if theres some validator incorrect
         const thereSomethingWrong = Object.values(validators).some(validator => validator);
 
         if (thereSomethingWrong) {
             throw Error('info doesnt meet the requirements');
         }
 
+        next();
+
     } catch (error) {
         next(error);
     }
 
-    next();
 }
 
-export { isBodyATest };
+export default isBodyATest;

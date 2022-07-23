@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { getAll, create, edit, remove, suscribe, unsuscribe } from '../controllers/course.js';
 import { isUserAdminOrTeacher } from '../middlewares/isUserRole.js';
-import { isBodyACourse } from '../dtos';
+import isBodyACourse from '../dtos/isBodyACourse.js';
 
 const courseRouter = Router();
 

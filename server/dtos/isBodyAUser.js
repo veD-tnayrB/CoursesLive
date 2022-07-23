@@ -11,25 +11,24 @@ const isBodyAUser = (req, res, next) => {
 
         // It first checks if the property exists and then checks if it is correct based on its pattern.
         const validators = {
-            isNameIncorrect: name && !namePattern.test(name),
-            isLastNameIncorrect: lastName && !lastNamePattern.test(lastName),
-            isMailIncorrect: mail && !mailPattern.test(mail),
-            isPasswordIncorrect: password && !passwordPattern.test(password)
+            isNameIncorrect: !namePattern.test(name),
+            isLastNameIncorrect: !lastNamePattern.test(lastName),
+            isMailIncorrect: !mailPattern.test(mail),
+            isPasswordIncorrect: !passwordPattern.test(password)
         }
 
         const thereSomethingWrong = Object.values(validators).some(validator => validator); 
 
         if (thereSomethingWrong) {
             throw Error('info doesnt meet the requirements');
-
         }
+
+        next()
         
     } catch (error) {
         next(error);
 
     }
-
-    next()
 }
 
-export { isBodyAUser };
+export default isBodyAUser;

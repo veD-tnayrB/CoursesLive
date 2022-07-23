@@ -8,7 +8,7 @@ const testSchema = new Schema({
     },
 
     level: {
-        type: Number,
+        type: String,
         required: true
     },
 

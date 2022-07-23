@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { getAll, getEpisode, create, edit, like, dislike, remove } from '../controllers/episode.js';
 import { isUserAdminOrTeacher } from '../middlewares/isUserRole.js';
+import isBodyAEpisode from '../dtos/isBodyAEpisode.js';
 
 // TEMPORAL
 import Episode from '../models/episode.js';
@@ -14,10 +15,10 @@ episodeRouter.get('/:courseId/episodes/', getAll);
 episodeRouter.get('/:courseId/episode/:episodeId', getEpisode);
 
 // Create
-episodeRouter.post('/:courseId/episodes/create', isUserAdminOrTeacher, create);
+episodeRouter.post('/:courseId/episodes/create', isUserAdminOrTeacher, isBodyAEpisode, create);
 
 // Edit
-episodeRouter.patch('/:courseId/episodes/:episodeId/edit', isUserAdminOrTeacher, edit);
+episodeRouter.patch('/:courseId/episodes/:episodeId/edit', isUserAdminOrTeacher, isBodyAEpisode, edit);
 
 // Remove
 episodeRouter.delete('/:courseId/episodes/:episodeId/delete', isUserAdminOrTeacher, remove);

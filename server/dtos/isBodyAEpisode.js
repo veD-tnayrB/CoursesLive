@@ -1,7 +1,7 @@
 // Validators
-const titlePattern = /^[A-Z]{1,1}[a-z]+$/;
-const descriptionPattern = /^[A-Z]{1,1}[a-z]+/;
-const videoPattern = /^((?: https ?:) ?\/\/)?((?:www|m)\.)?((?:youtube(-nocookie)?\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?$/;
+const titlePattern = /./;
+const descriptionPattern = /./;
+const videoPattern = /(https?\:\/\/)?(www\.youtube\.com|youtu\.be)\/.+$/;
 
 const isBodyAEpisode = (req, res, next) => {
     try {
@@ -9,11 +9,12 @@ const isBodyAEpisode = (req, res, next) => {
 
         // It first checks if the property exists and then checks if it is correct based on its pattern.
         const validators = {
-            isTitleIncorrect: title && !titlePattern.test(title),
-            isDescriptionIncorrect: description && !descriptionPattern.test(description),
-            isVideoIncorrect: video && !videoPattern.test(video)
+            isTitleIncorrect: !titlePattern.test(title),
+            isDescriptionIncorrect: !descriptionPattern.test(description),
+            isVideoIncorrect: !videoPattern.test(video)
         }
 
+        // Check if theres some validator wrong
         const thereSomethingWrong = Object.values(validators).some(validator => validator);
 
         if (thereSomethingWrong) {
@@ -21,12 +22,12 @@ const isBodyAEpisode = (req, res, next) => {
 
         }
 
+        next();
+
     } catch (error) {
         next(error);
 
     }
-
-    next()
 }
 
-export { isBodyAEpisode };
+export default isBodyAEpisode;
