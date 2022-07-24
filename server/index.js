@@ -31,7 +31,7 @@ app.use('/course/', episodeRouter);
 app.use('/episode/', commentRouter);
 app.use('/episode/', testRouter); // WORK IN PROGRESS
 
-app.use(errorHandler)
+app.use(errorHandler);
 
 
 // Connect with the data base and then start to listen

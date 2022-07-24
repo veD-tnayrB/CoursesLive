@@ -11,7 +11,7 @@ const login = async (req, res, next) => {
         const userDoesntExist = !user;
         
         if (userDoesntExist) {
-            throw Error('user not found');
+            throw Error('user not found 404');
         }
         
         const token = jwt.sign({ id: user.id, role: user.role }, process.env.JWT_SECRET);
@@ -39,10 +39,7 @@ const signup = async (req, res, next) => {
         const DEFAULT_ROLE = 'student';
 
         const newUserInformaton = {
-            name: newUserDetails.name,
-            lastName: newUserDetails.lastName,
-            mail: newUserDetails.mail,
-            password: newUserDetails.password,
+            ...newUserDetails,
             role: DEFAULT_ROLE,
             courses: []
         }

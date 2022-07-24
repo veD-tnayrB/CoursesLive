@@ -41,6 +41,8 @@ const isUserAdmin = (req, res, next) => isRoleValid(['admin'], req, res, next);
 
 const isUserAdminOrTeacher = (req, res, next) => isRoleValid(['admin', 'teacher'], req, res, next);
 
+const isUser = (req, res, next) => isRoleValid(['admin', 'teacher', 'student'], req, res, next);
+
 const isUserStudent = (req, res, next) => isRoleValid(['student'], req, res, next);
 
-export { isUserTeacher, isUserAdmin, isUserAdminOrTeacher, isUserStudent };
+export { isUserTeacher, isUserAdmin, isUserAdminOrTeacher, isUserStudent, isUser };

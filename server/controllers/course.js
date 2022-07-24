@@ -1,4 +1,3 @@
-import jwt from 'jsonwebtoken';
 import User from '../models/user.js';
 import Course from '../models/course.js';
 import Episode from '../models/episode.js';
@@ -25,12 +24,10 @@ const getAll = async (req, res, next) => {
 
 // Create a course
 const create = async (req, res, next) => {
-    const { authorization: token } = req.headers;
     const courseInfo = req.body;
 
     try {
         const creator = req.user;
-        console.log(creator);
 
         // Check if the course already exist
         const courseAlreadyExist = await Course.findOne({ name: courseInfo.name });
@@ -40,10 +37,7 @@ const create = async (req, res, next) => {
         }
 
         const newCourse = {
-            name: courseInfo.name,
-            description: courseInfo.description,
-            level: courseInfo.level,
-            tags: courseInfo.tags,
+            ...courseInfo,
             creator: creator.id,
             suscribers: []
         }
@@ -61,7 +55,6 @@ const create = async (req, res, next) => {
 
 // Edit the course
 const edit = async (req, res, next) => {
-    const { authorization: token } = req.headers;
     const newCourseInformation = req.body;
     const { courseId } = req.params;
 
@@ -73,15 +66,6 @@ const edit = async (req, res, next) => {
     }
 
     try {
-        const editor = jwt.verify(token, process.env.JWT_SECRET);
-
-        // Check if the user exist
-        const user = await User.findOne({ _id: editor.id, role: editor.role });
-        const userDoesntExist = !user;
-
-        if (userDoesntExist) {
-            throw Error('user doesnt exist');
-        }
 
         // Check if the edited course already exist
         const courseAlreadyExist = await Course.findOne(modifiedInformation);
@@ -90,7 +74,7 @@ const edit = async (req, res, next) => {
             throw Error('course already exist');
         }
 
-        // edit the course
+        // Edit the course
         const updatedCourse = await Course.findByIdAndUpdate(courseId, modifiedInformation, { new: true })
         const courseWasntUpdated = !updatedCourse;
 
@@ -106,20 +90,9 @@ const edit = async (req, res, next) => {
 
 // Remove course
 const remove = async (req, res, next) => {
-    const { authorization: token } = req.headers;
     const courseToRemoveId = req.params.courseId;
 
     try {
-        const user = jwt.verify(token, process.env.JWT_SECRET);
-
-        // Check if the user info is correct and if it is admin
-        const userIsAdmin = await User.findOne({ _id: user.id, role: user.role });
-        const userIsntAdmin = !userIsAdmin;
-
-        if (userIsntAdmin) {
-            throw Error('user not authorized');
-        }
-
         // Check if the course exist and then remove it
         const courseToRemove = await Course.findByIdAndRemove(courseToRemoveId);
         const courseDoesntExist = !courseToRemove;
@@ -128,6 +101,7 @@ const remove = async (req, res, next) => {
             throw Error('course doesnt exist');
         }
 
+        // Unsuscribe all the users
         await User.updateMany({ courses: { $in: courseToRemoveId } }, { $pull: { courses: courseToRemoveId } });
 
         // Delete all episodes
@@ -142,29 +116,20 @@ const remove = async (req, res, next) => {
 
 // Suscribe the user to a course
 const suscribe = async (req, res, next) => {
-    const { authorization: token } = req.headers;
     const { courseId } = req.params;
 
     try {
-        const { id: userId } = jwt.verify(token, process.env.JWT_SECRET);
-
-        // Check if the user already exist
-        const userToUnsuscribe = await User.findById(userId);
-        const userDoesntExist = !userToUnsuscribe;
-
-        if (userDoesntExist) {
-            throw Error('user not found');
-        }
+        const user = req.user;
 
         // Check if the user is already suscribed
-        const isUserAlreadySuscribed = userToUnsuscribe.courses.some(course => String(course) === courseId);
+        const isUserAlreadySuscribed = await User.findOne({ _id: user.id, courses: { $in: [ courseId ] } })
 
         if (isUserAlreadySuscribed) {
             throw Error('user is already suscribed');
         }
 
         // Add the user id to the suscribers array
-        const courseToSuscribe = await Course.findByIdAndUpdate(courseId, { $push: { subscribers: userId } }, { new: true });
+        const courseToSuscribe = await Course.findByIdAndUpdate(courseId, { $push: { subscribers: user.id } }, { new: true });
         const courseDoesntExist = !courseToSuscribe;
 
         if (courseDoesntExist) {
@@ -172,7 +137,7 @@ const suscribe = async (req, res, next) => {
         }
         
         // Update the user information
-        const updatedUser = await User.findByIdAndUpdate(userId, { $push: { courses: courseId } }, { new: true });
+        const updatedUser = await User.findByIdAndUpdate(user.id, { $push: { courses: courseId } }, { new: true });
         return res.status(202).json({ user: updatedUser, course: courseToSuscribe });
 
     } catch (error) {
@@ -182,30 +147,21 @@ const suscribe = async (req, res, next) => {
 
 // Unsuscribe the user
 const unsuscribe = async (req, res, next) => {
-    const { authorization: token } = req.headers;
     const { courseId } = req.params;
 
     try {
-        const unsuscriber = jwt.verify(token, process.env.JWT_SECRET);
-
-        // Check if the user info actually exist
-        const userToUnsuscribe = await User.findOne({ _id: unsuscriber.id, role: unsuscriber.role });
-        const userDoesntExist = !userToUnsuscribe;
-
-        if (userDoesntExist) {
-            throw Error('user not found');
-        }
+        const user = req.user;
 
         // Check if the user is already suscribed
-        const isUserSuscribed = userToUnsuscribe.courses.some(course => String(course) === courseId);
-        const userIsntSuscribed = !isUserSuscribed;
+        const isUserSuscribed = await User.findOne({ _id: user.id, courses: { $all: [ courseId ] } })
+        const isntUserSuscribed = !isUserSuscribed;
 
-        if (userIsntSuscribed) {
+        if (isntUserSuscribed) {
             throw Error('user isnt suscribed');
         }
 
         // Remove the user id from the suscribers array
-        const courseToUnsuscribe = await Course.findByIdAndUpdate(courseId, { $pull: { suscribers: userId } })
+        const courseToUnsuscribe = await Course.findByIdAndUpdate(courseId, { $pull: { suscribers: user.id } })
         const courseDoesntExist = !courseToUnsuscribe;
 
         if (courseDoesntExist) {
@@ -213,7 +169,7 @@ const unsuscribe = async (req, res, next) => {
         }
 
         // Update the courses array
-        const updatedUser = await User.findByIdAndUpdate(userId, { $pull: { courses: courseId } }, { new: true });
+        const updatedUser = await User.findByIdAndUpdate(user.id, { $pull: { courses: courseId } }, { new: true });
         return res.status(202).json({ user: updatedUser });
 
     } catch (error) {

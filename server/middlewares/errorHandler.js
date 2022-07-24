@@ -98,8 +98,6 @@ const ERRORS = {
 
 
 const errorHandler = (error, req, res, next) => {
-    console.error(error);
-
     const errorDescription = ERRORS[error.message];
     const theresNoErrorForThisCase = !errorDescription;
 

@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { getAll, edit, editRange, remove } from '../controllers/user.js'
-import { isUserAdmin } from '../middlewares/isUserRole.js';
+import { isUserAdmin, isUser } from '../middlewares/isUserRole.js';
 import isBodyAUser from '../dtos/isBodyAUser.js';
 
 const userRouter = Router();
@@ -9,7 +9,7 @@ const userRouter = Router();
 userRouter.get('/', isUserAdmin, getAll);
 
 // Edit user info
-userRouter.patch('/me/edit', isBodyAUser, edit);
+userRouter.patch('/me/edit', isBodyAUser, isUser, edit);
 
 // Promote the user
 userRouter.patch('/edit/range/:userId/:rank', isUserAdmin, editRange);
