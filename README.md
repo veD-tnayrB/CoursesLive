@@ -11,7 +11,6 @@ where we will provide you with all the necessary tools to share your knowledge i
 - In that same directory you have several options:
   - You can only run the client by running ```npm run client```
   - Also if you want to just run the server you can use ```npm run server```
-  - And finally if you want to run both you can use ```npm run courseslive```
   
 ## 🚀 Learn more about CoursesLive
 ✅ Here you can find the [Figma Design](https://www.figma.com/file/PucpSycdua5SF9wuPz1Vgm/CoursesLive?node-id=3%3A6)
