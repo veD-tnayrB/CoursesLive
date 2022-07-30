@@ -1,19 +1,23 @@
-import jwt from 'jsonwebtoken';
 import Episode from '../models/episode.js';
 import Question from '../models/question.js';
 import User from '../models/user.js';
 
 // Create question
 const create = async (req, res, next) => {
-    const { authorization: token } = req.headers;
     const { episodeId, testId } = req.params;
     const questionInfo = req.body;
 
     try {
-        const creator = jwt.verify(token, process.env.JWT_SECRET);
+        const creator = req.user;
 
-        // Check if the question creator is the episode creator
+        // Check if the episode exist and then if the question creator is the episode creator
         const episode = await Episode.findById(episodeId);
+        const episodeDoesntExist = !user;
+
+        if (episodeDoesntExist) {
+            throw Error('episode doesnt exist');
+        }
+
         const userIsntAuthorized = episode.creator !== creator.id;
 
         if (userIsntAuthorized) {
@@ -41,18 +45,24 @@ const create = async (req, res, next) => {
 
 // Remove Question
 const remove = (req, res, next) => {
-    const { authorization: token } = req.headers;
-    const { testId, questionId } = req.params;
+    const { episodeId, testId, questionId } = req.params;
 
     try {
-        const remover = jwt.verify(token, process.env.JWT_SECRET);
+        const remover = req.user;
 
-        // Check if the user is already correct
-        const user = await User.findById(remover.id);
-        const userDoesntExist = !user;
+        // Check if the user is the creator
+        const episode = await Episode.findById(episodeId);
+        const episodeDoesntExist = !episode;
 
-        if (userDoesntExist) {
+        if (episodeDoesntExist) {
             throw Error('user doesnt exist');
+        }
+
+        // Check if the user is the question creator
+        const isntUserCreator = String(episode.creator) !== remover.id;
+
+        if (isntUserCreator) {
+            throw Error('user is not creator');
         }
 
         // Remove the question
@@ -64,7 +74,7 @@ const remove = (req, res, next) => {
         }
 
         // Update the test
-        const updatedTest = await Test.findByIdAndUpdate(testId, { $pull: { questions: questionId } });
+        const updatedTest = await Test.findByIdAndUpdate(testId, { $pull: { questions: questionId } }, { new: true });
 
         return res.status(200).json(updatedTest);
 
