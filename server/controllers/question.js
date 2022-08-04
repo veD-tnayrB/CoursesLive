@@ -1,6 +1,5 @@
 import Episode from '../models/episode.js';
 import Question from '../models/question.js';
-import User from '../models/user.js';
 
 // Create question
 const create = async (req, res, next) => {
@@ -50,7 +49,7 @@ const remove = (req, res, next) => {
     try {
         const remover = req.user;
 
-        // Check if the user is the creator
+        // Check if the episode exist
         const episode = await Episode.findById(episodeId);
         const episodeDoesntExist = !episode;
 

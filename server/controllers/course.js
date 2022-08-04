@@ -22,6 +22,27 @@ const getAll = async (req, res, next) => {
     }
 }
 
+// Filter by tags
+const filterByTag = async (req, res, next) => {
+    const tags = req.query.tags;
+
+    try {
+        // Find the courses
+        const filteredCourses = await Course.find({ tags: { $all: tags } });
+        const theresNoCoursesWithThoseTags = !filteredCourses;
+
+        if (theresNoCoursesWithThoseTags) {
+            throw Error('theres no courses with those tags');
+        }
+
+        return res.status(200).json(filteredCourses);
+
+    } catch (error) {
+        return res.json(error)
+        next(error);
+    }
+}
+
 // Create a course
 const create = async (req, res, next) => {
     const courseInfo = req.body;
@@ -66,7 +87,6 @@ const edit = async (req, res, next) => {
     }
 
     try {
-
         // Check if the edited course already exist
         const courseAlreadyExist = await Course.findOne(modifiedInformation);
 
@@ -179,4 +199,4 @@ const unsuscribe = async (req, res, next) => {
 
 
 
-export { getAll, create, edit, remove, suscribe, unsuscribe };
+export { getAll, filterByTag, create, edit, remove, suscribe, unsuscribe };
