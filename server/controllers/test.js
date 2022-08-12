@@ -120,7 +120,7 @@ const remove = () => {
         const remover = req.user;
         
         // Check if the test exist
-        cosnt test = await Test.findById(testId);
+        const test = await Test.findById(testId);
         const testDoesntExist = !test;
         
         if (testDoesntExist) {
@@ -137,8 +137,11 @@ const remove = () => {
         
         // Remove the test
         await Test.findByIdAndRemove(testId);
+
+        // Remove every test question
+        await Question.deleteMany({ $in: [ test.questions ] })
         
-        return res.status(200).json();
+        return res.status(200).json({ removedTest: test });
     } catch (error) {
         next(error);
     }
