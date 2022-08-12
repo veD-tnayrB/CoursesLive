@@ -117,11 +117,28 @@ const remove = () => {
     const { testId } = req.params;
 
     try {
-        const remover = jwt.verify(token, process.env.JWT_SECRET);
-
-        // Check if the user is correct
+        const remover = req.user;
         
-
+        // Check if the test exist
+        cosnt test = await Test.findById(testId);
+        const testDoesntExist = !test;
+        
+        if (testDoesntExist) {
+            throw Error('test doesnt exist');
+        }
+        
+        // Check if the remover is the creator or at least admin
+        const removerIsntCreator = remover.id !== test.creator;
+        const removerIsntAdmin = remover.role !== 'admin';
+        
+        if (removerIsntCreator || removerIsntAdmin) {
+            throw Error('unauthorized');
+        }
+        
+        // Remove the test
+        await Test.findByIdAndRemove(testId);
+        
+        return res.status(200).json();
     } catch (error) {
         next(error);
     }
