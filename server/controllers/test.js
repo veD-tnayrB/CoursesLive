@@ -112,8 +112,8 @@ const edit = async (req, res, next) => {
     }
 }
 
+// Remove a test
 const remove = () => {
-    const { authorization: token } = req.headers;
     const { testId } = req.params;
 
     try {
@@ -139,7 +139,7 @@ const remove = () => {
         await Test.findByIdAndRemove(testId);
 
         // Remove every test question
-        await Question.deleteMany({ $in: [ test.questions ] })
+        await Question.deleteMany({ $in: [ test.questions ] });
         
         return res.status(200).json({ removedTest: test });
     } catch (error) {

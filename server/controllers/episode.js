@@ -25,7 +25,6 @@ const getAll = async (req, res, next) => {
         }
 
         return res.status(200).json(episodes);
-
     } catch (error) {
         next(error);
     }
@@ -62,20 +61,11 @@ const getEpisode = async (req, res, next) => {
 
 // Create a episode
 const create = async (req, res, next) => {
-    const { authorization: token } = req.headers;
     const newEpisodeInfo = req.body;
     const { courseId } = req.params;
 
     try {
-        const creator = jwt.verify(token, process.env.JWT_SECRET);
-        
-        // Check if the user creator info is correct and if is authorized
-        const user = await User.findOne({ _id: creator.id, role: creator.role });
-        const userIsntAuthorized = !user;
-
-        if (userIsntAuthorized) {
-            throw Error('user not authorized');
-        }
+        const creator = req.user;
 
         // Check if the episode already exist
         const episodeAlreadyExist = await Episode.findOne({ course: courseId, $and: [ { $or: [{ title: newEpisodeInfo.title }, { video: newEpisodeInfo.video }] } ] });
@@ -110,20 +100,11 @@ const create = async (req, res, next) => {
 
 // Edit a episode
 const edit = async (req, res, next) => {
-    const { authorization: token } = req.headers;
     const { courseId, episodeId } = req.params;
     const modifiedEpisodeInfo = req.body;
 
     try {
-        const editor = jwt.verify(token, process.env.JWT_SECRET);
-
-        // Check if the editor editor info exist and if is authorized
-        const user = await User.findOne({ _id: editor.id, role: editor.role });
-        const userIsntAuthorized = !user;
-
-        if (userIsntAuthorized) {
-            throw Error('user not authorized');
-        }
+        const editor = req.user;
 
         // Check if the user is creator otherwise check if is admin
         const episode = await Episode.findOne({ _id: episodeId, course: courseId, creator: editor.id });
@@ -172,11 +153,10 @@ const edit = async (req, res, next) => {
 
 // Remove a episode
 const remove = async (req, res, next) => {
-    const { authorization: token } = req.headers;
     const { courseId, episodeId } = req.params;
 
     try {
-        const remover = jwt.verify(token, process.env.JWT_SECRET);
+        const remover = req.user;
 
         // Check if the episode exist
         const episodeToRemove = await Episode.findById(episodeId);
@@ -187,8 +167,6 @@ const remove = async (req, res, next) => {
         }
 
         // Check if the user remover info is actually correct and if it owner
-        const user = await User.findOne({ _id: remover.id, role: remover.role });
-        const userIsntAuthorized = !user;
         const userIsntOwner = String(episodeToRemove.creator) !== remover.id;
 
         /*                                    */
@@ -196,7 +174,7 @@ const remove = async (req, res, next) => {
         /*                                    */
 
 
-        if (userIsntAuthorized || userIsntOwner) {
+        if (userIsntOwner) {
             throw Error('user not authorized');
         }
 
@@ -219,19 +197,10 @@ const remove = async (req, res, next) => {
 
 // Like a episode
 const like = async (req, res, next) => {
-    const { authorization: token } = req.headers;
     const { courseId, episodeId } = req.params;
 
     try {
-        const liker = jwt.verify(token, process.env.JWT_SECRET);
-
-        // Check if the liker info is correct and if exist
-        const user = await User.findOne({ _id: liker.id, role: liker.role });
-        const userDoesntExist = !user;
-
-        if (userDoesntExist) {
-            throw Error('user doesnt exist');
-        }
+        const liker = req.user;
 
         // Check if the course exist
         const course = await Course.findById(courseId);
@@ -266,20 +235,9 @@ const like = async (req, res, next) => {
 
 // Dislike a episode
 const dislike = async (req, res, next) => {
-    const { authorization: token } = req.headers;
     const { courseId, episodeId } = req.params;
 
     try {
-        const disliker = jwt.verify(token, process.env.JWT_SECRET);
-
-        // Check if the disliker info is correct and if exist
-        const user = await User.findOne({ _id: disliker.id, role: disliker.role });
-        const userDoesntExist = !user;
-
-        if (userDoesntExist) {
-            throw Error('user doesnt exist');
-        }
-
         // Check if the course exist
         const course = await Course.findById(courseId);
         const courseDoesntExist = !course;
