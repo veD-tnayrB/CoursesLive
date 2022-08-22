@@ -35,7 +35,9 @@ app.use(errorHandler);
 
 
 // Connect with the data base and then start to listen
-mongoose.connect(process.env.MONGODB_URL, () => {
+mongoose.connect(process.env.MONGODB_URL, (error) => {
+    if (error) return console.log(`DATA BASE NOT CONNECTED`);
+
     app.listen(process.env.PORT, () => {
         console.log(`SERVER STARTED ON ${process.env.PORT}`);
     })

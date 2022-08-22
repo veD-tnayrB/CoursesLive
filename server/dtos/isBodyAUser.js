@@ -22,9 +22,9 @@ const isBodyAUser = (req, res, next) => {
         if (thereSomethingWrong) {
             throw Error('info doesnt meet the requirements');
         }
+      
+        next();
 
-        next()
-        
     } catch (error) {
         next(error);
 

@@ -11,7 +11,7 @@ const login = async (req, res, next) => {
         const userDoesntExist = !user;
         
         if (userDoesntExist) {
-            throw Error('user not found 404');
+            throw Error('user not found');
         }
         
         const token = jwt.sign({ id: user.id, role: user.role }, process.env.JWT_SECRET);
@@ -31,7 +31,8 @@ const signup = async (req, res, next) => {
         // Search for a user with the same mail
         const user = await User.findOne({ mail: newUserDetails.mail });
         const userAlreadyExist = user;
-
+        console.log(user)
+        
         if (userAlreadyExist) {
             throw Error('the user already exist');
         }
@@ -51,10 +52,10 @@ const signup = async (req, res, next) => {
         if (userWasntCreated) {
             throw Error('user wasnt created');
         }
-
+        console.log(2)
         const token = jwt.sign({ id: newUser.id, role: newUser.role }, process.env.JWT_SECRET);
         newUser.save();
-
+        console.log(3)
         return res.status(201).json({ user: newUser, token });
     
     } catch (error) {
