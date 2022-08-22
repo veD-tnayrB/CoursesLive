@@ -29,16 +29,14 @@ const filterByTag = async (req, res, next) => {
     try {
         // Find the courses
         const filteredCourses = await Course.find({ tags: { $all: tags } });
-        const theresNoCoursesWithThoseTags = !filteredCourses;
+        const theresNoCoursesWithThoseTags = filteredCourses.length === 0;
 
         if (theresNoCoursesWithThoseTags) {
             throw Error('theres no courses with those tags');
         }
 
         return res.status(200).json(filteredCourses);
-
     } catch (error) {
-        return res.json(error)
         next(error);
     }
 }

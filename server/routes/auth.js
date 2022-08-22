@@ -8,7 +8,7 @@ import User from '../models/user.js';
 const authRouter = Router();
 
 // Log the user
-authRouter.post('/login', isBodyAUser, login);
+authRouter.post('/login', login);
 
 // Register the user
 authRouter.post('/signup', isBodyAUser, signup);

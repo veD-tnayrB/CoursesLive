@@ -113,7 +113,7 @@ const edit = async (req, res, next) => {
 }
 
 // Remove a test
-const remove = () => {
+const remove = async () => {
     const { testId } = req.params;
 
     try {
