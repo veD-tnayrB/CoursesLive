@@ -17,7 +17,7 @@ const isBodyACourse = (req, res, next) => {
     
         // Check if some validator is incorrect
         const thereSomethingWrong = Object.values(validators).some(validator => validator);
-
+        
         if (thereSomethingWrong) {
             throw Error('info doesnt meet the requirements');
         }

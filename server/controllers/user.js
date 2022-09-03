@@ -79,4 +79,22 @@ const editRange = async (req, res, next) => {
     }
 }
 
-export { getAll, edit, remove, editRange };
+// Filters users by their role
+const filterByRole = async (req, res, next) => {
+    const { role: roleToSearch } = req.params;
+
+    try {
+        const users = await User.find({ role: roleToSearch });
+        const theresNoUserWithRole = !users;
+
+        if (theresNoUserWithRole) {
+            throw Error('theres no users with that role');
+        }
+
+        return res.status(200).json({ users });
+    } catch(error) {
+        next(error);
+    }
+}
+
+export { getAll, edit, remove, editRange, filterByRole };
