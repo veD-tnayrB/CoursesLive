@@ -111,20 +111,30 @@ const remove = async (req, res, next) => {
     const courseToRemoveId = req.params.courseId;
 
     try {
-        // Check if the course exist and then remove it
-        const courseToRemove = await Course.findByIdAndRemove(courseToRemoveId);
+        // Check if the course exist
+        const courseToRemove = await Course.findById(courseToRemoveId);
         const courseDoesntExist = !courseToRemove;
 
         if (courseDoesntExist) {
             throw Error('course doesnt exist');
         }
 
+        // Check if the creator is the remover
+        const courseRemover = req.user.id;
+        const creator = String(courseToRemove.creator);
+
+        if (courseRemover !== creator) {
+            throw Error('you dont have permisions to make this request');
+        }
+
+        // Remove the course
+        await Course.findByIdAndRemove(courseToRemoveId);
+
         // Unsuscribe all the users
         await User.updateMany({ courses: { $in: courseToRemoveId } }, { $pull: { courses: courseToRemoveId } });
 
         // Delete all episodes
         await Episode.deleteMany({ course: courseToRemoveId });
-
         return res.status(200).json({ removedCourse: courseToRemove });
 
     } catch (error) {
