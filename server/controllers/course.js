@@ -86,19 +86,30 @@ const edit = async (req, res, next) => {
 
     try {
         // Check if the edited course already exist
-        const courseAlreadyExist = await Course.findOne(modifiedInformation);
+        const course = await Course.findOne(modifiedInformation);
+        const courseAlreadyExist = course;
 
         if (courseAlreadyExist) {
             throw Error('course already exist');
         }
 
+        // Check if the editor is the creator
+        // const editor = req.user;
+        // const creatorId = String(course.creator);
+        // const editorHasCorrectRole = editor.role !== 'admin' || editor.role !== 'teacher';
+
+        // console.log(editor)
+
+        // if (editorHasCorrectRole) {
+        //     throw Error('user not authorized');
+        // }
+
+        // if (editor.id !== creatorId) {
+        //     throw Error('user not authorized');
+        // }
+
         // Edit the course
         const updatedCourse = await Course.findByIdAndUpdate(courseId, modifiedInformation, { new: true })
-        const courseWasntUpdated = !updatedCourse;
-
-        if (courseWasntUpdated) {
-            throw Error('the course wasnt updated');
-        }
 
         return res.status(200).json(updatedCourse);
     } catch (error) {
