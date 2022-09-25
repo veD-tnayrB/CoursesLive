@@ -1,14 +1,24 @@
-import useFetch from "../../hooks/useFetch";
-import { GET_COURSES_URL } from '../../constants/routes/server';
+import * as React from 'react';
+import axios from 'axios';
+import { getAllCourses } from '../../services/courses';
 
 function Home() {
-    const [courses, isLoading, error] = useFetch(GET_COURSES_URL, {}, 'get');
+    const [courses, setCourses] = React.useState({});
+
+
+    React.useEffect(() => {
+        const source = axios.CancelToken.source();
+
+        getAllCourses(source)
+        .then(data => setCourses(data));
+
+        return () => source.cancel();
+    }, []);
+
 
     return (
         <div>
             <div>{JSON.stringify(courses)}</div>
-            <div>{isLoading}</div>
-            <div>{error.message}</div>
         </div>
     )
 }

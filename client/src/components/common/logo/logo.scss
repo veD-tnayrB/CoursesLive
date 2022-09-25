@@ -1,0 +1,19 @@
+@use 'src/global/_variables.scss';
+
+.logo-container {
+    display: flex;
+    align-items: center;
+
+    .logo {
+        width: 38px;
+        height: 38px;
+        padding: 0 1rem 0 0;
+    }
+
+    h1 {
+        color: variables.$main-text-color;
+        font-family: variables.$secondary-font;
+        font-size: 1.25rem;
+        font-weight: bold;
+    }
+}
