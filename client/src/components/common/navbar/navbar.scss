@@ -1,0 +1,18 @@
+.primary-navbar {
+    ul {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .actions-container {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+
+            .routes-list {
+                display: flex;
+                gap: 1rem;
+            }
+        }
+    }
+}

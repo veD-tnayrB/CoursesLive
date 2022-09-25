@@ -1,0 +1,16 @@
+@use './variables';
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: variables.$primary-background;
+    font-family: variables.$primary-font;
+}
+
+main {
+    min-height: 100vh;
+}
