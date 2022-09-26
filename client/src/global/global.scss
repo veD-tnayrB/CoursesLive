@@ -4,13 +4,45 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    
+    font-family: variables.$primary-font;
+    font-weight: normal;
+    font-size: 1rem;
+    color: variables.$main-text-color;
 }
 
 body {
     background: variables.$primary-background;
-    font-family: variables.$primary-font;
+}
+
+ul {
+    list-style: none;
+}
+
+button {
+    background: transparent;
+    border: none;
 }
 
 main {
     min-height: 100vh;
+    padding: 0 2rem;
+}
+
+.primary-button {
+    background: variables.$main-text-color;
+    color: variables.$primary-background;
+    border-radius: 10px;
+    cursor: pointer;
+    
+    font-weight: 700;
+    font-size: .8rem;
+
+    padding: .7rem 3rem;
+    transition: background .1s linear;
+
+    &:hover {
+        background: variables.$primary-background;
+        color: variables.$main-text-color;
+    }
 }

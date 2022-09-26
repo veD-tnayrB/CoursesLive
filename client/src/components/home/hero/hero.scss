@@ -1,0 +1,31 @@
+@use 'src/global/_variables.scss';
+
+.home-hero {
+    background: linear-gradient(151.47deg, #172A32 46.1%, #2A454B 81.1%);
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.25);
+    border-radius: 25px;
+
+    width: 100%;
+    height: 50vh;
+    padding: 4rem 2rem;
+    
+    h2 {
+        font-family: variables.$secondary-font;
+        font-size: 3rem;
+        font-weight: 800;
+        width: 25rem;
+    }
+
+    p {
+        font-weight: 700;
+        font-size: .8rem;
+        width: 24rem;
+        margin: 1rem 0;
+    }
+
+    .primary-button {
+        padding: .7rem 3.2rem;
+        margin: .2rem 0;
+    }
+}
