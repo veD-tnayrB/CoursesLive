@@ -1,4 +1,8 @@
+@use 'src/global/_variables.scss';
+
 .primary-navbar {
+    padding: 1.5rem 2rem;
+
     ul {
         display: flex;
         justify-content: space-between;
@@ -6,12 +10,23 @@
 
         .actions-container {
             display: flex;
-            gap: 1rem;
+            gap: 1.5rem;
             align-items: center;
 
             .routes-list {
                 display: flex;
-                gap: 1rem;
+                gap: 1.8rem;
+
+                a {
+                    text-decoration: none;
+                    font-family: variables.$secondary-font;
+                    font-weight: bold;
+                    color: variables.$main-text-color;
+
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
             }
         }
     }

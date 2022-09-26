@@ -1,10 +1,10 @@
 import * as React from 'react';
 import axios from 'axios';
-import { getAllCourses } from '../../services/courses';
+import { getAllCourses } from 'src/services/courses';
+import Hero from 'src/components/home/hero';
 
 function Home() {
     const [courses, setCourses] = React.useState({});
-
 
     React.useEffect(() => {
         const source = axios.CancelToken.source();
@@ -18,6 +18,7 @@ function Home() {
 
     return (
         <div>
+            <Hero />
             <div>{JSON.stringify(courses)}</div>
         </div>
     )
