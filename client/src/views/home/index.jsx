@@ -2,6 +2,7 @@ import * as React from 'react';
 import axios from 'axios';
 import { getAllCourses } from 'src/services/courses';
 import Hero from 'src/components/home/hero';
+import FeatureList from 'src/components/home/features';
 
 function Home() {
     const [courses, setCourses] = React.useState({});
@@ -19,6 +20,7 @@ function Home() {
     return (
         <div>
             <Hero />
+            <FeatureList />
             <div>{JSON.stringify(courses)}</div>
         </div>
     )
