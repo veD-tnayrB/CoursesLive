@@ -12,8 +12,13 @@ function FeatureList() {
     ))
 
     return (
-        <ul className="feature-list">
-            {featureElements}
-        </ul>
+        <section className="feature-section">
+            <h2>What features do we have to offer?</h2>
+
+            <ul className="feature-list">
+                {featureElements}
+            </ul>
+        </section>
+
     )
 }

@@ -48,3 +48,11 @@ main {
         color: variables.$main-text-color;
     }
 }
+
+section {
+    h2 {
+        font-size: 2.25rem;
+        font-weight: 800;
+        padding: 1.2rem 0;
+    }
+}

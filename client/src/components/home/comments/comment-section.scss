@@ -1,0 +1,43 @@
+@use 'src/global/_variables.scss';
+
+.comment-section {
+    .comments-list {
+        display: grid;
+        gap: 2.2rem;
+        
+        .comment-item {
+            article {
+                background: variables.$secondary-color;                
+                border-radius: 26px;
+
+                filter: drop-shadow(5px 5px 15px rgba(0, 0, 0, 0.25));
+                mix-blend-mode: normal;
+
+                width: 100%;
+                padding: 2.5rem;
+
+                display: flex;
+
+                .user-profile {
+                    border-radius: 26px;
+                    height: 10.4rem;
+                    margin: 0 2.5rem 0 0;
+                }
+
+                .user-name, .content{ 
+                    font-family: variables.$secondary-font;
+                }
+
+                .user-name {
+                    font-size: 2.2rem;
+                    font-weight: 600;
+                    margin: 0 0 1.8rem 0;
+                }
+
+                .content {
+                    font-size: 1.8rem;
+                }
+            }
+        }
+    }
+}
