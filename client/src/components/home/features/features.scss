@@ -1,33 +1,37 @@
-ul.feature-list {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 2.5rem;
+@use 'src/global/_variables.scss';
 
-    li.feature-item {
-
-        div { 
-            background: linear-gradient(223.49deg, #172A32 11.8%, #0E1C26 90.12%);
-            filter: drop-shadow(10px 10px 15px rgba(0, 0, 0, 0.23));
-            border-radius: 25px;
-
-            min-height: 22rem;
-            padding: 5rem .5rem 0 .5rem; 
-
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-
-            img {
-                width: 94px;
-                height: 94px;
-            }
-
-            p {
-                font-size: 1.1rem;
-                font-weight: bold;
-                text-align: center;
-
-                padding: 2rem 0; 
+.feature-section {
+    .feature-list {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 2.2rem;
+    
+        .feature-item {
+    
+            div { 
+                background: linear-gradient(223.49deg, #172A32 11.8%, #0E1C26 90.12%);
+                filter: drop-shadow(10px 10px 15px rgba(0, 0, 0, 0.23));
+                border-radius: 25px;
+    
+                min-height: 22rem;
+                padding: 5rem .5rem 0 .5rem; 
+    
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+    
+                img {
+                    width: 94px;
+                    height: 94px;
+                }
+    
+                p {
+                    font-size: 1.1rem;
+                    font-weight: bold;
+                    text-align: center;
+    
+                    padding: 2rem 0; 
+                }
             }
         }
     }

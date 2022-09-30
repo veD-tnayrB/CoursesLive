@@ -3,6 +3,8 @@ import axios from 'axios';
 import { getAllCourses } from 'src/services/courses';
 import Hero from 'src/components/home/hero';
 import FeatureList from 'src/components/home/features';
+import Comments from 'src/components/home/comments';
+import './home.scss';
 
 function Home() {
     const [courses, setCourses] = React.useState({});
@@ -18,9 +20,10 @@ function Home() {
 
 
     return (
-        <div>
+        <div className="home-page">
             <Hero />
             <FeatureList />
+            <Comments />
             <div>{JSON.stringify(courses)}</div>
         </div>
     )
