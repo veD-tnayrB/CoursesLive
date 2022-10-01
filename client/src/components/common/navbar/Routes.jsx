@@ -4,7 +4,7 @@ import { ROUTES } from './defined-routes';
 function Routes() {
 
     const routesElements = ROUTES.map(element => (
-        <NavLink to={element.route}>
+        <NavLink className="nav-route" to={element.route}>
             {element.name}
         </NavLink>
     ))

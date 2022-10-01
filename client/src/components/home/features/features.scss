@@ -7,7 +7,6 @@
         gap: 2.2rem;
     
         .feature-item {
-    
             div { 
                 background: linear-gradient(223.49deg, #172A32 11.8%, #0E1C26 90.12%);
                 filter: drop-shadow(10px 10px 15px rgba(0, 0, 0, 0.23));
@@ -21,8 +20,9 @@
                 align-items: center;
     
                 img {
-                    width: 94px;
-                    height: 94px;
+                    width: 90px;
+                    height: 90px;
+                    aspect-ratio: 1/1;
                 }
     
                 p {

@@ -33,11 +33,11 @@ main {
     background: variables.$main-text-color;
     border: 1px solid transparent;
     color: variables.$primary-background;
-    border-radius: 10px;
+    border-radius: 5px;
     cursor: pointer;
     
     font-weight: 700;
-    font-size: .8rem;
+    font-size: 1.05rem;
 
     padding: .7rem 3rem;
     transition: background .1s linear;

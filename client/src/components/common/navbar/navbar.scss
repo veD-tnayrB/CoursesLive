@@ -17,11 +17,12 @@
                 display: flex;
                 gap: 1.8rem;
 
-                a {
+                .nav-route {
                     text-decoration: none;
                     font-family: variables.$secondary-font;
                     font-weight: bold;
                     color: variables.$main-text-color;
+                    font-size: 1.05rem;
 
                     &:hover {
                         text-decoration: underline;
