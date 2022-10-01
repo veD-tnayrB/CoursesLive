@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import Navbar from './components/common/navbar';
+import Footer from 'src/components/common/footer';
 import { BrowserRouter } from 'react-router-dom';
 
 import App from './App';
@@ -12,5 +13,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <main>
       <App />
     </main>
+    <Footer />
   </BrowserRouter>
 );
