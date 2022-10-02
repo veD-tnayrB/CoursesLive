@@ -6,14 +6,9 @@ import Episode from '../models/episode.js';
 // Get all the courses from data base
 const getAll = async (req, res, next) => {
     try {
-        const courses = await Course.find({  }).populate('episodes', {
-            course: 0,
-            creator: 0,
-            comments: 0,
-            video: 0,
-            peopleWhoLikedIt: 0,
+        const courses = await Course.find({  }).populate('creator', {
+            
         });
-
 
         return res.status(200).json(courses);
             

@@ -29,6 +29,12 @@ main {
     padding: 0 2rem;
 }
 
+button {
+    cursor: pointer;
+    background: transparent;
+    border: none;
+}
+
 .primary-button {
     background: variables.$main-text-color;
     border: 1px solid transparent;
@@ -47,6 +53,14 @@ main {
         border: 1px solid variables.$main-text-color;
         color: variables.$main-text-color;
     }
+}
+
+.default-button {
+    background: variables.$primary-background;
+    color: variables.$main-text-color;
+    font-weight: bold;
+    border-radius: 5px;
+    padding: .8rem 1.4rem;
 }
 
 section {

@@ -1,0 +1,19 @@
+.main-header {
+    background: linear-gradient(151.47deg, #172A32 46.1%, #2A454B 81.1%);
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.25);
+    border-radius: 15px;
+}
+
+.main-header.subtitle {
+    height: 20vh;
+    margin: 0 0 2rem 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    h2 {
+        font-size: 2rem;
+        font-weight: bold;
+    }
+}
