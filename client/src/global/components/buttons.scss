@@ -1,0 +1,35 @@
+@use '../variables';
+
+button {
+    cursor: pointer;
+    background: transparent;
+    border: none;
+}
+
+.primary-button {
+    background: variables.$main-text-color;
+    border: 1px solid transparent;
+    color: variables.$primary-background;
+    border-radius: 5px;
+    cursor: pointer;
+    
+    font-weight: 700;
+    font-size: 1.05rem;
+
+    padding: .7rem 3rem;
+    transition: background .1s linear;
+
+    &:hover {
+        background: variables.$primary-background;
+        border: 1px solid variables.$main-text-color;
+        color: variables.$main-text-color;
+    }
+}
+
+.default-button {
+    background: variables.$primary-background;
+    color: variables.$main-text-color;
+    font-weight: bold;
+    border-radius: 5px;
+    padding: .8rem 1.4rem;
+}

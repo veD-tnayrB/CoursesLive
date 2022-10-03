@@ -6,7 +6,7 @@ export async function getAllCourses(signal) {
     return data;
 };
 
-export async function filterCourses(signal, queries) {
-    const { data } = await axios.get(`${ENVIRONMENT}courses/filter?tags=${queries}`, {signal});
+export async function searchCourses(signal, searchValue, queries) {
+    const { data } = await axios.get(`${ENVIRONMENT}courses?search=${searchValue}&filter=${queries}`, {signal});
     return data;
 };

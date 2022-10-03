@@ -1,0 +1,56 @@
+@use 'src/global/_variables.scss';
+
+.search-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+
+    .search-input-container {
+        background: variables.$secondary-color;
+        box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.25);
+        border-radius: 15px;
+
+        min-width: 20rem;
+        padding: 0 1.1rem;
+
+        form {
+            display: flex;
+            align-items: center;
+    
+            .search-input {
+                width: 100%;
+                padding: .8rem 0;
+
+                &::placeholder {
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+
+    .filters {
+        gap: 1rem;
+
+        ul {
+            display: grid;
+            align-content: center;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+
+            .filter {
+                background: variables.$secondary-color;
+                filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, 0.25));
+                border-radius: 10px;
+                font-weight: 600;
+    
+                padding: .8rem 1.1rem;
+    
+                &.selected {
+                    filter: none;
+                    box-shadow: inset 5px 5px 15px rgba(0, 0, 0, 0.35);
+                }
+            }
+        }
+    }
+}
