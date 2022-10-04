@@ -1,0 +1,26 @@
+.sign-up-form {
+
+
+    .first-row {
+        margin: 1.5rem 0;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+
+        .validation-input {
+            margin: 0;
+        }
+    }
+
+    .validation-input {
+        width: 100%;
+        margin: 1.5rem 0;
+    }
+
+    .actions-container {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 2rem;
+    }
+}

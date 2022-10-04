@@ -1,0 +1,26 @@
+@use 'src/global/_variables.scss';
+
+.validation-input {
+    background: variables.$third-color;
+    border-radius: 10px;
+
+    width: -moz-fit-content;
+    width: fit-content;
+
+    padding: .5rem 1rem;
+
+    display: flex;
+    align-items: center;
+
+    input {
+        width: 100%;
+        padding: .5rem 0;
+    }
+
+    img {
+        width: 25px;
+        height: 25px;
+        aspect-ratio: 1/1;
+        border-radius: 50%;
+    }
+}

@@ -1,0 +1,18 @@
+@use 'src/global/_variables.scss';
+
+.sign-up-page {
+    display: flex;
+    justify-content: center;
+
+    section {
+        background: variables.$secondary-color;
+        box-shadow: 8px 8px 5px #00000026;
+        border-radius: 15px;
+
+        width: -moz-fit-content;
+        width: fit-content;
+
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+    }
+}

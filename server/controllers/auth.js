@@ -31,7 +31,6 @@ const signup = async (req, res, next) => {
         // Search for a user with the same mail
         const user = await User.findOne({ mail: newUserDetails.mail });
         const userAlreadyExist = user;
-        console.log(user)
         
         if (userAlreadyExist) {
             throw Error('the user already exist');

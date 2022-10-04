@@ -33,3 +33,11 @@ button {
     border-radius: 5px;
     padding: .8rem 1.4rem;
 }
+
+a {
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
