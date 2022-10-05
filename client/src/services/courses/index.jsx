@@ -2,8 +2,14 @@ import axios from 'axios';
 import { ENVIRONMENT } from '../config';
 
 export async function getAllCourses(signal) {
-    const { data } = await axios.get(`${ENVIRONMENT}courses/`, {signal});
-    return data;
+    try {
+        const { data } = await axios.get(`${ENVIRONMENT}courses`, {signal});
+        return data;
+
+    } catch ({ response: { data: errors } }) {
+        console.error(errors);
+        throw new Error(errors.message);
+    }
 };
 
 export async function searchCourses(signal, searchValue, queries) {

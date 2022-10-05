@@ -5,7 +5,7 @@ export const useUserContext = () => React.useContext(UserContext);
 
 export default
 function UserContextProvider({ children }) {
-    const [user, setUser] = React.useState();
+    const [user, setUser] = React.useState({});
     const isUserLogged = user;
 
     return (

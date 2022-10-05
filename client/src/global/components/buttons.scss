@@ -24,6 +24,16 @@ button {
         border: 1px solid variables.$main-text-color;
         color: variables.$main-text-color;
     }
+
+    &:disabled {
+        cursor: not-allowed;
+        opacity: .5;
+
+        &:hover {
+            background: variables.$main-text-color;
+            color: variables.$primary-background;
+        }
+    }
 }
 
 .default-button {

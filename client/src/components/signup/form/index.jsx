@@ -1,72 +1,103 @@
 import React from "react";
 import { Link } from 'react-router-dom';
+import useForm from "src/hooks/useForm";
 import ValidationInput from "src/components/common/validation-input";
-import { multiInputHandleChange } from "src/utils/input-handle-changes";
+import { signup } from "src/services/auth";
+import { useUserContext } from "src/contexts/user.context";
 import './form.scss';
 
 const namePattern = /^[A-Z]{1,1}[a-z]+$/;
 const lastNamePattern = /^[A-Z]{1,1}[a-z]+$/;
-const mailPattern = /^[a-z_0-9]+@[a-z_]+?\.[a-zA-Z]{2,3}$/;
+const mailPattern = /^[A-Za-z_0-9]+@[a-z_]+?\.[a-zA-Z]{2,3}$/;
 const passwordPattern = /[\w]{8,16}/;
 
 const INITIAL_VALUES = {
-    name: '',
-    lastName: '',
-    mail: '',
-    password: ''
+    name: {value: '', isCorrect: false, validation: namePattern},
+    lastName: {value: '', isCorrect: false, validation: lastNamePattern},
+    mail: {value: '', isCorrect: false, validation: mailPattern},
+    password: {value: '', isCorrect: false, validation: passwordPattern}
 }
+const TOTAL_INPUTS = Object.keys(INITIAL_VALUES);
 
 export default function SignupForm() {
-    const [values, setValues] = React.useState(INITIAL_VALUES);
+    const { setUser } = useUserContext();
+    const [requestError, setRequestError] = React.useState('');
+    const {form, handleChanges} = useForm(INITIAL_VALUES); 
 
-    const handleChange = (event) => multiInputHandleChange(event, setValues);
+    const correctInputs = Object.keys(form).filter(prop => form[prop].isCorrect);
+    const isInfoCorrect = correctInputs.length === TOTAL_INPUTS.length;
+
+    function handleSubmit(event) {
+        event.preventDefault();
+        const formatedUser = {
+            name: form.name.value,
+            lastName: form.lastName.value,
+            mail: form.mail.value,
+            password: form.password.value
+        }
+
+        signup(formatedUser)
+        .then(response => setUser({...response.user, token: response.token}))
+        .catch(err => setRequestError(err.message));
+    }
 
     return (
-        <form className="sign-up-form">
+        <form 
+            onSubmit={handleSubmit}
+            className="sign-up-form"
+        >
             <div className="first-row">
                 <ValidationInput
                     type="text"
                     name="name"
-                    value={values.name}
-                    onChange={handleChange}
+                    value={form.name.value}
+                    onChange={handleChanges}
                     placeholder="Name"
-                    autocomplete="off"
-                    validation={namePattern} 
+                    autoComplete="off"
+                    isCorrect={form.name.isCorrect} 
                 />
                 <ValidationInput 
                     type="text"
                     name="lastName"
-                    value={values.lastName}
-                    onChange={handleChange}
+                    value={form.lastName.value}
+                    onChange={handleChanges}
                     placeholder="Last Name"
-                    autocomplete="off"
-                    validation={lastNamePattern} 
+                    autoComplete="off"
+                    isCorrect={form.lastName.isCorrect} 
                 />
             </div>
 
             <ValidationInput 
                 type="text"
                 name="mail"
-                value={values.mail}
-                onChange={handleChange}
+                value={form.mail.value}
+                onChange={handleChanges}
                 placeholder="Mail"
-                autocomplete="off"
-                validation={mailPattern} 
+                autoComplete="off"
+                isCorrect={form.mail.isCorrect} 
             />
             <ValidationInput 
                 type="password"
                 name="password"
-                value={values.password}
-                onChange={handleChange}
+                value={form.password.value}
+                onChange={handleChanges}
                 placeholder="Password"
-                autocomplete="off"
-                validation={passwordPattern} 
+                autoComplete="off"
+                isCorrect={form.password.isCorrect} 
             />
+
+            {
+                requestError &&
+                <p>{requestError}</p>
+            }
 
             <div className="actions-container">
                 <Link to="/login"> Log in!</Link>
 
-                <button className="primary-button">
+                <button
+                    disabled={!isInfoCorrect} 
+                    className="primary-button"
+                >
                     Register
                 </button>
             </div>

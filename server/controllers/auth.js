@@ -26,6 +26,7 @@ const login = async (req, res, next) => {
 // Register a user
 const signup = async (req, res, next) => {
     const newUserDetails = req.body;
+    console.log(3, newUserDetails)
 
     try {
         // Search for a user with the same mail
@@ -40,6 +41,8 @@ const signup = async (req, res, next) => {
 
         const newUserInformaton = {
             ...newUserDetails,
+            mail: newUserDetails.mail.toLowerCase(),
+            profileImage: 'files/default-user.svg',
             role: DEFAULT_ROLE,
             courses: []
         }

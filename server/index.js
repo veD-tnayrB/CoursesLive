@@ -10,6 +10,7 @@ import userRouter from './routes/user.js';
 import episodeRouter from './routes/episode.js';
 import commentRouter from './routes/comment.js';
 import testRouter from './routes/test.js';
+import fileRouter from './routes/files.js';
 
 // Middlewares imports
 import errorHandler from './middlewares/errorHandler.js';
@@ -17,7 +18,6 @@ import errorHandler from './middlewares/errorHandler.js';
 
 dotenv.config(); // This is for enviroment variables
 const app = express();
-
 
 // Middlewares
 app.use(cors());
@@ -30,6 +30,7 @@ app.use('/users/', userRouter);
 app.use('/course/', episodeRouter);
 app.use('/episode/', commentRouter);
 app.use('/episode/', testRouter); // WORK IN PROGRESS
+app.use('/files/', fileRouter);
 
 app.use(errorHandler);
 

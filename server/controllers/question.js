@@ -43,7 +43,7 @@ const create = async (req, res, next) => {
 }
 
 // Remove Question
-const remove = (req, res, next) => {
+const remove = async (req, res, next) => {
     const { episodeId, testId, questionId } = req.params;
 
     try {
