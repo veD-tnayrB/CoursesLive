@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import useForm from "src/hooks/useForm";
 import ValidationInput from "src/components/common/validation-input";
 import { signup } from "src/services/auth";
@@ -22,7 +22,8 @@ const TOTAL_INPUTS = Object.keys(INITIAL_VALUES);
 export default function SignupForm() {
     const { setUser } = useUserContext();
     const [requestError, setRequestError] = React.useState('');
-    const {form, handleChanges} = useForm(INITIAL_VALUES); 
+    const {form, handleChanges} = useForm(INITIAL_VALUES);
+    const navigateTo = useNavigate(); 
 
     const correctInputs = Object.keys(form).filter(prop => form[prop].isCorrect);
     const isInfoCorrect = correctInputs.length === TOTAL_INPUTS.length;
@@ -37,7 +38,10 @@ export default function SignupForm() {
         }
 
         signup(formatedUser)
-        .then(response => setUser({...response.user, token: response.token}))
+        .then(response => {
+            setUser({...response.user, token: response.token});
+            navigateTo('/');
+        })
         .catch(err => setRequestError(err.message));
     }
 
@@ -86,10 +90,14 @@ export default function SignupForm() {
                 isCorrect={form.password.isCorrect} 
             />
 
-            {
-                requestError &&
-                <p>{requestError}</p>
-            }
+            <div className="errors-container">
+                {
+                    requestError && !isInfoCorrect && 
+                    (
+                        <p className="errors">{requestError}</p>
+                    )
+                }
+            </div>
 
             <div className="actions-container">
                 <Link to="/login"> Log in!</Link>

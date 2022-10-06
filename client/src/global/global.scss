@@ -44,3 +44,9 @@ input {
     border-radius: 0;
     border: none;
 }
+
+@media (max-width: variables.$mobile-breakpoint) {
+    main{ 
+        padding: 0 1rem;
+    }
+}

@@ -77,11 +77,33 @@
 
             p {
                 text-align: center;
-                
+
                 a {
                     padding: 0 .2rem;
                 }
             }
+        }
+    }
+}
+
+@media (max-width: variables.$mobile-breakpoint) {
+    .main-footer {
+        padding: 2rem 0 0 0;
+
+        .main-information {
+            grid-template-columns: 100%;
+
+            .social-media{ 
+                display: none;
+            }
+
+            .footer-section-container {
+                display: none;
+            }
+        }
+
+        .copy-section {
+            padding: 0 2rem;
         }
     }
 }

@@ -5,7 +5,7 @@ export default function FooterSections() {
 
     const sections = sectionList.map(section => (
         <FooterSection 
-            key={section.title} 
+            key={section.id} 
             section={section} 
         />
     ))

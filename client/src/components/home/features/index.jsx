@@ -7,7 +7,7 @@ function FeatureList() {
 
     const featureElements = featureList.map(feature => (
         <Feature
-            key={feature.overview} 
+            key={feature.icon} 
             feature={feature} 
         />
     ))

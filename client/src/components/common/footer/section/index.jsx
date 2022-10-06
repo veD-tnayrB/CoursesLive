@@ -2,7 +2,7 @@ import Item from "./Item"
 
 export default function FooterSection({ section }) {
     const sectionItems = section.items.map(item => (
-        <Item key={item.name} item={item} />
+        <Item key={item.id} item={item} />
     ))
 
     return (

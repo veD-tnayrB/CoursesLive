@@ -32,3 +32,15 @@
         }
     }
 }
+
+@media (max-width: variables.$mobile-breakpoint) {
+    .primary-navbar {
+        ul {
+            .logo-container {
+                h1 {
+                    display: none;
+                }
+            }
+        }
+    }
+}

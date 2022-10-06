@@ -1,6 +1,6 @@
+@use 'src/global/_variables.scss';
+
 .sign-up-form {
-
-
     .first-row {
         margin: 1.5rem 0;
         display: grid;
@@ -9,18 +9,54 @@
 
         .validation-input {
             margin: 0;
+            min-width: 12rem;
         }
     }
 
     .validation-input {
         width: 100%;
         margin: 1.5rem 0;
+
+        &:last-of-type {
+            margin: 0;
+        }
     }
 
     .actions-container {
+        margin: .5rem 0 0 0;
         display: flex;
         justify-content: flex-end;
         align-items: center;
         gap: 2rem;
+    }
+
+    .errors-container {
+        position: relative;
+        .errors {
+            color: variables.$smooth-red;
+        }
+    }
+}
+
+@media (max-width: variables.$mobile-breakpoint) {
+    .sign-up-form {
+        .first-row {
+            grid-template-columns: 1fr;
+            grid-template-rows: repeat(2, 1fr);
+    
+        }
+
+        .actions-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+
+            a {
+                margin: 0 1.2rem;
+            }
+        }
+
+        .errors-container {
+            margin: 0 0 1.5rem 0;
+        }
     }
 }
