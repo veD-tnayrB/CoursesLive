@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useUserContext } from 'src/contexts/user.context';
+import { useUserContext } from 'src/contexts/user/user.context';
 import Header from 'src/components/common/header';
 import './hero.scss';
 

@@ -1,9 +1,8 @@
 import React from "react";
 import { Link, useNavigate } from 'react-router-dom';
+import { useUserContext } from "src/contexts/user/user.context";
 import useForm from "src/hooks/useForm";
 import ValidationInput from "src/components/common/validation-input";
-import { signup } from "src/services/auth";
-import { useUserContext } from "src/contexts/user.context";
 import './form.scss';
 
 const namePattern = /^[A-Z]{1,1}[a-z]+$/;
@@ -20,30 +19,25 @@ const INITIAL_VALUES = {
 const TOTAL_INPUTS = Object.keys(INITIAL_VALUES);
 
 export default function SignupForm() {
-    const { setUser } = useUserContext();
-    const [requestError, setRequestError] = React.useState('');
+    const { error, signup } = useUserContext();
     const {form, handleChanges} = useForm(INITIAL_VALUES);
     const navigateTo = useNavigate(); 
 
     const correctInputs = Object.keys(form).filter(prop => form[prop].isCorrect);
     const isInfoCorrect = correctInputs.length === TOTAL_INPUTS.length;
 
-    function handleSubmit(event) {
+    async function handleSubmit(event) {
         event.preventDefault();
         const formatedUser = {
             name: form.name.value,
             lastName: form.lastName.value,
             mail: form.mail.value,
             password: form.password.value
-        }
+        };
 
-        signup(formatedUser)
-        .then(response => {
-            setUser({...response.user, token: response.token});
-            navigateTo('/');
-        })
-        .catch(err => setRequestError(err.message));
-    }
+        const isEverythingOk = await signup(formatedUser);
+        if (isEverythingOk) navigateTo('/');
+    };
 
     return (
         <form 
@@ -91,12 +85,7 @@ export default function SignupForm() {
             />
 
             <div className="errors-container">
-                {
-                    requestError && !isInfoCorrect && 
-                    (
-                        <p className="errors">{requestError}</p>
-                    )
-                }
+                <p className="errors">{error}</p>
             </div>
 
             <div className="actions-container">

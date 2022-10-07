@@ -2,16 +2,11 @@
 
 .courses-section {
     min-height: 100vh;
+    padding: 0 0 2rem 0;
     display: flex;
     justify-content: center;
 
-    ul {
-        width: 100%;
-        display: flex;
-
-        justify-content: space-between;
-        gap: 1rem;
-
+    .list {
         .card-item {
             display: flex;
             width: -moz-fit-content;

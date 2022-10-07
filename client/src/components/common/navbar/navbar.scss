@@ -13,6 +13,17 @@
             gap: 1.5rem;
             align-items: center;
 
+            .user-config-wrapper {
+                display: flex;
+                align-items: center;
+
+                img {
+                    width: 36px;
+                    height: 36px;
+                    aspect-ratio: 1/1;
+                }
+            }
+
             .routes-list {
                 display: flex;
                 gap: 1.8rem;
