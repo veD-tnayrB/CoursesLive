@@ -1,0 +1,17 @@
+.login-page {
+    display: flex;
+    justify-content: center;
+
+    .login-header {
+        p {
+            margin: 0 0 2rem 0;
+        }
+    }
+
+    .modal {
+        min-width: fit-content;
+        width: 50%;
+        max-width: 42rem;
+        margin: 4rem 0;
+    }
+}

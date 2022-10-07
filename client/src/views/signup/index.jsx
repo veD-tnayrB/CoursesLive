@@ -1,7 +1,8 @@
 import { Navigate } from "react-router-dom";
-import { useUserContext } from "src/contexts/user.context";
+import { useUserContext } from "src/contexts/user/user.context";
 import SignupHeader from "src/components/signup/header";
 import SignupForm from "src/components/signup/form";
+import Modal from "src/components/common/modal";
 import './signup.scss';
 
 export default function Signup() {
@@ -10,10 +11,10 @@ export default function Signup() {
     
     return (
         <div className="sign-up-page">
-            <section>
+            <Modal>
                 <SignupHeader />
                 <SignupForm />
-            </section>
+            </Modal>
         </div>
     )
 }

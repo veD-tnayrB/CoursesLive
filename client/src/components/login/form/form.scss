@@ -1,45 +1,38 @@
 @use 'src/global/_variables.scss';
 
-.sign-up-form {
-    .first-row {
-        margin: 1.5rem 0;
+.login-form {
+    display: grid;
+    gap: 1.5rem;
+
+    .inputs-container {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(2, 1fr);
         gap: 1.5rem;
 
         .validation-input {
-            margin: 0;
-            min-width: 12rem;
-        }
-    }
-
-    .validation-input {
-        width: 100%;
-        margin: 1.5rem 0;
-
-        &:last-of-type {
-            margin: 0;
-        }
-    }
-
-    .errors-container {
-        position: relative;
-        .errors {
-            color: variables.$smooth-red;
+            width: 100%;
         }
     }
 
     .actions-container {
-        margin: 1rem 0 0 0;
         display: flex;
         justify-content: flex-end;
         align-items: center;
         gap: 2rem;
     }
+
+    .errors-container {
+        width: 100%;
+
+        .errors {
+            width: 100%;
+            color: variables.$smooth-red;
+        }
+    }
 }
 
 @media (max-width: variables.$mobile-breakpoint) {
-    .sign-up-form {
+    .login-form {
         .first-row {
             grid-template-columns: 1fr;
             grid-template-rows: repeat(2, 1fr);

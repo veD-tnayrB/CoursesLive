@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { getAllCourses } from 'src/services/courses';
-import SearchCourses from '../search-courses';
+import List from 'src/components/common/list';
 import Course from './Course';
 import './course-section.scss';
 
@@ -25,9 +25,9 @@ export default function CoursesSection({ courses, setCourses }) {
     return (
 
         <div className="courses-section">
-            <ul>
+            <List>
                 {coursesElements}
-            </ul>
+            </List>
         </div>
     )
 }

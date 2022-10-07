@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { useUserContext } from "src/contexts/user.context";
+import { useUserContext } from "src/contexts/user/user.context";
 import { ENVIRONMENT } from "src/services/config";
 import UserConfigTab from './config-tab';
 
 export default function User() {
-    const { user } = useUserContext();
+    const { user, isUserLogged } = useUserContext();
     const [showConfig, setShowConfig] = React.useState(false);
-    console.log(3, `${ENVIRONMENT}${user.profileImage}`)
+    const profileImg = isUserLogged ? `${ENVIRONMENT}${user.profileImage}` : 'src/assets/user/default-user.svg';
 
     function handleHover() {
         setShowConfig(currentValue => !currentValue);
@@ -19,7 +19,7 @@ export default function User() {
             className="user-config-wrapper"
         >
             <img 
-                src={`${ENVIRONMENT}${user.profileImage}`}
+                src={profileImg}
                 alt="user"
             />
 
