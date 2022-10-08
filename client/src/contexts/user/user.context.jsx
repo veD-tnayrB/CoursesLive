@@ -1,4 +1,5 @@
 import * as React from 'react';
+import axios from 'axios';
 import { ACTIONS, userReducer } from './user.reducer';
 import { signup as signupService, login as loginService } from 'src/services/auth';
 
@@ -16,6 +17,7 @@ const USER_INITIAL_STATE = thereSavedUser ? savedUser : {
 export default
 function UserContextProvider({ children }) {
     const [state, dispatch] = React.useReducer(userReducer, USER_INITIAL_STATE);
+    axios.defaults.headers.common['Authorization'] = state.user.token;
     const isUserLogged = state.fetched && state.user;
 
     React.useEffect(() => localStorage.setItem('user', JSON.stringify(state)), [state]);

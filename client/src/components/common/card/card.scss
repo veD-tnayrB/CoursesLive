@@ -1,3 +1,5 @@
+@use 'src/global/_variables.scss';
+
 .card-item {
     height: fit-content;
 
@@ -7,5 +9,67 @@
         border-radius: 15px;
         width: 22rem;
         height: 12.5rem;
+
+        display: grid;
+        grid-template-rows: 70% 30%;
+        padding: 1.2rem;
+
+        header {
+            display: grid;
+            grid-template-columns: 80% 20%;
+
+            img {
+                border-radius: 50%;
+                width: 50px;
+                height: 50px;
+                justify-self: end;
+                aspect-ratio: 1/1;
+            }
+
+            .info-container {
+
+                .title-container {
+                    overflow: hidden;
+                    display: -webkit-box;
+                    -webkit-line-clamp: 1;
+                    -webkit-box-orient: vertical;
+                }
+
+                h3 {
+                    font-size: 2rem;
+                    font-weight: bold;
+                }
+
+                span {
+                    font-weight: bold;
+                    text-transform: capitalize;
+                }
+
+                .blue {
+                    color: variables.$smooth-blue;
+                }
+                
+                .green {
+                    color: variables.$smooth-green;
+                }
+
+                .red {
+                    color: variables.$smooth-red;
+                }
+            }
+        }
+
+        .actions-container {
+            display: grid;
+            grid-template-columns: 3rem 3rem 1fr;
+            grid-template-areas: "delete modify suscription";
+
+
+            .suscribe-button-cont {
+                grid-area: suscription;
+                display: flex;
+                justify-content: flex-end;
+            }
+        }
     }
 }

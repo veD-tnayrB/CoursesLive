@@ -5,7 +5,7 @@ import Course from '../models/course.js';
 const getAll = async (req, res, next) => {
     try {
         const allUsers = await User.find({ });
-        return res.status(200).json({ users: allUsers });
+        return res.status(200).json(allUsers);
     } catch (error) {
         next(error);
     }

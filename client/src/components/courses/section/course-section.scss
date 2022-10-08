@@ -1,0 +1,16 @@
+@use 'src/global/_variables.scss';
+
+.courses-section {
+    min-height: 100vh;
+    padding: 0 0 2rem 0;
+    display: flex;
+    justify-content: center;
+
+    .list {
+        .card-item {
+            display: flex;
+            width: -moz-fit-content;
+            width: fit-content;
+        }
+    }
+}

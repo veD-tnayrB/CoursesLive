@@ -45,6 +45,12 @@ input {
     border: none;
 }
 
+.page {
+    .search-section {
+        margin: 2rem 0;
+    }
+}
+
 @media (max-width: variables.$mobile-breakpoint) {
     main{ 
         padding: 0 1rem;
