@@ -2,7 +2,7 @@ import * as React from 'react';
 import { getAllUsers } from 'src/services/user';
 import PreloadList from 'src/components/common/card/preload/list';
 import List from 'src/components/common/list';
-import User from './User';
+import User from './user';
 import './section.scss';
 
 export default function UserSection({ users, setUsers }) {

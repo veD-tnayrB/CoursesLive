@@ -2,7 +2,7 @@ import * as React from 'react';
 import { getAllCourses } from 'src/services/courses';
 import List from 'src/components/common/list';
 import PreloadList from 'src/components/common/card/preload/list';
-import Course from './Course';
+import Course from './course';
 import './course-section.scss';
 
 export default function CoursesSection({ courses, setCourses }) {

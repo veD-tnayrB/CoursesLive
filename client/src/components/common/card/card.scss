@@ -27,7 +27,6 @@
             }
 
             .info-container {
-
                 .title-container {
                     overflow: hidden;
                     display: -webkit-box;
@@ -63,9 +62,9 @@
             display: grid;
             grid-template-columns: 3rem 3rem 1fr;
             grid-template-areas: "delete modify suscription";
+            gap: .5rem;
 
-
-            .suscribe-button-cont {
+            .end-button {
                 grid-area: suscription;
                 display: flex;
                 justify-content: flex-end;

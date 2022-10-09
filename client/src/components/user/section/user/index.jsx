@@ -30,9 +30,22 @@ export default function User({ user }) {
                 />
             </header>
             <div className="actions-container">
+                <button className="default-button">
+                    <img 
+                        src="src/assets/icons/trash.svg"
+                    />
+                </button>
 
-                <div className="suscribe-button-cont">
-                    <button className="default-button suscribe-button">Delete</button>
+                <button className="default-button">
+                    <img 
+                        src="src/assets/icons/edit.svg"
+                    />
+                </button>
+
+                <div className="end-button">
+                    <button className="default-button">
+                        See profile
+                    </button>
                 </div>
             </div>
         </Card>

@@ -6,7 +6,6 @@ export const ACTIONS = {
 };
 
 export function userReducer(state, {type, payload}) {
-    console.log(4, payload);
     switch(type) {
         case ACTIONS.login: {
             return {

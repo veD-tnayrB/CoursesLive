@@ -16,7 +16,7 @@ export default function Users() {
             <Header className="subtitle">
                 <h2>Users</h2>
             </Header>
-            <SearchUsers />
+            {/* <SearchUsers /> */}
             <UserSection users={users} setUsers={setUsers} />
         </div>
     )

@@ -42,6 +42,10 @@ button {
     font-weight: bold;
     border-radius: 5px;
     padding: .8rem 1.4rem;
+
+    &.hover:hover {
+        background: variables.$fifth-color;
+    }
 }
 
 a {

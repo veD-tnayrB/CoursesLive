@@ -7,6 +7,7 @@ export default function User() {
     const { user, isUserLogged } = useUserContext();
     const [showConfig, setShowConfig] = React.useState(false);
     const profileImg = isUserLogged ? `${ENVIRONMENT}${user.profileImage}` : 'src/assets/user/default-user.svg';
+    const showConfigTab = isUserLogged && showConfig;
 
     function handleHover() {
         setShowConfig(currentValue => !currentValue);
@@ -24,7 +25,7 @@ export default function User() {
             />
 
             {
-                showConfig &&
+                showConfigTab &&
                 <UserConfigTab />
             }
         </div> 
