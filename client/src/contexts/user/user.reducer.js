@@ -2,6 +2,7 @@ export const ACTIONS = {
     'login': 'login',
     'signup': 'signup',
     'logout': 'logout',
+    'update': 'update',
     'reportError': 'reportError'
 };
 
@@ -36,6 +37,14 @@ export function userReducer(state, {type, payload}) {
                 user: {},
                 error: payload,
                 fetched: false
+            }
+        }
+
+        case ACTIONS.update: {
+            return {
+                user: {...payload, token: state.user.token},
+                error: '',
+                fetched: true
             }
         }
     }

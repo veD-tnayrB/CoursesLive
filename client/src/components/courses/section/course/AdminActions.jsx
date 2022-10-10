@@ -1,5 +1,4 @@
-
-export default function AdminActions() {
+export default function AdminActions({ courseId }) {
 
     return (
         <>

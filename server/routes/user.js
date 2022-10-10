@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getAll, edit, editRange, remove, filterByRole } from '../controllers/user.js'
+import { getAll, edit, editRange, remove, search } from '../controllers/user.js'
 import { isUserAdmin, isUser } from '../middlewares/isUserRole.js';
 import isBodyAUser from '../dtos/isBodyAUser.js';
 
@@ -17,6 +17,6 @@ userRouter.patch('/edit/range/:userId/:rank', isUserAdmin, editRange);
 // Delete the user
 userRouter.delete('/:userId/remove', isUserAdmin, remove);
 
-userRouter.get('/filter', isUserAdmin, filterByRole);
+userRouter.get('/search', isUserAdmin, search);
 
 export default userRouter;

@@ -1,7 +1,12 @@
-export default function UnsuscribeButton() {
+import { unsuscribeToCourse } from "src/services/courses";
+import { useUserContext } from "src/contexts/user/user.context";
 
-    function unsuscribe() {
+export default function UnsuscribeButton({ courseId, setIsSuscribed }) {
+    const { updateInfo } = useUserContext();
 
+    async function unsuscribe() {
+        const { user } = await unsuscribeToCourse(courseId);
+        updateInfo(user);
     }
 
     return (

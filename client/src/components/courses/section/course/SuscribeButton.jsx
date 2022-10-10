@@ -1,7 +1,12 @@
-export default function SuscribeButton() {
+import { useUserContext } from "src/contexts/user/user.context";
+import { suscribeToCourse } from "src/services/courses";
 
-    function suscribe() {
+export default function SuscribeButton({ courseId, setIsSuscribed }) {
+    const { updateInfo } = useUserContext();
 
+    async function suscribe() {
+        const { user } = await suscribeToCourse(courseId);
+        updateInfo(user);
     }
 
     return (

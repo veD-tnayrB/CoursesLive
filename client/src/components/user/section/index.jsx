@@ -5,8 +5,9 @@ import List from 'src/components/common/list';
 import User from './user';
 import './section.scss';
 
-export default function UserSection({ users, setUsers }) {
+export default function UserSection({ users, setUsers, searchResults }) {
     const [isLoading, setIsLoading] = React.useState(true);
+    const usersToDisplay = searchResults.length > 0 ? searchResults : users;
 
     React.useEffect(() => {
         const controller = new AbortController();
@@ -25,7 +26,7 @@ export default function UserSection({ users, setUsers }) {
 
     if (isLoading) return <PreloadList />
 
-    const userElements = users.map(user => (
+    const userElements = usersToDisplay.map(user => (
         <User key={user.id} user={user} />
     ))
 

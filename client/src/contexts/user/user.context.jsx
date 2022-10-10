@@ -17,7 +17,6 @@ const USER_INITIAL_STATE = thereSavedUser ? savedUser : {
 export default
 function UserContextProvider({ children }) {
     const [state, dispatch] = React.useReducer(userReducer, USER_INITIAL_STATE);
-    console.log(2, state);
     axios.defaults.headers.common['Authorization'] = state.user.token ?? '';
     const isUserLogged = state.fetched && state.user;
 
@@ -51,6 +50,11 @@ function UserContextProvider({ children }) {
         dispatch({type: ACTIONS.logout});
     }
 
+    function updateInfo(updatedUser) {
+        console.log('EXECUTED');
+        dispatch({type: ACTIONS.update, payload: updatedUser});
+    }
+
     const contextValue = {
         user: state.user,
         error: state.error,
@@ -58,7 +62,8 @@ function UserContextProvider({ children }) {
         isUserLogged, 
         signup,
         login,
-        logout
+        logout,
+        updateInfo
     }
 
     return (

@@ -8,6 +8,7 @@ import SearchUsers from 'src/components/user/search';
 export default function Users() {
     const { user } = useUserContext();
     const [users, setUsers] = React.useState([]);
+    const [searchResults, setSearchResults] = React.useState([]);
 
     if (user.role !== 'admin') return <Navigate to="/" />;
 
@@ -16,8 +17,12 @@ export default function Users() {
             <Header className="subtitle">
                 <h2>Users</h2>
             </Header>
-            {/* <SearchUsers /> */}
-            <UserSection users={users} setUsers={setUsers} />
+            <SearchUsers setSearchResults={setSearchResults} />
+            <UserSection 
+                users={users} 
+                setUsers={setUsers} 
+                searchResults={searchResults} 
+            />
         </div>
     )
 }

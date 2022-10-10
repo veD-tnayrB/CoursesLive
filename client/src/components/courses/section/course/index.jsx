@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { useUserContext } from "src/contexts/user/user.context";
 import Card from "src/components/common/card"
 import SuscribeButton from "./SuscribeButton";
@@ -14,11 +15,15 @@ const COLORS_BY_LEVEL = {
 
 export default function Course({ course }) {
     const { user } = useUserContext();
+    const isUserSuscribed = user.courses?.some(suscribedCourse => suscribedCourse === user.id);
+    console.log(1, isUserSuscribed, 2, course.id, user.courses);
+    const [isSuscribed, setIsSuscribed] = React.useState(isUserSuscribed);
     const isUserAdmin = user.role === 'admin';
-    const isUserSuscribed = user.courses?.find(suscribedCourse => suscribedCourse.id === course.id);
     const levelClass = COLORS_BY_LEVEL[course.level];
 
-    const suscriptionButton = isUserSuscribed ? <UnsuscribeButton /> : <SuscribeButton />;
+    const suscriptionButton = isSuscribed ? 
+    <UnsuscribeButton setIsSuscribed={setIsSuscribed} courseId={course.id} /> : 
+    <SuscribeButton setIsSuscribed={setIsSuscribed} courseId={course.id} />;
 
     return (
         <Card>
@@ -31,7 +36,7 @@ export default function Course({ course }) {
                 <img src={course.creator?.profileImage || TEMPORAL_CREATOR_IMG} />
             </header>
             <div className="actions-container">
-                {isUserAdmin && <AdminActions />}
+                {isUserAdmin && <AdminActions courseId={course.id} />}
                 
                 <div className="end-button">
                     {suscriptionButton}

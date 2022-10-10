@@ -6,6 +6,7 @@ export default function Filter({ filter }) {
     const filterSelectedClass = isFilterSelected ? 'selected' : '';
 
     function selectFilter() {
+        if (isFilterSelected) return setSelectedFilter('');
         setSelectedFilter(filter.value);
     }
 

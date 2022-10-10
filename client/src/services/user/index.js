@@ -12,9 +12,9 @@ export async function getAllUsers(signal) {
     }
 };
 
-export async function searchUsers(signal) {
+export async function searchUsers(signal, search, role) {
     try {
-        const { data } = await axios.get(`${ENVIRONMENT}users`, {signal});
+        const { data } = await axios.get(`${ENVIRONMENT}users/search?search=${search}&role=${role}`, {signal});
         return data;
 
     } catch ({ response: { data: errors } }) {

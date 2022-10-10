@@ -5,15 +5,17 @@ import CoursesSection from 'src/components/courses/section';
 
 export default function Courses() {
     const [courses, setCourses] = React.useState([]);
+    const [searchResults, setSearchResults] = React.useState([]);
 
     return (
         <div className="courses-page page">
             <Header className="subtitle">
                 <h2>Courses</h2>
             </Header>
-            <SearchCourses setCourses={setCourses} />
+            <SearchCourses setSearchResults={setSearchResults} />
             <CoursesSection 
                 courses={courses} 
+                searchResults={searchResults}
                 setCourses={setCourses} 
             />
         </div>

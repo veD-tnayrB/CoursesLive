@@ -1,16 +1,16 @@
 export const courseFilters = [
     {
         label: 'Beginner',
-        value: 'beginner'
+        value: 'Beginner'
     },
 
     {
         label: 'Mid Level',
-        value: 'mid level'
+        value: 'Mid Level'
     },
 
     {
         label: 'Senior',
-        value: 'senior'
+        value: 'Senior'
     }
 ];

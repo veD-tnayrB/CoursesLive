@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getAll, filterByTag, create, edit, remove, suscribe, unsuscribe } from '../controllers/course.js';
+import { getAll, search, create, edit, remove, suscribe, unsuscribe } from '../controllers/course.js';
 import { isUser, isUserAdminOrTeacher } from '../middlewares/isUserRole.js';
 import isBodyACourse from '../dtos/isBodyACourse.js';
 
@@ -9,7 +9,7 @@ const courseRouter = Router();
 courseRouter.get('/', getAll);
 
 // Filter by tag
-courseRouter.get('/filter', filterByTag);
+courseRouter.get('/search', search);
 
 // Create
 courseRouter.post('/create', isUserAdminOrTeacher, isBodyACourse, create);

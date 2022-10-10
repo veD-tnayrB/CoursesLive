@@ -17,19 +17,14 @@ const getAll = async (req, res, next) => {
     }
 }
 
-// Filter by tags
-const filterByTag = async (req, res, next) => {
-    const tags = req.query.tags;
+// Filter by name and level
+const search = async (req, res, next) => {
+    const courseName = req.query.search;
+    const level = req.query.level
 
     try {
         // Find the courses
-        const filteredCourses = await Course.find({ tags: { $all: tags } });
-        const theresNoCoursesWithThoseTags = filteredCourses.length === 0;
-
-        if (theresNoCoursesWithThoseTags) {
-            throw Error('theres no courses with those tags');
-        }
-
+        const filteredCourses = await Course.find({level: { $regex: level }, name: { $regex: courseName }});
         return res.status(200).json(filteredCourses);
     } catch (error) {
         next(error);
@@ -213,4 +208,4 @@ const unsuscribe = async (req, res, next) => {
 
 
 
-export { getAll, filterByTag, create, edit, remove, suscribe, unsuscribe };
+export { getAll, search, create, edit, remove, suscribe, unsuscribe };

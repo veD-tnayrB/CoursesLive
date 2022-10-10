@@ -79,22 +79,17 @@ const editRange = async (req, res, next) => {
     }
 }
 
-// Filters users by their role
-const filterByRole = async (req, res, next) => {
-    const { role: roleToSearch } = req.params;
-
+// Filters users by their role and name
+const search = async (req, res, next) => {
+    const roleToSearch = req.query.role;
+    const userName = req.query.search;
+    
     try {
-        const users = await User.find({ role: roleToSearch });
-        const theresNoUserWithRole = !users;
-
-        if (theresNoUserWithRole) {
-            throw Error('theres no users with that role');
-        }
-
-        return res.status(200).json({ users });
+        const filteredUsers = await User.find({ role: {$regex: roleToSearch}, name: { $regex: userName } });
+        return res.status(200).json(filteredUsers);
     } catch(error) {
         next(error);
     }
 }
 
-export { getAll, edit, remove, editRange, filterByRole };
+export { getAll, edit, remove, editRange, search };

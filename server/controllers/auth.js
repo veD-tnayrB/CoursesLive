@@ -26,7 +26,6 @@ const login = async (req, res, next) => {
 // Register a user
 const signup = async (req, res, next) => {
     const newUserDetails = req.body;
-    console.log(3, newUserDetails)
 
     try {
         // Search for a user with the same mail
@@ -54,10 +53,8 @@ const signup = async (req, res, next) => {
         if (userWasntCreated) {
             throw Error('user wasnt created');
         }
-        console.log(2)
         const token = jwt.sign({ id: newUser.id, role: newUser.role }, process.env.JWT_SECRET);
         newUser.save();
-        console.log(3)
         return res.status(201).json({ user: newUser, token });
     
     } catch (error) {

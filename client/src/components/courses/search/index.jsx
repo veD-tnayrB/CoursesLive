@@ -4,16 +4,15 @@ import { courseFilters } from './course-filters';
 import Searchbar from "src/components/common/searchbar";
 
 
-export default function SearchCourses({ setCourses }) {
-    const [selectedFilter, setSelectedFilter] = React.useState('All');
+export default function SearchCourses({ setSearchResults }) {
+    const [selectedFilter, setSelectedFilter] = React.useState('');
     const [searchValue, setSearchValue] = React.useState('');
-
 
     return (
         <Searchbar
-            filters={courseFilters}
             searchService={searchCourses}
-            setResults={setCourses}
+            filters={courseFilters}
+            setResults={setSearchResults}
             searchValue={searchValue}
             setSearchValue={setSearchValue}
             selectedFilter={selectedFilter}
