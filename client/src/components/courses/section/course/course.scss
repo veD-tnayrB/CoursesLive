@@ -1,0 +1,28 @@
+.card-item {
+    display: flex;
+    width: -moz-fit-content;
+    width: fit-content;
+
+    .card.course-item {
+        .actions-container {
+            .default-button {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                &.suscription {
+                    width: 8.4rem;
+                }
+
+                &.loading {
+                    padding: .2rem 2.5rem;
+
+                    .loading-icon::after {
+                        width: 15px;
+                        height: 15px;
+                    }
+                }
+            }
+        }
+    }
+}

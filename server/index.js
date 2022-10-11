@@ -2,6 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import cors from 'cors';
+import multer from 'multer';
 
 // Routers imports
 import authRouter from './routes/auth.js';

@@ -16,8 +16,8 @@ authRouter.post('/signup', isBodyAUser, signup);
 
 
 // TEMPORAL
-authRouter.patch('/admin/:userId', (req, res, next) => {
-    const { userId } = req.params;
+authRouter.get('/admin', (req, res, next) => {
+    const userId = req.query.user;
 
     User.findByIdAndUpdate({ _id: userId }, { role: 'admin' }, { new: true })
     .then(updatedUser => {

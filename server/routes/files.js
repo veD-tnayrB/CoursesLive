@@ -1,28 +1,26 @@
 import { Router } from "express";
 import path from 'path';
-import { fileURLToPath } from 'url';
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-import multer from 'multer';
+import multer from "multer";
 
-// const storage = multer.diskStorage({
-//     filename: (req, file, cb) => {
-//         const fileName = `${file.fieldname}-${Date.now()}`;
-//         cb(null, fileName);
-//     }
-// })
+const filesStorage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, '../images');
+    },
 
-// const upload = multer({ 
-//     dest: 'uploads/',
-//     storage
-    
-// }) // Multer config
+    filename: (req, file, cb) => {
+        const fileName = `${Date.now()}-${file.originalname}`;
+        cb(null, fileName);
+    }
+})    
+
+export const upload = multer({storage: filesStorage});
 
 const fileRouter = Router();
 
-fileRouter.post('/upload', (req, res, next) => {
-    console.log(1, req);
-    console.log(2, res);
+fileRouter.post('/single', upload.single('image'), (req, res, next) => {
+    console.log(1, req.file)
+    console.log('me ejecuto')
+    return res.status(200).json({ message: "Todo salio bien carnal" });
 });
 
 fileRouter.get('/images/:fileName', async (req, res, next) => {

@@ -1,0 +1,26 @@
+@use 'src/global/_variables.scss';
+
+.register-modal {
+    .modal {
+        padding: 2.5rem;
+
+        .secondary-message {
+            font-size: .9rem;
+            color: variables.$secondary-text-color;
+
+            .login-link {
+                font-size: .9rem;
+            }
+        }
+
+        .actions-container {
+            display: flex;
+            align-items: center;
+            justify-content: end;
+
+            .default-button {
+                justify-self: flex-end;
+            }
+        }
+    }
+}

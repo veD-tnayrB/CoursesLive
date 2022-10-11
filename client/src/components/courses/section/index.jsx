@@ -1,7 +1,9 @@
 import * as React from 'react';
 import { getAllCourses } from 'src/services/courses';
+import { useCoursesContext } from 'src/contexts/course/course.context';
 import List from 'src/components/common/list';
 import PreloadList from 'src/components/common/card/preload/list';
+import NewCourse from './new-course';
 import Course from './course';
 import './course-section.scss';
 
@@ -34,6 +36,7 @@ export default function CoursesSection({ courses, setCourses, searchResults }) {
 
         <div className="courses-section">
             <List>
+                <NewCourse />
                 {coursesElements}
             </List>
         </div>

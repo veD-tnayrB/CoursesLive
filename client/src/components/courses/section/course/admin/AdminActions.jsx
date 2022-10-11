@@ -1,22 +1,24 @@
+import ActionButton from "src/components/common/action-button";
+
 export default function AdminActions({ courseId }) {
+
 
     return (
         <>
-            <button
-                className="default-button"
-            >
+
+            <ActionButton>
                 <img
                     src="src/assets/icons/trash.svg"
+                    alt=""
                 />
-            </button>
+            </ActionButton>
 
-            <button
-                className="default-button"
-            >
+            <ActionButton>
                 <img
                     src="src/assets/icons/edit.svg"
+                    alt=""
                 />
-            </button>
+            </ActionButton>
         </>
     )
 }
