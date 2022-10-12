@@ -16,5 +16,5 @@ export default function useForm(initialValues, errors) {
         setFormValues({...form, [name]: {...form[name], value, isCorrect}});
     };
 
-    return { form, handleChange, handleChanges };
+    return { form, handleChange, handleChanges, setFormValues };
 }

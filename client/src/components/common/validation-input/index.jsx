@@ -6,7 +6,7 @@ export default function ValidationInput(props) {
     const cls = props.value.length > 0 ? props.isCorrect ? 'correct' : 'incorrect' : 'default';
 
     return (
-        <div className={`validation-input ${cls}`}>
+        <div className={`validation-input input-container ${cls}`}>
             <input {...otherProps} />
 
                 <img 

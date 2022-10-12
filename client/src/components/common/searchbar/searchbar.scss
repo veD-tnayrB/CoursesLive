@@ -18,12 +18,12 @@
             display: flex;
             align-items: center;
     
-            .search-input {
-                width: 100%;
-                padding: .8rem 0;
-
-                &::placeholder {
-                    font-weight: bold;
+                .search-input {
+                    width: 100%;
+                    padding: .8rem 0;
+    
+                    &::placeholder {
+                        font-weight: bold;
                 }
             }
         }

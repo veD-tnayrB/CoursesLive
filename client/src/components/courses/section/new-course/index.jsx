@@ -15,7 +15,7 @@ export default function NewCourse() {
                 onClick={showCreateCourseModal} 
                 className="create-course-button"
             >
-                +
+                <span>+</span>
             </button>
         </Card>
     )

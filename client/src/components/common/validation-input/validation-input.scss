@@ -1,18 +1,6 @@
 @use 'src/global/_variables.scss';
 
 .validation-input {
-    background: variables.$third-color;
-    border: 1px solid transparent;
-    border-radius: 10px;
-
-    width: -moz-fit-content;
-    width: fit-content;
-
-    padding: .5rem 1rem;
-
-    display: flex;
-    align-items: center;
-
     &.correct {
         border: 1px solid variables.$smooth-green;
     }

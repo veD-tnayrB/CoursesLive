@@ -5,14 +5,30 @@
         align-items: center;
 
         .create-course-button {
-            font-size: 2.5rem;
-            font-weight: bold;
             width: 100%;
             height: 100%;
 
             display: flex;
             justify-content: center;
             align-items: center;
+
+            span {
+                font-size: 2.5rem;
+                font-weight: bold;
+                transition: all .1s linear;
+            }
+
+            &:hover {
+                span {
+                    transform: scale(1.5);
+                }
+            }
+
+            &:active {
+                span {
+                    transform: scale(1);
+                }
+            }
         }
     }
 }

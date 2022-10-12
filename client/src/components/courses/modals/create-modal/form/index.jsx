@@ -1,36 +1,40 @@
-import ValidationInput from "src/components/common/validation-input";
-import useForm from "src/hooks/useForm";
+import { levelsList } from './levels';
+import ValidationInput from 'src/components/common/validation-input';
+import CreationModalActions from './actions';
+import useForm from 'src/hooks/useForm';
+import Level from './level';
+import './form.scss';
 
-/*
-    {
-    "name": "ReactJS",
-    "description": "This course is about SvelteJS",
-    "level": "Senior",
-    "tags": ["Css", "Html", "JS", "SvelteJS"]
-    }
-*/
-
-const namePattern = /^[A-Z]{1,1}[a-z]+$/;
-const lastNamePattern = /^[A-Z]{1,1}[a-z]+$/;
-const levelPattern = /Beginner | Mid Level | Senior/;
-const tags = /[\w]{8,16}/;
+const namePattern = /./;
+const lastNamePattern = /./;
+const levelPattern = /./;
+const tagsPattern = /[a-zA-Z]\,/;
 
 const INITIAL_VALUES = {
     name: {value: '', isCorrect: false, validation: namePattern},
-    description: {value: '', isCorrect: false, validation: lastNamePattern},
-    level: {value: '', isCorrect: false, validation: levelPattern},
-    tags: {value: '', isCorrect: true, validation: tags}
+    description: {value: '', isCorrect: true, validation: lastNamePattern},
+    level: {value: 'Begginer', isCorrect: false, validation: levelPattern},
+    tags: {value: '', isCorrect: false, validation: tagsPattern}
 }
 const TOTAL_INPUTS = Object.keys(INITIAL_VALUES);
 
 export default function CreateCourseForm() {
-    const {form, handleChanges} = useForm(INITIAL_VALUES);
+    const {form, handleChanges, setFormValues} = useForm(INITIAL_VALUES);
 
     const correctInputs = Object.keys(form).filter(prop => form[prop].isCorrect);
     const isInfoCorrect = correctInputs.length === TOTAL_INPUTS.length;
 
+    const levelElements = levelsList.map(level => (
+        <Level key={level.value} level={level} selectedLevel={form.level.value} setFormValues={setFormValues} />
+    ))
+
+    function create(event) {
+        event.preventDefault();
+        // Do things
+    }
+
     return (
-        <form>
+        <form className="create-course-form" onSubmit={create}>
             <ValidationInput 
                 type="text"
                 name="name"
@@ -41,35 +45,32 @@ export default function CreateCourseForm() {
                 isCorrect={form.name.isCorrect} 
             />
 
-            <ValidationInput 
-                type="text"
-                name="description"
-                value={form.description.value}
-                onChange={handleChanges}
-                placeholder="Description"
-                autoComplete="off"
-                isCorrect={form.description.isCorrect} 
-            />
+            <div className="input-container">
+                <textarea 
+                    type="text"
+                    name="description"
+                    value={form.description.value}
+                    onChange={handleChanges}
+                    placeholder="Description (Optional)"
+                    autoComplete="off" 
+                />
+            </div>
 
-            <ValidationInput 
-                type="text"
-                name="level"
-                value={form.level.value}
-                onChange={handleChanges}
-                placeholder="Level"
-                autoComplete="off"
-                isCorrect={form.level.isCorrect} 
-            />
+            <div className="levels-container">
+                {levelElements}
+            </div>
 
             <ValidationInput 
                 type="text"
                 name="tags"
                 value={form.tags.value}
                 onChange={handleChanges}
-                placeholder="Level"
+                placeholder="Tags (Optional)"
                 autoComplete="off"
                 isCorrect={form.tags.isCorrect} 
             />
+
+            <CreationModalActions isInfoCorrect={isInfoCorrect} />
         </form>
     )
 }
