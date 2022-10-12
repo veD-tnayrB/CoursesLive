@@ -48,6 +48,15 @@ button {
     }
 }
 
+.secondary-button {
+    background: transparent;
+    padding: .8rem 2rem;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
 a {
     text-decoration: none;
 

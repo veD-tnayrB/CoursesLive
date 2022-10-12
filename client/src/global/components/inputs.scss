@@ -1,0 +1,31 @@
+@use '../_variables.scss';
+
+.input-container {
+    background: variables.$third-color;
+    border: 1px solid transparent;
+    border-radius: 10px;
+
+    width: 100%;
+
+    padding: .5rem 1rem;
+
+    display: flex;
+    align-items: center;
+
+    textarea {
+        background: transparent;
+        min-width: 100%;
+        min-height: 6rem;
+        max-height: 12rem;
+    }
+}
+
+input,
+textarea {
+    background: transparent;
+    outline: transparent;
+    border-radius: 0;
+    border: none;
+    width: 100%;
+    padding: .5rem 0;
+}

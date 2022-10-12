@@ -15,11 +15,11 @@ export default function SearchInput() {
     return (
         <div className="search-input-container">
             <form>
-                <input 
-                    type="text" 
+                <input
+                    type="text"
                     className="search-input"
                     value={searchValue}
-                    onChange={onChange} 
+                    onChange={onChange}
                     placeholder="Search..."
                 />
 
