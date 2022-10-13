@@ -4,7 +4,7 @@ export default function CreationModalActions({ isInfoCorrect }) {
     const { setModals } = useCoursesContext();
 
     function back() {
-        setModals({...othersModals, create: false});
+        setModals(othersModals => ({...othersModals, create: false}));
     }
 
     return (

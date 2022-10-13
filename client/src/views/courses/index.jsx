@@ -25,9 +25,7 @@ export default function Courses() {
                 </Header>
                 <SearchCourses setSearchResults={setSearchResults} />
                 <CoursesSection 
-                    courses={courses} 
                     searchResults={searchResults}
-                    setCourses={setCourses} 
                 />
                 <RegisterModal />
                 <CreateModal />

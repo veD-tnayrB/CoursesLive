@@ -1,7 +1,7 @@
 export const levelsList = [
     {
-        label: 'Begginer',
-        value: 'Begginer'
+        label: 'Beginner',
+        value: 'Beginner'
     },
 
     {

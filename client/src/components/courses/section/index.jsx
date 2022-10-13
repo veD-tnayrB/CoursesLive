@@ -7,9 +7,11 @@ import NewCourse from './new-course';
 import Course from './course';
 import './course-section.scss';
 
-export default function CoursesSection({ courses, setCourses, searchResults }) {
+export default function CoursesSection({searchResults }) {
+    const { courses, setCourses } = useCoursesContext();
     const [isLoading, setIsLoading] = React.useState(true);
-    const coursesToDisplay = searchResults.length > 0 ? searchResults : courses;
+    const coursesToDisplay = courses;
+    console.log(56, courses)
 
     React.useEffect(() => {
         const controller = new AbortController();

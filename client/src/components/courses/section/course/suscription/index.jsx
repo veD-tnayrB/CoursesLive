@@ -7,7 +7,7 @@ export default function Suscription({ courseId, isUserSuscribed }) {
     const { modal, setModals } = useCoursesContext();
     const { updateInfo, isUserLogged } = useUserContext();
 
-    function suscribe(isLoading, setIsLoading) {
+    function suscribe({ isLoading, setIsLoading }) {
         if (isLoading) return;
         if (!isUserLogged) return setModals({...modal, register: true});
 
@@ -20,7 +20,7 @@ export default function Suscription({ courseId, isUserSuscribed }) {
             });
     }
 
-    function unsuscribe(isLoading, setIsLoading) {
+    function unsuscribe({ isLoading, setIsLoading }) {
         if (isLoading) return;
         setIsLoading(true);
 

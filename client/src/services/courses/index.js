@@ -14,7 +14,7 @@ export async function getAllCourses(signal) {
 
 export async function createCourse(newCourse) {
     try {
-        const { data } = await axios.get(`${ENVIRONMENT}courses/create`, newCourse);
+        const { data } = await axios.post(`${ENVIRONMENT}courses/create`, newCourse);
         return data;
 
     } catch ({ response: { data: errors } }) {

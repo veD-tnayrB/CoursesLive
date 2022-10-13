@@ -21,7 +21,6 @@ export default function CreateModal() {
                 <h1 className="title">Welcome to the creation form!</h1>
                 <p>
                     This is the course creation window, just by filling this information you will be able to start sharing your content on the platform!
-
                 </p>
                 <CreateCourseForm />
             </Modal>

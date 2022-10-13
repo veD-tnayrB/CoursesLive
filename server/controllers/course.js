@@ -6,9 +6,7 @@ import Episode from '../models/episode.js';
 // Get all the courses from data base
 const getAll = async (req, res, next) => {
     try {
-        const courses = await Course.find({  }).populate('creator', {
-            
-        });
+        const courses = await Course.find({  }).populate('creator');
 
         return res.status(200).json(courses);
             
@@ -43,7 +41,7 @@ const create = async (req, res, next) => {
 
         if (courseAlreadyExist) {
             throw Error('course already exist');
-        }
+        };
 
         const newCourse = {
             ...courseInfo,

@@ -51,7 +51,6 @@ function UserContextProvider({ children }) {
     }
 
     function updateInfo(updatedUser) {
-        console.log('EXECUTED');
         dispatch({type: ACTIONS.update, payload: updatedUser});
     }
 

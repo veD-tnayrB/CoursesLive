@@ -10,7 +10,7 @@ export default function ActionButton({ className, children, onClick }) {
     return (
         <>
             <button
-                onClick={() => onClick(isLoading, setIsLoading)}
+                onClick={(event) => onClick({isLoading, setIsLoading, event})}
                 className={`default-button ${loadingClass} ${className}`}
             >
                 {buttonContent}

@@ -8,8 +8,7 @@ const courseSchema = new Schema({
     },
 
     description: {
-        type: String,
-        required: true
+        type: String
     },
 
     level: {
@@ -18,8 +17,7 @@ const courseSchema = new Schema({
     },
 
     tags: {
-        type: [String],
-        required: true
+        type: [String]
     },
 
     creator: {
