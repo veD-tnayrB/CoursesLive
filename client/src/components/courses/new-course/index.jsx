@@ -6,7 +6,7 @@ export default function NewCourse() {
     const { modals, setModals } = useCoursesContext();
 
     function showCreateCourseModal() {
-        setModals({...modals, create: true});
+        setModals({...modals, create: {...modals.create, show: true}});
     }
 
     return (

@@ -1,21 +1,51 @@
 import * as React from 'react';
 import { CoursesContext } from 'src/contexts/course/course.context';
+import { getAllCourses } from 'src/services/courses';
 import SearchCourses from 'src/components/courses/search';
 import Header from 'src/components/common/header';
-import CoursesSection from 'src/components/courses/section';
 import RegisterModal from 'src/components/courses/modals/register-modal';
-import CreateModal from 'src/components/courses/modals/create-modal';
+import CreateCourseModal from 'src/components/courses/modals/create-modal';
+import DeleteCourseModal from 'src/components/courses/modals/delete-modal';
+// import EditCourseModal from 'src/components/courses/modals/edit-modal';
+import CoursesSection from 'src/components/courses/section';
+
+const MODAL_DEFAULT_VALUES = {
+    register: { show: false, payload: {} },
+    create: { show: false, payload: {} },
+    delete: { show: false, payload: {} },
+    edit: { show: false, payload: {} },
+}
 
 export default function Courses() {
     const [courses, setCourses] = React.useState([]);
-    const [searchResults, setSearchResults] = React.useState([]);
-    const [modals, setModals] = React.useState({ register: false, create: false, delete: false, edit: false });
+    const [isLoading, setIsLoading] = React.useState(true);
+    const [modals, setModals] = React.useState(MODAL_DEFAULT_VALUES);
+    const [search, setSearch] = React.useState({ selectedFilter: '', value: '' });
+
+    React.useEffect(() => {
+        const controller = new AbortController();
+        const signal = controller.signal;
+        
+        setIsLoading(true);
+
+        getAllCourses(signal, search.value, search.selectedFilter)
+            .then(response => {
+                setCourses(response);
+                setIsLoading(false);
+            })
+
+        return () => controller.abort();
+    }, [search]);
 
     const contextValue = {
         courses,
         setCourses, 
         modals, 
-        setModals
+        setModals,
+        isLoading,
+        setIsLoading,
+        search, 
+        setSearch
     }
     return (
         <CoursesContext.Provider value={contextValue}>
@@ -23,12 +53,13 @@ export default function Courses() {
                 <Header className="subtitle">
                     <h2>Courses</h2>
                 </Header>
-                <SearchCourses setSearchResults={setSearchResults} />
-                <CoursesSection 
-                    searchResults={searchResults}
-                />
+                <SearchCourses setSearchResults={setCourses} />
+                
+                <CoursesSection />
+
                 <RegisterModal />
-                <CreateModal />
+                <CreateCourseModal />
+                <DeleteCourseModal />
             </div>
         </CoursesContext.Provider>
     )

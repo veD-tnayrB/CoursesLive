@@ -8,13 +8,13 @@ export default function RegisterModal() {
     const { modals, setModals } = useCoursesContext();
 
     function onHide() {
-        setModals({...modals, register: false});
+        setModals({...modals, register: {...modals.register, show: false }});
     }
 
     return (
         <ModalContainer
             className="register-modal" 
-            show={modals.register}
+            show={modals.register.show}
         >
             <Modal>
                 <button onClick={onHide} className="close-modal-button">x</button>

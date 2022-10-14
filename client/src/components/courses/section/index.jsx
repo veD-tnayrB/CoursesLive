@@ -1,45 +1,25 @@
-import * as React from 'react';
-import { getAllCourses } from 'src/services/courses';
-import { useCoursesContext } from 'src/contexts/course/course.context';
-import List from 'src/components/common/list';
-import PreloadList from 'src/components/common/card/preload/list';
-import NewCourse from './new-course';
-import Course from './course';
-import './course-section.scss';
+import { useCoursesContext } from "src/contexts/course/course.context";
+import List from "src/components/common/list";
+import NewCourse from "../new-course";
+import Course from "../course";
+import PreloadList from "src/components/common/card/preload/List";
+import './section.scss';
 
-export default function CoursesSection({searchResults }) {
-    const { courses, setCourses } = useCoursesContext();
-    const [isLoading, setIsLoading] = React.useState(true);
-    const coursesToDisplay = courses;
-    console.log(56, courses)
-
-    React.useEffect(() => {
-        const controller = new AbortController();
-        const signal = controller.signal;
-
-        setIsLoading(true);
-
-        getAllCourses(signal)
-            .then(response => {
-                setCourses(response);
-                setIsLoading(false);
-            })
-
-        return () => controller.abort();
-    }, []);
+export default function CoursesSection() {
+    const { courses, isLoading, search } = useCoursesContext();
+    const theresQueries = search.value !== '' || search.selectedFilter !== '';
 
     if(isLoading) return <PreloadList />;
 
-    const coursesElements = coursesToDisplay.map(course => (
-        <Course key={course.id} course={course} />
-    ));
+    const elements = courses.map(item => (
+        <Course key={item.id} course={item} />
+    ))
 
     return (
-
-        <div className="courses-section">
+        <div className="course-section">
             <List>
-                <NewCourse />
-                {coursesElements}
+                {!theresQueries && <NewCourse />}
+                {elements}
             </List>
         </div>
     )

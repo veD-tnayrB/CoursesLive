@@ -9,7 +9,7 @@ export default function Suscription({ courseId, isUserSuscribed }) {
 
     function suscribe({ isLoading, setIsLoading }) {
         if (isLoading) return;
-        if (!isUserLogged) return setModals({...modal, register: true});
+        if (!isUserLogged) return setModals({...modal, register: { ...modal.register, show: true }});
 
         setIsLoading(true);
 
@@ -32,8 +32,8 @@ export default function Suscription({ courseId, isUserSuscribed }) {
     }
 
     const buttonToDisplay = !isUserSuscribed ? 
-    <ActionButton className="suscription" onClick={suscribe}>Suscribe</ActionButton> : 
-    <ActionButton className="suscription" onClick={unsuscribe}>Unsuscribe</ActionButton>;
+    <ActionButton className="suscription default-button" onClick={suscribe}>Suscribe</ActionButton> : 
+    <ActionButton className="suscription default-button" onClick={unsuscribe}>Unsuscribe</ActionButton>;
 
     return (
         <>

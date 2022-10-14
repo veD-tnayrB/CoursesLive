@@ -4,17 +4,17 @@ import Modal from 'src/components/common/modal';
 import CreateCourseForm from './form';
 import './create-modal.scss';
 
-export default function CreateModal() {
+export default function CreateCourseModal() {
     const { modals, setModals } = useCoursesContext();
 
     function onHide() {
-        setModals({...modals, create: false});
+        setModals({...modals, create: { ...modals.create, show: false }});
     }
 
     return (
         <ModalContainer
             className="create-modal" 
-            show={modals.create}
+            show={modals.create.show}
         >
             <Modal>
                 <button onClick={onHide} className="close-modal-button">x</button>

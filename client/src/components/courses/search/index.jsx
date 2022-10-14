@@ -1,22 +1,18 @@
 import * as React from 'react';
-import { searchCourses } from "src/services/courses";
+import { useCoursesContext } from 'src/contexts/course/course.context';
 import { courseFilters } from './course-filters';
 import Searchbar from "src/components/common/searchbar";
 
 
-export default function SearchCourses({ setSearchResults }) {
-    const [selectedFilter, setSelectedFilter] = React.useState('');
-    const [searchValue, setSearchValue] = React.useState('');
-
+export default function SearchCourses() {
+    const { search, setSearch, isLoading } = useCoursesContext();
+    
     return (
         <Searchbar
-            searchService={searchCourses}
+            setSearch={setSearch}
+            search={search}
             filters={courseFilters}
-            setResults={setSearchResults}
-            searchValue={searchValue}
-            setSearchValue={setSearchValue}
-            selectedFilter={selectedFilter}
-            setSelectedFilter={setSelectedFilter}
+            isLoading={isLoading}
         />
     )
 }

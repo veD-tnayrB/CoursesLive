@@ -6,24 +6,17 @@ import Episode from '../models/episode.js';
 // Get all the courses from data base
 const getAll = async (req, res, next) => {
     try {
-        const courses = await Course.find({  }).populate('creator');
+        const theresQueries = req.query;
+        let courses;
 
+        if (theresQueries) {
+            const { level, search: courseName } = req.query;
+            courses = await Course.find({level: { $regex: level }, name: { $regex: courseName }}).populate('creator');
+            return res.status(200).json(courses);
+        }
+
+        courses = await Course.find({  }).populate('creator');
         return res.status(200).json(courses);
-            
-    } catch (error) {
-        next(error);
-    }
-}
-
-// Filter by name and level
-const search = async (req, res, next) => {
-    const courseName = req.query.search;
-    const level = req.query.level
-
-    try {
-        // Find the courses
-        const filteredCourses = await Course.find({level: { $regex: level }, name: { $regex: courseName }});
-        return res.status(200).json(filteredCourses);
     } catch (error) {
         next(error);
     }
@@ -206,4 +199,4 @@ const unsuscribe = async (req, res, next) => {
 
 
 
-export { getAll, search, create, edit, remove, suscribe, unsuscribe };
+export { getAll, create, edit, remove, suscribe, unsuscribe };

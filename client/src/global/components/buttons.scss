@@ -19,6 +19,22 @@ button {
     padding: .7rem 3rem;
     transition: background .1s linear;
 
+    &.loading {
+        padding: 0 3rem;
+
+        .loading-icon::after {
+            width: 15px;
+            height: 15px;
+            border-color: variables.$primary-background transparent variables.$primary-background transparent;
+        }
+
+        &:hover, &:active {
+            background: variables.$main-text-color;
+            border: 1px solid transparent;
+            color: variables.$primary-background;
+        }
+    }
+
     &:hover {
         background: variables.$primary-background;
         border: 1px solid variables.$main-text-color;

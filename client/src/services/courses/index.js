@@ -1,9 +1,9 @@
 import axios from 'axios';
 import { ENVIRONMENT } from '../config';
 
-export async function getAllCourses(signal) {
+export async function getAllCourses(signal, search, level) {
     try {
-        const { data } = await axios.get(`${ENVIRONMENT}courses`, {signal});
+        const { data } = await axios.get(`${ENVIRONMENT}courses?search=${search}&level=${level}`, {signal});
         return data;
 
     } catch ({ response: { data: errors } }) {
@@ -23,20 +23,9 @@ export async function createCourse(newCourse) {
     }
 };
 
-export async function searchCourses(signal, searchValue, queries) {    
-    try {
-        const { data } = await axios.get(`${ENVIRONMENT}courses/search?search=${searchValue}&level=${queries}`, {signal});
-        return data;
-
-    } catch ({ response: { data: errors } }) {
-        console.error(errors);
-        throw new Error(errors.message);
-    }
-};
-
 export async function removeCourse(courseId) {
     try {
-        const { data } = await axios.get(`${ENVIRONMENT}courses/${courseId}/remove`);
+        const { data } = await axios.delete(`${ENVIRONMENT}courses/${courseId}/remove`);
         return data;
 
     } catch ({ response: { data: errors } }) {

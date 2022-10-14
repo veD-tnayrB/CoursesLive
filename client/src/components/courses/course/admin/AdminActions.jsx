@@ -6,12 +6,12 @@ export default function AdminActions({ courseId }) {
 
     function openModals({ event }) {
         const { id: name } = event.target;
-        setModals({...modals, [name]: true})
+        setModals({...modals, [name]: { show: true, payload: { courseId } }});
     }
 
     return (
         <>
-            <ActionButton id="delete" onClick={openModals}>
+            <ActionButton id="delete" className="default-button" onClick={openModals}>
                 <img
                     id="delete"
                     src="src/assets/icons/trash.svg"
@@ -19,7 +19,7 @@ export default function AdminActions({ courseId }) {
                 />
             </ActionButton>
 
-            <ActionButton id="edit" onClick={openModals}>
+            <ActionButton id="edit" className="default-button" onClick={openModals}>
                 <img
                     id="edit"
                     src="src/assets/icons/edit.svg"
