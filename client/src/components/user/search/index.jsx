@@ -1,22 +1,18 @@
 import * as React from 'react';
 import { usersFilters } from './users-filters';
-import { searchUsers } from 'src/services/user';
+import { useUsersContext } from 'src/contexts/users/users.context';
 import Searchbar from "src/components/common/searchbar";
 
 
-export default function SearchUsers({ setSearchResults }) {
-    const [selectedFilter, setSelectedFilter] = React.useState('All');
-    const [searchValue, setSearchValue] = React.useState('');
+export default function SearchUsers() {
+    const { search, setSearch, isLoading } = useUsersContext()
 
     return (
         <Searchbar
+            setSearch={setSearch}
+            search={search}
             filters={usersFilters}
-            searchService={searchUsers}
-            setResults={setSearchResults}
-            searchValue={searchValue}
-            setSearchValue={setSearchValue}
-            selectedFilter={selectedFilter}
-            setSelectedFilter={setSelectedFilter}
+            isLoading={isLoading}
         />
     )
 }

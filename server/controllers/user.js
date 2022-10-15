@@ -4,6 +4,15 @@ import Course from '../models/course.js';
 // Get all users
 const getAll = async (req, res, next) => {
     try {
+        const theresQueries = req.query;
+        let users;
+
+        if (theresQueries) {
+            const { role, search: userName } = req.query;
+            users = await User.find({role: { $regex: role }, name: { $regex: userName }});
+            return res.status(200).json(users);
+        }
+
         const allUsers = await User.find({ });
         return res.status(200).json(allUsers);
     } catch (error) {
