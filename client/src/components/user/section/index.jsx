@@ -1,32 +1,18 @@
 import * as React from 'react';
-import { getAllUsers } from 'src/services/user';
+import { useUsersContext } from 'src/contexts/users/users.context';
 import PreloadList from 'src/components/common/card/preload/list';
+import ErrorMessage from 'src/components/common/error-message';
 import List from 'src/components/common/list';
 import User from './user';
 import './section.scss';
 
-export default function UserSection({ users, setUsers, searchResults }) {
-    const [isLoading, setIsLoading] = React.useState(true);
-    const usersToDisplay = searchResults.length > 0 ? searchResults : users;
-
-    React.useEffect(() => {
-        const controller = new AbortController();
-        const signal = controller.signal;
-
-        setIsLoading(true);
-
-        getAllUsers(signal)
-            .then(response => {
-                setUsers(response);
-                setIsLoading(false);
-            })
-
-        return () => controller.abort();
-    }, []);
-
+export default function UserSection() {
+    const { isLoading, users } = useUsersContext();
+    
     if (isLoading) return <PreloadList />
+    if (!users) return <ErrorMessage message="Oops, looks like theres no results avaiable" />;
 
-    const userElements = usersToDisplay.map(user => (
+    const userElements = users.map(user => (
         <User key={user.id} user={user} />
     ))
 

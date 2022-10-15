@@ -1,10 +1,10 @@
 import { useCoursesContext } from 'src/contexts/course/course.context';
 import { createCourse } from 'src/services/courses';
 import ValidationInput from 'src/components/common/validation-input';
-import EditModalActions from './actions';
+import CreationModalActions from './actions';
 import useForm from 'src/hooks/useForm';
-import Levels from 'src/components/courses/levels/Levels';
-import './form.scss';
+import Levels from '../../../levels/Levels';
+// import './form.scss';
 
 const namePattern = /./;
 const descriptionPattern = /.{0,250}/;
@@ -19,14 +19,14 @@ const INITIAL_VALUES = {
 }
 const TOTAL_INPUTS = Object.keys(INITIAL_VALUES);
 
-export default function CreateCourseForm() {
+export default function EditCourseForm() {
     const { setCourses, setModals } = useCoursesContext();
     const {form, handleChanges, setFormValues} = useForm(INITIAL_VALUES);
 
     const correctInputs = Object.keys(form).filter(prop => form[prop].isCorrect);
     const isInfoCorrect = correctInputs.length === TOTAL_INPUTS.length;
 
-    function create(event) {
+    function edit(event) {
         event.preventDefault();
         const separatedTags = form.tags.value.split(',');
         const formatedTags = separatedTags.length > 1 ? separatedTags : [];
@@ -46,7 +46,7 @@ export default function CreateCourseForm() {
     }
 
     return (
-        <form className="create-course-form" onSubmit={create}>
+        <form className="create-course-form" onSubmit={edit}>
             <ValidationInput 
                 type="text"
                 name="name"
@@ -80,7 +80,7 @@ export default function CreateCourseForm() {
                 isCorrect={form.tags.isCorrect} 
             />
 
-            <EditModalActions isInfoCorrect={isInfoCorrect} />
+            <CreationModalActions isInfoCorrect={isInfoCorrect} />
         </form>
     )
 }

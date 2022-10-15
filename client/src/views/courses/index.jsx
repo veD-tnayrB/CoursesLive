@@ -6,8 +6,8 @@ import Header from 'src/components/common/header';
 import RegisterModal from 'src/components/courses/modals/register-modal';
 import CreateCourseModal from 'src/components/courses/modals/create-modal';
 import DeleteCourseModal from 'src/components/courses/modals/delete-modal';
-// import EditCourseModal from 'src/components/courses/modals/edit-modal';
 import CoursesSection from 'src/components/courses/section';
+import EditCourseModal from 'src/components/courses/modals/edit-modal';
 
 const MODAL_DEFAULT_VALUES = {
     register: { show: false, payload: {} },
@@ -60,6 +60,7 @@ export default function Courses() {
                 <RegisterModal />
                 <CreateCourseModal />
                 <DeleteCourseModal />
+                <EditCourseModal />
             </div>
         </CoursesContext.Provider>
     )
