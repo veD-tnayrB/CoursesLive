@@ -1,5 +1,5 @@
 import { useCoursesContext } from 'src/contexts/course/course.context';
-import { createCourse } from 'src/services/courses';
+import { editCourse } from 'src/services/courses';
 import ValidationInput from 'src/components/common/validation-input';
 import CreationModalActions from './actions';
 import useForm from 'src/hooks/useForm';
@@ -20,7 +20,8 @@ const INITIAL_VALUES = {
 const TOTAL_INPUTS = Object.keys(INITIAL_VALUES);
 
 export default function EditCourseForm() {
-    const { setCourses, setModals } = useCoursesContext();
+    const { setCourses, modals, setModals } = useCoursesContext();
+    const { courseId, course: placeholders } = modals.edit.payload;
     const {form, handleChanges, setFormValues} = useForm(INITIAL_VALUES);
 
     const correctInputs = Object.keys(form).filter(prop => form[prop].isCorrect);
@@ -31,17 +32,25 @@ export default function EditCourseForm() {
         const separatedTags = form.tags.value.split(',');
         const formatedTags = separatedTags.length > 1 ? separatedTags : [];
 
-        const formatedCourse = {
+        const formatedData = {
             name: form.name.value,
             description: form.description.value,
             level: form.level.value,
             tags: formatedTags
         };
 
-        createCourse(formatedCourse)
-        .then(newCourse => {
-            setModals(otherModals => ({...otherModals, create: {...otherModals.create, show: false}}));
-            setCourses(otherCourses => [newCourse, ...otherCourses]);
+        editCourse(courseId, formatedData)
+        .then(editedCourse => {
+            console.log(1, editedCourse)
+
+            setModals(otherModals => ({...otherModals, edit: {...otherModals.edit, show: false}}));
+            setCourses(otherCourses => (
+                otherCourses.map(courseItem => {
+                    if (courseItem.id !== courseId) return courseItem;
+    
+                    return editedCourse;
+                })
+            ));
         });
     }
 
@@ -52,7 +61,7 @@ export default function EditCourseForm() {
                 name="name"
                 value={form.name.value}
                 onChange={handleChanges}
-                placeholder="Name"
+                placeholder={placeholders.name}
                 autoComplete="off"
                 isCorrect={form.name.isCorrect} 
             />
@@ -63,7 +72,7 @@ export default function EditCourseForm() {
                     name="description"
                     value={form.description.value}
                     onChange={handleChanges}
-                    placeholder="Description (Optional)"
+                    placeholder={placeholders.description || 'Description (optional)'}
                     autoComplete="off" 
                 />
             </div>
@@ -75,7 +84,7 @@ export default function EditCourseForm() {
                 name="tags"
                 value={form.tags.value}
                 onChange={handleChanges}
-                placeholder="Tags (Optional)"
+                placeholder={placeholders.tags.join('') || 'Tags (optional)'}
                 autoComplete="off"
                 isCorrect={form.tags.isCorrect} 
             />

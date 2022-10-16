@@ -7,7 +7,7 @@ export default function EditCourseModal() {
     const { modals, setModals } = useCoursesContext();
 
     function onHide() {
-        setModals({...modals, register: {...modals.edit, show: false }});
+        setModals({...modals, edit: {...modals.edit, show: false }});
     }
 
     return (
@@ -17,9 +17,9 @@ export default function EditCourseModal() {
         >
             <Modal>
                 <button onClick={onHide} className="close-modal-button">x</button>
-                <h1 className="title">Welcome to the creation form!</h1>
+                <h1 className="title">It's time to edit!</h1>
                 <p>
-                    This is the course creation window, just by filling this information you will be able to start sharing your content on the platform!
+                    From here you can edit the information of your courses!
                 </p>
                 <EditCourseForm />
             </Modal>

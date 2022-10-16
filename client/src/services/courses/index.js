@@ -55,3 +55,14 @@ export async function unsuscribeToCourse(courseId) {
         throw new Error(errors.message);
     }
 };
+
+export async function editCourse(courseId, newCourseData) {    
+    try {
+        const { data } = await axios.patch(`${ENVIRONMENT}courses/${courseId}/edit`, newCourseData);
+        return data;
+
+    } catch ({ response: { data: errors } }) {
+        console.error(errors);
+        throw new Error(errors.message);
+    }
+};

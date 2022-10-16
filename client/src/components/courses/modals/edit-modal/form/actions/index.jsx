@@ -4,7 +4,7 @@ export default function EditModalActions({ isInfoCorrect }) {
     const { setModals } = useCoursesContext();
 
     function back() {
-        setModals(othersModals => ({...othersModals, create: {...othersModals.edit, show: false}}));
+        setModals(othersModals => ({...othersModals, edit: {...othersModals.edit, show: false}}));
     }
 
     return (
@@ -21,7 +21,7 @@ export default function EditModalActions({ isInfoCorrect }) {
                 className="primary-button"
                 disabled={!isInfoCorrect}
             >
-                Create
+                Edit
             </button>
         </div>
     )

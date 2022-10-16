@@ -30,7 +30,7 @@ export default function Course({ course }) {
                 <img src={course.creator?.profileImage || TEMPORAL_CREATOR_IMG} />
             </header>
             <div className="actions-container">
-                {isUserAdmin && <AdminActions courseId={course.id} />}
+                {isUserAdmin && <AdminActions course={course} />}
                 
                 <div className="end-button">
                     <Suscription isUserSuscribed={isUserSuscribed} courseId={course.id} />

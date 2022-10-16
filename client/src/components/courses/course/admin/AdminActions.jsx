@@ -1,12 +1,12 @@
 import { useCoursesContext } from "src/contexts/course/course.context";
 import ActionButton from "src/components/common/action-button";
 
-export default function AdminActions({ courseId }) {
+export default function AdminActions({ course }) {
     const { modals, setModals } = useCoursesContext();
 
     function openModals({ event }) {
         const { id: name } = event.target;
-        setModals({...modals, [name]: { show: true, payload: { courseId } }});
+        setModals({...modals, [name]: { show: true, payload: { courseId: course.id, course } }});
     }
 
     return (
