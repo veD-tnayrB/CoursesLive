@@ -41,8 +41,6 @@ export default function EditCourseForm() {
 
         editCourse(courseId, formatedData)
         .then(editedCourse => {
-            console.log(1, editedCourse)
-
             setModals(otherModals => ({...otherModals, edit: {...otherModals.edit, show: false}}));
             setCourses(otherCourses => (
                 otherCourses.map(courseItem => {

@@ -1,7 +1,7 @@
 import { useCoursesContext } from "src/contexts/course/course.context";
 import ActionButton from "src/components/common/action-button";
 
-export default function AdminActions({ course }) {
+export default function CourseAdminActions({ course }) {
     const { modals, setModals } = useCoursesContext();
 
     function openModals({ event }) {

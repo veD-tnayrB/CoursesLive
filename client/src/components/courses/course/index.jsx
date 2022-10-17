@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useUserContext } from 'src/contexts/user/user.context';
 import Card from 'src/components/common/card';
-import AdminActions from './admin/AdminActions';
+import CourseAdminActions from './admin';
 import Suscription from './suscription';
 import './course.scss';
 
@@ -30,7 +30,7 @@ export default function Course({ course }) {
                 <img src={course.creator?.profileImage || TEMPORAL_CREATOR_IMG} />
             </header>
             <div className="actions-container">
-                {isUserAdmin && <AdminActions course={course} />}
+                {isUserAdmin && <CourseAdminActions course={course} />}
                 
                 <div className="end-button">
                     <Suscription isUserSuscribed={isUserSuscribed} courseId={course.id} />

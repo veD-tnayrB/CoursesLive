@@ -6,14 +6,16 @@ import { getAllUsers } from 'src/services/user';
 import UserSection from 'src/components/user/section';
 import Header from 'src/components/common/header';
 import SearchUsers from 'src/components/user/search';
+import DeleteUsersModal from 'src/components/user/modals/delete-modal';
+
 
 export default function Users() {
     const { user } = useUserContext();
     if (user.role !== 'admin') return <Navigate to="/" />;
-
     const [users, setUsers] = React.useState([]);
     const [search, setSearch] = React.useState({ selectedFilter: '', value: '' });
     const [isLoading, setIsLoading] = React.useState(true);
+    const [modals, setModals] = React.useState({ delete: { show: false, payload: '' }, edit: { show: false, payload: '' } })
 
     React.useEffect(() => {
         const controller = new AbortController();
@@ -36,7 +38,9 @@ export default function Users() {
         search, 
         setSearch,
         isLoading, 
-        setIsLoading
+        setIsLoading,
+        modals, 
+        setModals
     };
     return (
         <UsersContext.Provider value={userContext}>
@@ -47,6 +51,7 @@ export default function Users() {
                 <SearchUsers />
                 <UserSection />
             </div>
+            <DeleteUsersModal />
         </UsersContext.Provider>
     )
 }

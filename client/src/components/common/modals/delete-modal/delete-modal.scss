@@ -1,0 +1,32 @@
+@use 'src/global/_variables.scss';
+
+.delete-modal {
+    .modal {
+        width: 40vw;
+        min-width: 32rem;
+        max-width: 60vw;
+
+        .actions-container {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+
+            
+        }
+    }
+}
+
+@media (max-width: variables.$mobile-breakpoint) {
+    .delete-modal {
+        .modal {
+            width: 100vw;
+            min-width: 22rem;
+    
+            .actions-container {
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+            }
+        }
+    }
+}
