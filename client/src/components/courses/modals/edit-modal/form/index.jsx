@@ -3,7 +3,7 @@ import { editCourse } from 'src/services/courses';
 import ValidationInput from 'src/components/common/validation-input';
 import CreationModalActions from './actions';
 import useForm from 'src/hooks/useForm';
-import Levels from '../../../levels/Levels';
+import Levels from '../../../levels';
 // import './form.scss';
 
 const namePattern = /./;

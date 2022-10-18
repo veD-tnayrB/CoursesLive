@@ -3,7 +3,7 @@ import { removeUser } from "src/services/user";
 import DeleteModal from "src/components/common/modals/delete-modal";
 
 export default function DeleteUsersModal() {
-    const { modals, setModals } = useUsersContext();
+    const { modals, setModals, setUsers } = useUsersContext();
     const { userId } = modals.delete.payload;
     
     function remove({ setIsLoading }) {
@@ -11,9 +11,9 @@ export default function DeleteUsersModal() {
 
         removeUser(userId)
         .then(() => {
-            setUsers(users => (users.filter(user => user.id !== userId)));
             setIsLoading(false);
-            onHide();
+            setUsers(users => (users.filter(user => user.id !== userId)));
+            setModals(otherModals => ({...otherModals, delete: {...otherModals.delete, show: false }}));
         });
     }
 

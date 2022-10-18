@@ -33,3 +33,14 @@ export async function editUser(userId) {
         throw new Error(errors.message);
     }
 };
+
+export async function changeUserRank(userId, rank) {
+    try {
+        const { data } = await axios.patch(`${ENVIRONMENT}users/'/edit/range/${userId}/${rank}'0`);
+        return data;
+
+    } catch ({ response: { data: errors } }) {
+        console.error(errors);
+        throw new Error(errors.message);
+    }
+};

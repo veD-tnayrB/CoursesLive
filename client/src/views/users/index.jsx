@@ -7,7 +7,7 @@ import UserSection from 'src/components/user/section';
 import Header from 'src/components/common/header';
 import SearchUsers from 'src/components/user/search';
 import DeleteUsersModal from 'src/components/user/modals/delete-modal';
-
+import EditUsersModal from 'src/components/user/modals/edit-modal';
 
 export default function Users() {
     const { user } = useUserContext();
@@ -52,6 +52,7 @@ export default function Users() {
                 <UserSection />
             </div>
             <DeleteUsersModal />
+            <EditUsersModal />
         </UsersContext.Provider>
     )
 }

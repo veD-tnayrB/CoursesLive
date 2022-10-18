@@ -1,33 +1,24 @@
-export default function Level({ level, selectedLevel, setFormValues }) {
-    const { label, value } = level;
-    const isSelected = selectedLevel === value;
+import { levelsList } from './levels-list';
+import CheckBox from 'src/components/common/form/checkbox';
 
+export default function Levels({ form, setFormValues }) {
     function handleChange(event) {
         const { value } = event.target;
         setFormValues(otherValues => ({ ...otherValues, level: { ...otherValues.level, value: value } }));
-    }
+    };
 
-    const icon = isSelected ? 'src/assets/icons/checked.svg' : 'src/assets/icons/unchecked.svg';
+    const levelElements = levelsList.map(level => (
+        <CheckBox 
+            key={level.value} 
+            checkbox={level} 
+            selectedOption={form.level.value} 
+            handleChange={handleChange} 
+        />
+    ));
 
     return (
-        <div className="level">
-            <label>
-            <img 
-                src={icon} 
-                alt="" 
-                className="icon" 
-            />
-        
-            <input
-                type="radio"
-                value={value}
-                checked={isSelected}
-                onChange={handleChange}
-                required
-            />
-            
-                <span>{label}</span>
-            </label>
+        <div className="levels-container">
+            {levelElements}
         </div>
     )
 }

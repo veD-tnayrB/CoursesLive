@@ -5,7 +5,7 @@ export default function CourseAdminActions({ course }) {
     const { modals, setModals } = useCoursesContext();
 
     function openModals({ event }) {
-        const { id: name } = event.target;
+        const { id: name } = event.currentTarget;
         setModals({...modals, [name]: { show: true, payload: { courseId: course.id, course } }});
     }
 

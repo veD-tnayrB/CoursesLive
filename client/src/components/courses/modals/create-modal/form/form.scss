@@ -10,29 +10,6 @@
         gap: 1.5rem;
         align-items: center;
 
-        .level {
-            label {
-                cursor: pointer;
-                display: flex;
-                align-items: center;
-                gap: .2rem;
-
-                .icon {
-                    width: 35px;
-                    height: 35px;
-                }
-    
-                input {
-                    width: 1px;
-                    height: 1px;
-                    opacity: 0;
-    
-                    &:checked {
-                        font-weight: bold;
-                    }
-                }
-            }
-        }
     }
 
     .actions-container {
