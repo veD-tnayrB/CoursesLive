@@ -13,7 +13,7 @@ const filesStorage = multer.diskStorage({
     }
 })    
 
-export const upload = multer({storage: filesStorage});
+export const upload = multer({storage: filesStorage, dest: '../images/'});
 
 const fileRouter = Router();
 

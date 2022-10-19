@@ -23,6 +23,8 @@ const app = express();
 // Middlewares
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(express.static('./images'));
 
 // Routes
 app.use('/auth/', authRouter);
