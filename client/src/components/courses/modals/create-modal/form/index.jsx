@@ -1,7 +1,7 @@
 import { useCoursesContext } from 'src/contexts/course/course.context';
 import { createCourse } from 'src/services/courses';
 import ValidationInput from 'src/components/common/validation-input';
-import EditModalActions from './actions';
+import CreationModalActions from './actions';
 import useForm from 'src/hooks/useForm';
 import Levels from 'src/components/courses/levels/';
 import './form.scss';
@@ -80,7 +80,7 @@ export default function CreateCourseForm() {
                 isCorrect={form.tags.isCorrect} 
             />
 
-            <EditModalActions isInfoCorrect={isInfoCorrect} />
+            <CreationModalActions isInfoCorrect={isInfoCorrect} />
         </form>
     )
 }

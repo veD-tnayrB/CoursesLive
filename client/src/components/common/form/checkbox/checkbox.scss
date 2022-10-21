@@ -8,6 +8,19 @@
         .icon {
             width: 35px;
             height: 35px;
+            transition: all .1s cubic-bezier( 0.445, 0.05, 0.14, 0.49 );
+        }
+
+        &:hover {
+            .icon {
+                transform: scale(1.1);
+            }
+        }
+
+        &:active {
+            .icon {
+                transform: scale(0.9);
+            }
         }
 
         input {

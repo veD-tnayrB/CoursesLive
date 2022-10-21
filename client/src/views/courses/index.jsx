@@ -8,6 +8,7 @@ import CreateCourseModal from 'src/components/courses/modals/create-modal';
 import DeleteCourseModal from 'src/components/courses/modals/delete-modal';
 import CoursesSection from 'src/components/courses/section';
 import EditCourseModal from 'src/components/courses/modals/edit-modal';
+import useDocumentTitle from 'src/hooks/useDocumentTitle';
 
 const MODAL_DEFAULT_VALUES = {
     register: { show: false, payload: {} },
@@ -17,6 +18,7 @@ const MODAL_DEFAULT_VALUES = {
 }
 
 export default function Courses() {
+    useDocumentTitle('Courses - CoursesLive');
     const [courses, setCourses] = React.useState([]);
     const [isLoading, setIsLoading] = React.useState(true);
     const [modals, setModals] = React.useState(MODAL_DEFAULT_VALUES);
@@ -30,6 +32,7 @@ export default function Courses() {
 
         getAllCourses(signal, search.value, search.selectedFilter)
             .then(response => {
+                console.log(1, response);
                 setCourses(response);
                 setIsLoading(false);
             })

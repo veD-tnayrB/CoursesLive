@@ -9,7 +9,7 @@ export default function ValidationInput(props) {
         <div className={`validation-input input-container ${cls}`}>
             <input {...otherProps} />
 
-                <img 
+                <img
                     src={iconPath}
                     alt=""
                     className={cls}

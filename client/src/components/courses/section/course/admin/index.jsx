@@ -16,6 +16,7 @@ export default function CourseAdminActions({ course }) {
                     id="delete"
                     src="src/assets/icons/trash.svg"
                     alt=""
+                    className="icon"
                 />
             </ActionButton>
 
@@ -24,6 +25,7 @@ export default function CourseAdminActions({ course }) {
                     id="edit"
                     src="src/assets/icons/edit.svg"
                     alt=""
+                    className="icon"
                 />
             </ActionButton>
         </>

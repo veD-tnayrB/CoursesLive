@@ -5,6 +5,31 @@
 
     .card.course-item {
         .actions-container {
+            &.suscribed {
+                grid-template-columns: 3rem 3rem 3rem 1fr;
+                grid-template-areas: "delete modify suscription profile";
+
+                .course-button {
+                    grid-area: profile;
+                }
+
+                .end-button {
+                    grid-area: suscription;
+                    justify-content: center;
+
+                    button {
+                        width: 3rem;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+
+                        img {
+                            margin: 0;
+                        }
+                    }
+                }
+            }
+
             .default-button {
                 display: flex;
                 justify-content: center;
@@ -15,11 +40,22 @@
                 }
 
                 &.loading {
-                    padding: .2rem 2.5rem;
+                    padding: .5rem 0;
 
                     .loading-icon::after {
                         width: 15px;
                         height: 15px;
+                    }
+                }
+            }
+
+            .end-button {
+                .default-button {
+                    img {
+                        aspect-ratio: 1/1;
+                        width: 22px;
+                        height: 22px;
+                        margin: 0 .5rem 0 0;
                     }
                 }
             }

@@ -11,12 +11,38 @@ const getAll = async (req, res, next) => {
 
         if (theresQueries) {
             const { level, search: courseName } = req.query;
-            courses = await Course.find({level: { $regex: level }, name: { $regex: courseName }}).populate('creator');
-            return res.status(200).json(courses);
+            courses = await Course.find({level: { $regex: level }, name: { $regex: courseName }}, '-episodes -description -tags').populate('creator', {
+                courses: 0,
+                mail: 0,
+                name: 0,
+                lastName: 0,
+                role: 0
+            });
+
+        } else {
+            courses = await Course.find({}, '-episodes -description -tags').populate('creator', {
+                courses: 0,
+                mail: 0,
+                name: 0,
+                lastName: 0,
+                role: 0
+            });
         }
 
-        courses = await Course.find({  }).populate('creator');
         return res.status(200).json(courses);
+    } catch (error) {
+        next(error);
+    }
+}
+
+
+// Get just the selected course
+const getOne = async (req, res, next) => {
+    try {
+        const courseId = req.params.courseId;
+        
+        const course = await Course.findById(courseId);
+        return res.status(200).json(course);
     } catch (error) {
         next(error);
     }
@@ -199,4 +225,4 @@ const unsuscribe = async (req, res, next) => {
 
 
 
-export { getAll, create, edit, remove, suscribe, unsuscribe };
+export { getAll, getOne, create, edit, remove, suscribe, unsuscribe };

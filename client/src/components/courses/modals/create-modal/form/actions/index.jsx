@@ -1,4 +1,5 @@
 import { useCoursesContext } from "src/contexts/course/course.context";
+import ActionButton from "src/components/common/action-button";
 
 export default function CreationModalActions({ isInfoCorrect }) {
     const { setModals } = useCoursesContext();
@@ -17,12 +18,12 @@ export default function CreationModalActions({ isInfoCorrect }) {
                 Back
             </button>
 
-            <button
+            <ActionButton
                 className="primary-button"
                 disabled={!isInfoCorrect}
             >
                 Create
-            </button>
+            </ActionButton>
         </div>
     )
 }

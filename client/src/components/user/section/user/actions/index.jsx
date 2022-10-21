@@ -20,6 +20,7 @@ export default function UserActions({ user }) {
                     id="delete"
                     src="src/assets/icons/trash.svg"
                     alt=""
+                    className="icon"
                 />
             </ActionButton>
 
@@ -32,6 +33,7 @@ export default function UserActions({ user }) {
                     id="edit"
                     src="src/assets/icons/edit.svg"
                     alt=""
+                    className="icon"
                 />
             </ActionButton>
         </>

@@ -66,3 +66,14 @@ export async function editCourse(courseId, newCourseData) {
         throw new Error(errors.message);
     }
 };
+
+export async function getOne(courseId) {    
+    try {
+        const { data } = await axios.get(`${ENVIRONMENT}courses/course/${courseId}`);
+        return data;
+
+    } catch ({ response: { data: errors } }) {
+        console.error(errors);
+        throw new Error(errors.message);
+    }
+};

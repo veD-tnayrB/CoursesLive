@@ -8,8 +8,10 @@ import Header from 'src/components/common/header';
 import SearchUsers from 'src/components/user/search';
 import DeleteUsersModal from 'src/components/user/modals/delete-modal';
 import EditUsersModal from 'src/components/user/modals/edit-modal';
+import useDocumentTitle from 'src/hooks/useDocumentTitle';
 
 export default function Users() {
+    useDocumentTitle('Users - CoursesLive');
     const { user } = useUserContext();
     if (user.role !== 'admin') return <Navigate to="/" />;
     const [users, setUsers] = React.useState([]);
