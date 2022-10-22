@@ -15,7 +15,7 @@ import fileRouter from './routes/files.js';
 
 // Middlewares imports
 import errorHandler from './middlewares/errorHandler.js';
-
+const {pathname: root} = new URL('../server', import.meta.url);
 
 dotenv.config(); // This is for enviroment variables
 const app = express();
@@ -24,7 +24,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(express.static('./images'));
+app.use('/uploads', express.static(root + '/images'));
+console.log(root + '/images')
 
 // Routes
 app.use('/auth/', authRouter);
