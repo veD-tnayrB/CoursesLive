@@ -24,6 +24,7 @@ export default function Course() {
     return (
         <div className="course-page">
             <h1>Hi im the course page </h1>
+            
         </div>
     )
 }

@@ -1,10 +1,11 @@
 import { Router } from "express";
 import path from 'path';
 import multer from "multer";
+const {pathname: root} = new URL('../server', import.meta.url);
 
 const filesStorage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, '../images');
+        cb(null, '../images/');
     },
 
     filename: (req, file, cb) => {
@@ -13,7 +14,7 @@ const filesStorage = multer.diskStorage({
     }
 })    
 
-export const upload = multer({storage: filesStorage, dest: '../images/'});
+const upload = multer({storage: filesStorage, dest: `${root}/images/`});
 
 const fileRouter = Router();
 
@@ -26,7 +27,7 @@ fileRouter.post('/single', upload.single('image'), (req, res, next) => {
 fileRouter.get('/images/:fileName', async (req, res, next) => {
     const { fileName } = req.params;
     console.log(0, process)
-    const filePath = path.join(OLDPWD + `/uploads/${fileName}`);
+    const filePath = path.join(root + `/uploads/${fileName}`);
     console.log(1, filePath);
 
     return res.sendFile(filePath);
