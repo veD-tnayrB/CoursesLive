@@ -1,4 +1,4 @@
-import { useCoursesContext } from 'src/contexts/course/course.context';
+import { useCoursesContext } from 'src/contexts/courses/courses.context';
 import { createCourse } from 'src/services/courses';
 import ValidationInput from 'src/components/common/validation-input';
 import CreationModalActions from './actions';

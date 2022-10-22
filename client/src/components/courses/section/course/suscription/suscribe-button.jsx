@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { suscribeToCourse } from "src/services/courses";
-import { useCoursesContext } from "src/contexts/course/course.context";
+import { useCoursesContext } from "src/contexts/courses/courses.context";
 import { useUserContext } from "src/contexts/user/user.context";
 import ActionButton from "src/components/common/action-button";
 
@@ -30,10 +30,11 @@ export default function SuscribeButton({ courseId }) {
     
     return (
         <ActionButton 
-        className="suscription default-button" 
-        onMouseEnter={toggleHover}
-        onMouseLeave={toggleHover} 
-        onClick={suscribe}
+            title="Suscribe"
+            className="suscription default-button" 
+            onMouseEnter={toggleHover}
+            onMouseLeave={toggleHover} 
+            onClick={suscribe}
         >
             <img 
                 src={`src/assets/icons/${icon}.svg`} 

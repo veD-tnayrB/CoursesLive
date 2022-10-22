@@ -1,4 +1,4 @@
-import { useCoursesContext } from "src/contexts/course/course.context";
+import { useCoursesContext } from "src/contexts/courses/courses.context";
 import ActionButton from "src/components/common/action-button";
 
 export default function CourseAdminActions({ course }) {
@@ -11,7 +11,7 @@ export default function CourseAdminActions({ course }) {
 
     return (
         <>
-            <ActionButton id="delete" className="default-button" onClick={openModals}>
+            <ActionButton title="Delete" id="delete" className="default-button" onClick={openModals}>
                 <img
                     id="delete"
                     src="src/assets/icons/trash.svg"
@@ -20,7 +20,7 @@ export default function CourseAdminActions({ course }) {
                 />
             </ActionButton>
 
-            <ActionButton id="edit" className="default-button" onClick={openModals}>
+            <ActionButton title="Edit" id="edit" className="default-button" onClick={openModals}>
                 <img
                     id="edit"
                     src="src/assets/icons/edit.svg"

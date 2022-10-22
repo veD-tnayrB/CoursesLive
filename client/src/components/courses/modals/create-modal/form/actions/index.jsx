@@ -1,4 +1,4 @@
-import { useCoursesContext } from "src/contexts/course/course.context";
+import { useCoursesContext } from "src/contexts/courses/courses.context";
 import ActionButton from "src/components/common/action-button";
 
 export default function CreationModalActions({ isInfoCorrect }) {

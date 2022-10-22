@@ -1,4 +1,4 @@
-import { useCoursesContext } from "src/contexts/course/course.context";
+import { useCoursesContext } from "src/contexts/courses/courses.context";
 import { useUserContext } from "src/contexts/user/user.context";
 import List from "src/components/common/list";
 import NewCourse from "./new-course";

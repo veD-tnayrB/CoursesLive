@@ -1,4 +1,4 @@
-import { useCoursesContext } from "src/contexts/course/course.context";
+import { useCoursesContext } from "src/contexts/courses/courses.context";
 
 export default function EditModalActions({ isInfoCorrect }) {
     const { setModals } = useCoursesContext();

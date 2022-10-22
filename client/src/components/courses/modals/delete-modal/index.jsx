@@ -1,4 +1,4 @@
-import { useCoursesContext } from "src/contexts/course/course.context";
+import { useCoursesContext } from "src/contexts/courses/courses.context";
 import { removeCourse } from 'src/services/courses';
 import DeleteModal from "src/components/common/modals/delete-modal";
 

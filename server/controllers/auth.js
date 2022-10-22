@@ -41,7 +41,7 @@ const signup = async (req, res, next) => {
         const newUserInformaton = {
             ...newUserDetails,
             mail: newUserDetails.mail.toLowerCase(),
-            profileImage: 'files/default-user.svg',
+            profileImage: 'default-user.svg',
             role: DEFAULT_ROLE,
             courses: []
         }

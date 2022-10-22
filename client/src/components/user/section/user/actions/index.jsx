@@ -12,6 +12,7 @@ export default function UserActions({ user }) {
     return (
         <>
             <ActionButton
+                title="Delete"
                 id="delete"
                 className="default-button"
                 onClick={openModals}
@@ -25,6 +26,7 @@ export default function UserActions({ user }) {
             </ActionButton>
 
             <ActionButton
+                title="Edit"
                 id="edit"
                 className="default-button"
                 onClick={openModals}

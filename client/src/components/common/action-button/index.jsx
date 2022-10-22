@@ -2,7 +2,7 @@ import * as React from 'react';
 import LoadingIcon from 'src/components/common/load';
 import './action-button.scss';
 
-export default function ActionButton({ className, children, onClick, id = '', onMouseEnter, onMouseLeave}) {
+export default function ActionButton({ className, children, title = "",  onClick, id = '', onMouseEnter, onMouseLeave}) {
     const [isLoading, setIsLoading] = React.useState(false);
     const loadingClass = isLoading ? 'loading' : '';
                             
@@ -16,6 +16,7 @@ export default function ActionButton({ className, children, onClick, id = '', on
     return (
         <>
             <button
+                title={title}
                 id={id}
                 onClick={handleClick}
                 className={`action-button ${loadingClass} ${className}`}

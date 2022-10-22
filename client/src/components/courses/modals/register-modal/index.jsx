@@ -1,4 +1,4 @@
-import { useCoursesContext } from "src/contexts/course/course.context";
+import { useCoursesContext } from "src/contexts/courses/courses.context";
 import ModalContainer from "src/components/common/modal/ModalContainer";
 import Modal from "src/components/common/modal";
 import './register-modal.scss';

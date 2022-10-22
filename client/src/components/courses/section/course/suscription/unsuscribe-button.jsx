@@ -26,6 +26,7 @@ export default function UnsuscribeButton({ courseId }) {
 
     return (
             <ActionButton 
+                title="Unsuscribe"
                 className={`suscription default-button ${icon}`} 
                 onClick={unsuscribe}
                 onMouseEnter={toggleHover}

@@ -1,0 +1,28 @@
+@use 'src/global/_variables.scss';
+
+.create-episode-dropzone {
+    border: 2px solid variables.$seventh-color;
+    cursor: pointer;
+    
+    min-height: 70vh;
+
+    display: grid;
+    place-content: center;
+
+    .empty {
+        display: grid;
+        place-content: center;
+
+        .icon  {
+            background: url('src/assets/icons/file-upload.svg') 100% no-repeat;
+            width: 96px;
+            height: 96px;
+            margin: 0 auto;
+        }
+
+        p {
+            font-size: 1.2rem;
+            font-weight: 400;
+        }
+    }
+}

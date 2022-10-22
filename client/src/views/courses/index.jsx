@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { CoursesContext } from 'src/contexts/course/course.context';
+import { CoursesContext } from 'src/contexts/courses/courses.context';
 import { getAllCourses } from 'src/services/courses';
 import SearchCourses from 'src/components/courses/search';
 import Header from 'src/components/common/header';

@@ -1,7 +1,9 @@
 import * as React from 'react';
 import { useParams } from "react-router-dom";
 import { getOne } from "src/services/courses";
+import { CourseContext } from 'src/contexts/course/course.context';
 import useDocumentTitle from "src/hooks/useDocumentTitle"
+import VideoSection from 'src/components/course/video-section';
 
 export default function Course() {
     const { courseId } = useParams();
@@ -21,10 +23,17 @@ export default function Course() {
         })
     }, [courseId])
 
+    const contextValue = {
+        course,
+        setCourse,
+        isLoading,
+        setIsLoading
+    };
     return (
-        <div className="course-page">
-            <h1>Hi im the course page </h1>
-            
-        </div>
+        <CourseContext.Provider value={contextValue}>
+            <div className="course-page">
+                <VideoSection />
+            </div>
+        </CourseContext.Provider>
     )
 }

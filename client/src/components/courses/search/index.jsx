@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useCoursesContext } from 'src/contexts/course/course.context';
+import { useCoursesContext } from 'src/contexts/courses/courses.context';
 import { courseFilters } from './course-filters';
 import Searchbar from "src/components/common/searchbar";
 
