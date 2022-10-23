@@ -5,22 +5,39 @@ import './create-episode.scss';
 
 export default function CreateEpisode() {
     const [file, setFile] = React.useState({});
-    console.log(1,file);
 
-    function onDrop(acceptedFiles) {
-        setFile(acceptedFiles);
-    }
+    const onDrop = React.useCallback((acceptedFiles) => {
+        console.log(acceptedFiles);
+        setFile(acceptedFiles[0]);
+    }, []) 
 
     const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
 
+    function handleSubmit(event) {
+        event.preventDefault();
+        const formData = new FormData();
+        console.log(file);
+        formData.append("video", file);
+        uploadEpisode()
+        .then(response => {
+            console.log('JA')
+        })
+    }
+
     return (
-        <div {...getRootProps()} className="create-episode-dropzone">
-            <input {...getInputProps()} />
-            {
-                isDragActive ?
-                    <p>Drop the files here ...</p> :
-                    <Empty />
-            }
-        </div>
+        <form onSubmit={handleSubmit}>
+            <div {...getRootProps()} className="create-episode-dropzone">
+                <input {...getInputProps()} />
+                {
+                    isDragActive ?
+                        <p>Drop the files here ...</p> :
+                        <Empty />
+                }
+            </div>
+
+            <button>
+                Hace cosa picha
+            </button>
+        </form>
     )
 }
