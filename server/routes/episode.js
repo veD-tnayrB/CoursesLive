@@ -5,6 +5,7 @@ import isBodyAEpisode from '../dtos/isBodyAEpisode.js';
 
 // TEMPORAL
 import Episode from '../models/episode.js';
+import { videoUploader } from './videos.js';
 
 const episodeRouter = Router();
 

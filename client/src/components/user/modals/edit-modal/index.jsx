@@ -21,17 +21,16 @@ export default function EditUsersModal() {
         })
     }
 
-    function onHide() {
-        setModals({...modals, edit: {...modals.edit, show: false }});
-    }
-
+    
     return (
         <ModalContainer
             className="edit-modal" 
             show={modals.edit.show}
         >
-            <Modal>
-                <button onClick={onHide} className="close-modal-button">x</button>
+            <Modal
+                setModals={setModals}
+                modal="edit"
+            >
                 <h1 className="title">Welcome to the user role editing window!</h1>
                 <p className="message">Here you can modify the role of the selected user by limiting it or making new tools available on the platform.</p>
 

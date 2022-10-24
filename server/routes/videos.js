@@ -15,10 +15,10 @@ const filesStorage = multer.diskStorage({
     }
 })
 
-const upload = multer({ storage: filesStorage, dest: 'storage/videos' });
+export const videoUploader = multer({ storage: filesStorage, dest: 'storage/videos' });
 
 // Save images
-videoRouter.post('/upload', upload.single('video'), async (req, res, next) => {
+videoRouter.post('/upload', videoUploader.single('video'), async (req, res, next) => {
     try {
         return res.status(200).json({ message: "The image has been successfully saved!" });
     }

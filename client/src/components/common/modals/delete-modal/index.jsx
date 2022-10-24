@@ -15,8 +15,10 @@ export default function DeleteModal({ modals, setModals, remove, description }) 
             className="delete-modal" 
             show={modals.delete.show}
         >
-            <Modal>
-                <button onClick={onHide} className="close-modal-button">x</button>
+            <Modal
+                setModals={setModals}
+                modal="delete"
+            >
                 <h1 className="title">Are you sure?</h1>
                 <p>
                     {description}

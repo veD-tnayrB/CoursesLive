@@ -1,0 +1,36 @@
+@use 'src/global/_variables.scss';
+
+.first-episode-section {
+    .main-header {
+        height: 55vh;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1.2rem 2.5rem;
+
+        h2 {
+            font-family: variables.$secondary-font;
+            font-size: 3rem;
+            font-weight: 800;
+            width: 25rem;
+            padding: 0;
+        }
+
+        p {
+            font-weight: 700;
+            font-size: 1.05rem;
+            width: 24rem;
+            margin: 1.2rem 0;
+        }
+
+        .actions-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            .primary-button {
+                padding: .7rem 4rem;
+                margin: .2rem 0;
+            }
+        }
+    }
+}

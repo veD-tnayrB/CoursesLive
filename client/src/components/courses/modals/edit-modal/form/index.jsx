@@ -82,7 +82,7 @@ export default function EditCourseForm() {
                 name="tags"
                 value={form.tags.value}
                 onChange={handleChanges}
-                placeholder={placeholders.tags.join('') || 'Tags (optional)'}
+                placeholder={placeholders.tags?.join('') || 'Tags (optional)'}
                 autoComplete="off"
                 isCorrect={form.tags.isCorrect} 
             />

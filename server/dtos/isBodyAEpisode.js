@@ -1,17 +1,17 @@
 // Validators
 const titlePattern = /./;
-const descriptionPattern = /./;
-const videoPattern = /(https?\:\/\/)?(www\.youtube\.com|youtu\.be)\/.+$/;
+const descriptionPattern = /.{0,250}/;
 
 const isBodyAEpisode = (req, res, next) => {
     try {
+        console.log(req.body)
         const { title, description, video } = req.body;
 
         // It first checks if the property exists and then checks if it is correct based on its pattern.
         const validators = {
             isTitleIncorrect: !titlePattern.test(title),
             isDescriptionIncorrect: !descriptionPattern.test(description),
-            isVideoIncorrect: !videoPattern.test(video)
+            isVideoIncorrect: !video
         }
 
         // Check if theres some validator wrong
