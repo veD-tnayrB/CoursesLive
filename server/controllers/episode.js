@@ -90,7 +90,7 @@ const create = async (req, res, next) => {
 
         // Update the course information
         const updatedCourse = await Course.findByIdAndUpdate(courseId, { $push: { episodes: episode.id } }, { new: true });
-
+        console.log('M<E EJECUTO')
         return res.status(201).json(updatedCourse);
 
     } catch (error) {
