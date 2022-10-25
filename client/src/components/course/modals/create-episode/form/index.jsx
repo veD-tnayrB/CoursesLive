@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useCourseContext } from 'src/contexts/course/course.context';
-import { uploadEpisode, uploadVideo } from 'src/services/episodes';
+import { uploadEpisode } from 'src/services/episodes';
 import ValidationInput from 'src/components/common/validation-input';
 import CreationModalActions from './actions';
 import useForm from 'src/hooks/useForm';
@@ -10,7 +10,7 @@ const titlePattern = /./;
 const descriptionPattern = /.{0,250}/;
 
 const INITIAL_VALUES = {
-    name: {value: '', isCorrect: false, validation: titlePattern},
+    title: {value: '', isCorrect: false, validation: titlePattern},
     description: {value: '', isCorrect: true, validation: descriptionPattern}
 }
 
@@ -27,17 +27,16 @@ export default function CreateEpisodeForm() {
     function create(event) {
         event.preventDefault();
 
-        const formatedCourse = {
-            title: form.name.value,
-            description: form.description.value,
-            video: videoFile.name
-        };
+        const formData = new FormData();
+        formData.append('video', videoFile);
+        formData.append('title', form.title.value)
+        formData.append('description', form.description.value)
+        formData.append('video', videoFile.name);
 
-        const episode = async () => await uploadEpisode(course.id, formatedCourse);
-        const video = async () => await uploadVideo(videoFile);
-
-        Promise.all([episode, video])
-        .then(values => console.log(values))
+        uploadEpisode(course.id, formData)
+        .then((response) => {
+            console.log(response)
+        })
         
     }
 
@@ -45,12 +44,12 @@ export default function CreateEpisodeForm() {
         <form className="create-course-form" onSubmit={create}>
             <ValidationInput 
                 type="text"
-                name="name"
-                value={form.name.value}
+                name="title"
+                value={form.title.value}
                 onChange={handleChanges}
-                placeholder="Name"
+                placeholder="Title"
                 autoComplete="off"
-                isCorrect={form.name.isCorrect} 
+                isCorrect={form.title.isCorrect} 
             />
 
             <div className="input-container">
