@@ -6,7 +6,7 @@ where we will provide you with all the necessary tools to share your knowledge i
 
 - First make a clone of this project in any directory on your pc.
 
-- From the console enter the directory and run npm install.
+- From the console in the root of the project run npm install.
 
 - In that same directory you have several options:
   - You can only run the client by running ```npm run client```
