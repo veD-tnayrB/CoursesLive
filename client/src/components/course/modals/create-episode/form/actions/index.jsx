@@ -5,7 +5,7 @@ export default function CreationModalActions({ isInfoCorrect }) {
     const { setModals } = useCourseContext();
 
     function back() {
-        setModals(othersModals => ({...othersModals, create: {...othersModals.create, show: false}}));
+        setModals(othersModals => ({...othersModals, createEpisode: {...othersModals.createEpisode, show: false}}));
     }
 
     return (

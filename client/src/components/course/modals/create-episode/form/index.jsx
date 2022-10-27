@@ -5,6 +5,7 @@ import ValidationInput from 'src/components/common/validation-input';
 import CreationModalActions from './actions';
 import useForm from 'src/hooks/useForm';
 import VideoDropzone from './video-dropzone';
+import './form.scss';
 
 const titlePattern = /./;
 const descriptionPattern = /.{0,250}/;
@@ -41,7 +42,7 @@ export default function CreateEpisodeForm() {
     }
 
     return (
-        <form className="create-course-form" onSubmit={create}>
+        <form className="edit-course-form" onSubmit={create}>
             <ValidationInput 
                 type="text"
                 name="title"
@@ -63,7 +64,7 @@ export default function CreateEpisodeForm() {
                 />
             </div>
 
-            <VideoDropzone setVideo={setVideoFile} />
+            <VideoDropzone video={videoFile} setVideo={setVideoFile} />
 
             <CreationModalActions isInfoCorrect={isInfoCorrect} />
         </form>
