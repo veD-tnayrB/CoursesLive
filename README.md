@@ -1,5 +1,5 @@
 # 🍂 CoursesLive
-CoursesLive is a platform where you can gain knowledge and experience as you learn, also if you want you can be part of our team as a teacher, 
+CoursesLive is a platform where you can gain knowledge as you learn, also if you want you can be part of our team as a teacher, 
 where we will provide you with all the necessary tools to share your knowledge in the way you want and without limitations, the limitation is put by you!
 
 ## 🔥 How do I run CoursesLive?
