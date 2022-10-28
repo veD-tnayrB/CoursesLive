@@ -12,20 +12,20 @@
             justify-content: center;
             align-items: center;
 
-            span {
+            .icon {
                 font-size: 2.5rem;
                 font-weight: bold;
-                transition: all .1s linear;
+                transition: all .2s linear;
             }
 
             &:hover {
-                span {
-                    transform: scale(1.5);
+                .icon {
+                    transform: scale(1.2);
                 }
             }
 
             &:active {
-                span {
+                .icon {
                     transform: scale(1);
                 }
             }

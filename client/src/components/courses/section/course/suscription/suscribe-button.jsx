@@ -3,6 +3,8 @@ import { suscribeToCourse } from "src/services/courses";
 import { useCoursesContext } from "src/contexts/courses/courses.context";
 import { useUserContext } from "src/contexts/user/user.context";
 import ActionButton from "src/components/common/action-button";
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 export default function SuscribeButton({ courseId }) {
     const [isButtonHovered, setIsButtonHovered] = React.useState(false);
@@ -26,7 +28,7 @@ export default function SuscribeButton({ courseId }) {
         setIsButtonHovered(!isButtonHovered);
     }
 
-    const icon = isButtonHovered ? 'suscribed' : 'unsuscribe';
+    const icon = isButtonHovered ? <FavoriteIcon className="icon" /> : <FavoriteBorderIcon className="icon" />;
     
     return (
         <ActionButton 
@@ -36,12 +38,8 @@ export default function SuscribeButton({ courseId }) {
             onMouseLeave={toggleHover} 
             onClick={suscribe}
         >
-            <img 
-                src={`src/assets/icons/${icon}.svg`} 
-                alt="" 
-                className="icon"
-            />
-            Suscribe
+            {icon}
+            <span>Suscribe</span>
         </ActionButton>
     )
 }

@@ -1,13 +1,11 @@
-const BASE_URL = '/src/assets/icons';
-
 export default
 function Feature({ feature }) {
-    const iconPath = `${BASE_URL}/${feature.icon}.svg`;
+    const Icon = feature.icon;
 
     return (
         <li className="feature-item">
             <div>
-                <img src={iconPath} />
+                <Icon className="icon" />
 
                 <p>
                     {feature.overview}

@@ -41,7 +41,7 @@ const getOne = async (req, res, next) => {
     try {
         const courseId = req.params.courseId;
         
-        const course = await Course.findById(courseId);
+        const course = await Course.findById(courseId).populate('episodes');
         return res.status(200).json(course);
     } catch (error) {
         next(error);

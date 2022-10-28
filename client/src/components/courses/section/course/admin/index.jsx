@@ -1,3 +1,5 @@
+import DeleteIcon from '@mui/icons-material/Delete';
+import CreateIcon from '@mui/icons-material/Create';
 import { useCoursesContext } from "src/contexts/courses/courses.context";
 import ActionButton from "src/components/common/action-button";
 
@@ -12,21 +14,11 @@ export default function CourseAdminActions({ course }) {
     return (
         <>
             <ActionButton title="Delete" id="delete" className="default-button" onClick={openModals}>
-                <img
-                    id="delete"
-                    src="src/assets/icons/trash.svg"
-                    alt=""
-                    className="icon"
-                />
+                <DeleteIcon className="icon" id="delete" />
             </ActionButton>
 
             <ActionButton title="Edit" id="edit" className="default-button" onClick={openModals}>
-                <img
-                    id="edit"
-                    src="src/assets/icons/edit.svg"
-                    alt=""
-                    className="icon"
-                />
+                <CreateIcon className="icon" id="edit" />
             </ActionButton>
         </>
     )

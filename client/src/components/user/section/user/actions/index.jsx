@@ -1,3 +1,5 @@
+import DeleteIcon from '@mui/icons-material/Delete';
+import CreateIcon from '@mui/icons-material/Create';
 import { useUsersContext } from "src/contexts/users/users.context";
 import ActionButton from "src/components/common/action-button";
 
@@ -17,12 +19,7 @@ export default function UserActions({ user }) {
                 className="default-button"
                 onClick={openModals}
             >
-                <img
-                    id="delete"
-                    src="src/assets/icons/trash.svg"
-                    alt=""
-                    className="icon"
-                />
+                <DeleteIcon className="icon" id="delete" />
             </ActionButton>
 
             <ActionButton
@@ -31,12 +28,7 @@ export default function UserActions({ user }) {
                 className="default-button"
                 onClick={openModals}
             >
-                <img
-                    id="edit"
-                    src="src/assets/icons/edit.svg"
-                    alt=""
-                    className="icon"
-                />
+                <CreateIcon className="icon" id="edit" />
             </ActionButton>
         </>
     )

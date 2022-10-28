@@ -20,7 +20,6 @@ export default function Course({ course }) {
     const levelClass = COLORS_BY_LEVEL[course.level];
 
     const courseStatus = isUserSuscribed ? 'suscribed' : 'unsuscribed';
-    console.log(1, `${IMAGES_ROUTES}${course.creator?.profileImage}`)
     return (
         <Card className="course-item">
             <header>

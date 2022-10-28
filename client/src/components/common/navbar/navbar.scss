@@ -1,7 +1,7 @@
 @use 'src/global/_variables.scss';
 
 .primary-navbar {
-    padding: 1.5rem 2rem;
+    padding: 1rem 2rem;
 
     ul {
         display: flex;
@@ -26,6 +26,7 @@
 
                     .card {
                         border-radius: 10px;
+                        width: -moz-fit-content;
                         width: fit-content;
                         height: auto;
                         width: 8rem;

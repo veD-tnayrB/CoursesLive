@@ -1,9 +1,10 @@
-import * as React from 'react'
+import * as React from 'react';
+import FileDownloadDoneIcon from '@mui/icons-material/FileDownloadDone';
 
 export default function DropzoneFilled() {
     return (
         <div className="filled-dropzone">
-            <div className="icon"></div>
+            <FileDownloadDoneIcon className="icon" />
             <p>Drop coaasdsaasasdasd!</p>
         </div>
     )

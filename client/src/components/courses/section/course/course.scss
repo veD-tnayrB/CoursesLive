@@ -51,11 +51,13 @@
 
             .end-button {
                 .default-button {
-                    img {
+                    display: flex;
+                    gap: .5rem;
+
+                    .icon {
                         aspect-ratio: 1/1;
                         width: 22px;
                         height: 22px;
-                        margin: 0 .5rem 0 0;
                     }
                 }
             }

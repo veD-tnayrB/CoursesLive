@@ -11,7 +11,7 @@ export default function Signup() {
     
     return (
         <div className="sign-up-page">
-            <Modal>
+            <Modal close={false}>
                 <SignupHeader />
                 <SignupForm />
             </Modal>
