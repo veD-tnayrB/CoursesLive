@@ -1,7 +1,7 @@
+import { Link } from "react-router-dom";
 import { useUserContext } from "src/contexts/user/user.context";
 import Card from "src/components/common/card";
 import UserActions from './actions';
-import { Link } from "react-router-dom";
 import { IMAGES_ROUTES } from "src/services/config";
 
 const COLORS_BY_ROLE = {
