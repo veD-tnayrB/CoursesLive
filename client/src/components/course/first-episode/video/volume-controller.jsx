@@ -14,9 +14,9 @@ const VOLUME_INDICATOR = {
 
 export default function EpisodeVolumeController() {
     const { videoRef } = useVideoContext();
+    const [showBar, setShowBar] = React.useState(false);
     const [videoVolume, setVideoVolume] = React.useState(.5);
     
-
     const volumePercentage = videoVolume * 100;
     const isMuted =  volumePercentage === 0;
     const isMinimun = volumePercentage >= 1 && volumePercentage < 50;
@@ -35,37 +35,36 @@ export default function EpisodeVolumeController() {
     }
 
     function onChange(event) {
-        console.log(event)
-        const newValue = event.target.offsetWidth / 100;
-        console.log('NEW VALUE = ', newValue);
-
+        const newValue = event.target.value / 100;
         setVideoVolume(newValue);
         videoRef.current.volume = newValue;
     }
 
+    function toggleBar() {
+        setShowBar(!showBar);
+    }
+
     const Icon = VOLUME_INDICATOR[volumeLevel];
 
-    console.log(volumePercentage);
-
     return (
-        <div className="volume-bar">
-            <button
-                onClick={onChange} 
-                className="volume"
-            >
-                <div 
-                    style={{ width: `${volumePercentage}%` }} 
-                    className="total"
-                >
-                </div>
-                <div 
-                    // onClick={onChange}
-                    className="track"
-                ></div>
-            </button>
+        <div 
+            onMouseEnter={toggleBar} 
+            onMouseLeave={toggleBar}
+            className="volume-bar"
+        >
             <button>
                 <Icon className="icon" onClick={toggleMute} />
             </button>
+
+            {
+                showBar &&
+                <input 
+                    onChange={onChange}
+                    type="range" 
+                    className="volume"
+                    value={volumePercentage} 
+                />
+            }
         </div>
     )
 }

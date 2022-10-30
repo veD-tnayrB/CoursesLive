@@ -29,3 +29,35 @@ textarea {
     width: 100%;
     padding: .5rem 0;
 }
+
+input {
+    -webkit-appearance: none;
+    appearance: none;
+    cursor: pointer;
+
+    &::-webkit-slider-runnable-track {
+        -webkit-appearance: none;
+        appearance: none;
+
+        background: variables.$seventh-color;
+
+        width: 100%;
+        height: 5px;
+    }
+
+    &::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+
+        background: variables.$secondary-color;
+        border-radius: 50%;
+
+        width: 12px;
+        height: 12px;
+
+        transition: all .1s linear;
+
+        position: relative;
+        top: -65%;
+    }
+}

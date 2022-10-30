@@ -1,48 +1,41 @@
 import * as React from "react"
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
-import PauseIcon from '@mui/icons-material/Pause';
 import { VIDEOS_ROUTES } from "src/services/config"
-import VideoControls from "./controls";
 import { VideoContext } from "./context";
+import EpisodeDurationController from "./duration-controller";
+import EpisodeVolumeController from "./volume-controller";
+import PlayButton from "./play-button";
 
 export default function Video({ episode }) {
     const [isVideoPlaying, setIsVideoPlaying] = React.useState(false);
     const videoRef = React.useRef(null);
 
-    function playToggle() {
-        if (!isVideoPlaying) {
-            videoRef.current.play();
-            setIsVideoPlaying(true);
-            return;
-        };
-        
-        videoRef.current.pause();
+    function handleEnd() {
         setIsVideoPlaying(false);
     }
 
-    const playingIcon = isVideoPlaying ? <PauseIcon /> : <PlayArrowIcon />;
-
-
     const contextValue = {
-        videoRef
+        videoRef,
+        setIsVideoPlaying,
+        isVideoPlaying
     }
     return (
         <VideoContext.Provider value={contextValue}>
             <div className="video-container">
                 <video 
+                    onEnded={handleEnd} 
                     ref={videoRef}
                     className="video"
                     src={`${VIDEOS_ROUTES}${episode.video}`} 
                 />
+                <PlayButton />
 
-                <button 
-                    onClick={playToggle}
-                    className="play-btn"
-                >
-                    {playingIcon}
-                </button>
-
-                <VideoControls videoRef={videoRef} />
+                <div className="controls">
+                    <EpisodeDurationController />
+                    <div className="sub-controls">
+                        <PlayButton />                    
+                        <EpisodeVolumeController />
+                    </div>
+                </div>
             </div>
         </VideoContext.Provider>
     )
