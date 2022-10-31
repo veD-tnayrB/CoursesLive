@@ -1,3 +1,4 @@
+import CloseIcon from '@mui/icons-material/Close';
 import './modal.scss';
 
 export default function Modal({ children, setModals, modal = '', close = true }) {
@@ -8,7 +9,7 @@ export default function Modal({ children, setModals, modal = '', close = true })
 
     return (
         <section className="modal">
-            {close && <button onClick={onHide} className="close-modal-button">x</button>}
+            {close && <button onClick={onHide} className="close-modal-button"><CloseIcon /></button>}
             {children}
         </section>
     )

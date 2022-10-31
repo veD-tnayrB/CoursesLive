@@ -2,6 +2,9 @@ import * as React from 'react';
 import { useUserContext } from "src/contexts/user/user.context";
 import { unsuscribeToCourse } from "src/services/courses";
 import ActionButton from "src/components/common/action-button";
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+
 
 export default function UnsuscribeButton({ courseId }) {
     const [isButtonHovered, setIsButtonHovered] = React.useState(false);
@@ -22,7 +25,7 @@ export default function UnsuscribeButton({ courseId }) {
         setIsButtonHovered(!isButtonHovered);
     }
 
-    const icon = isButtonHovered ? 'unsuscribe' : 'suscribed';
+    const icon = isButtonHovered ? <FavoriteBorderIcon className="icon" /> : <FavoriteIcon className="icon" />;
 
     return (
             <ActionButton 
@@ -32,11 +35,7 @@ export default function UnsuscribeButton({ courseId }) {
                 onMouseEnter={toggleHover}
                 onMouseLeave={toggleHover}
             >
-                <img 
-                    src={`src/assets/icons/${icon}.svg`} 
-                    alt=""
-                    className="icon" 
-                />
+                {icon}
             </ActionButton>
     )
 }

@@ -2,7 +2,6 @@ import { useCoursesContext } from "src/contexts/courses/courses.context";
 import ModalContainer from "src/components/common/modal/ModalContainer";
 import Modal from 'src/components/common/modal';
 import CreateCourseForm from './form';
-import './create-modal.scss';
 
 export default function CreateCourseModal() {
     const { modals, setModals } = useCoursesContext();

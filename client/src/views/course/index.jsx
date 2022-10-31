@@ -19,14 +19,18 @@ export default function Course() {
     useDocumentTitle(`${course.name} - Course`);
 
     React.useEffect(() => {
+        const controller = new AbortController();
+        const signal = controller.signal;
         setIsLoading(true);
 
-        getOne(courseId)
+        getOne(signal, courseId)
         .then(response => {
             console.log(response)
             setCourse(response);
             setIsLoading(false);
-        })
+        });
+
+        return () => controller.abort();
     }, [courseId])
 
     const contextValue = {

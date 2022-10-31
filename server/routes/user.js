@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getAll, edit, editRange, remove } from '../controllers/user.js'
+import { getAll, edit, editRange, remove, getOne } from '../controllers/user.js'
 import { isUserAdmin, isUser } from '../middlewares/isUserRole.js';
 import isBodyAUser from '../dtos/isBodyAUser.js';
 
@@ -7,6 +7,8 @@ const userRouter = Router();
 
 // Get all users
 userRouter.get('/', isUserAdmin, getAll);
+
+userRouter.get('/:id', getOne);
 
 // Edit user info
 userRouter.patch('/me/edit', isBodyAUser, isUser, edit);

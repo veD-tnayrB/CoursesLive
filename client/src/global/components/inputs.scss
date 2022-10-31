@@ -30,7 +30,7 @@ textarea {
     padding: .5rem 0;
 }
 
-input {
+input[type="range"] {
     -webkit-appearance: none;
     appearance: none;
     cursor: pointer;

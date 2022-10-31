@@ -44,3 +44,14 @@ export async function changeUserRank(userId, rank) {
         throw new Error(errors.message);
     }
 };
+
+export async function getUserById(signal, userId) {
+    try {
+        const { data } = await axios.get(`${ENVIRONMENT}users/${userId}`, { signal });
+        return data;
+
+    } catch ({ response: { data: errors } }) {
+        console.error(errors);
+        throw new Error(errors.message);
+    }
+};

@@ -53,3 +53,14 @@
         }
     }
 }
+
+
+
+@media (max-width: variables.$mobile-breakpoint) {
+    .modal-container {
+        .modal {
+            max-width: 90vw;
+            width: 90vw;
+        }
+    }
+}

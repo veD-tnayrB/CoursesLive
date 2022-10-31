@@ -20,6 +20,19 @@ const getAll = async (req, res, next) => {
     }
 }
 
+const getOne = async (req, res, next) => {
+    try {
+        const userId = req.params.id;
+        const user = await User.findById(userId, '-courses');
+    
+        if (!user) throw new Error('ERROR')
+
+        return res.status(200).json(user);
+    } catch (error) {
+        next(error);
+    }
+}
+
 // Edit user info
 const edit = async (req, res, next) => {
     const newUserInfo = req.body;
@@ -101,4 +114,4 @@ const search = async (req, res, next) => {
     }
 }
 
-export { getAll, edit, remove, editRange, search };
+export { getAll, edit, remove, editRange, search, getOne };
