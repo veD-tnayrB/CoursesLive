@@ -9,10 +9,10 @@ export default function DeleteCourseModal() {
     
     function remove({ setIsLoading }) {
         setIsLoading(true);
+        setCourses(courses => (courses.filter(course => course.id !== courseId)));
 
         removeCourse(courseId)
         .then(() => {
-            setCourses(courses => (courses.filter(course => course.id !== courseId)));
             setIsLoading(false);
             setModals(otherModals => ({...otherModals, delete: {...otherModals.delete, show: false }}));
         });

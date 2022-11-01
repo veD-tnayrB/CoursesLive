@@ -19,4 +19,5 @@ userRouter.patch('/edit/range/:userId/:rank', isUserAdmin, editRange);
 // Delete the user
 userRouter.delete('/:userId/remove', isUserAdmin, remove);
 
+
 export default userRouter;

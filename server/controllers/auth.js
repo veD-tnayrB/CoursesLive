@@ -7,7 +7,7 @@ const login = async (req, res, next) => {
 
     try {
         // Log the user by sending the token to the client and the user information
-        const user = await User.findOne({ mail: userDetails.mail, password: userDetails.password });
+        const user = await User.findOne({ mail: userDetails.mail, password: userDetails.password }, '-courses');
         const userDoesntExist = !user;
         
         if (userDoesntExist) {

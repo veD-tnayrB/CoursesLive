@@ -1,4 +1,4 @@
-import AddCircleIcon from '@mui/icons-material/AddCircle';
+import AddIcon from '@mui/icons-material/Add';
 import { useCoursesContext } from "src/contexts/courses/courses.context";
 import Card from "src/components/common/card";
 import './new-course.scss';
@@ -17,7 +17,7 @@ export default function NewCourse() {
                 className="create-course-button"
             >
                 
-                <AddCircleIcon className="icon" />
+                <AddIcon className="icon" />
             </button>
         </Card>
     )
