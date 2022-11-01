@@ -15,7 +15,7 @@ const COLORS_BY_LEVEL = {
 
 export default function Course({ course }) {
     const { user } = useUserContext();
-    const isUserSuscribed = user.courses?.some(suscribedCourse => suscribedCourse === course.id);
+    const isUserSuscribed = course.subscribers?.some(suscriber => suscriber === user.id);
     const isUserAdmin = user.role === 'admin';
     const levelClass = COLORS_BY_LEVEL[course.level];
 

@@ -1,30 +1,35 @@
 import * as React from 'react';
 import { getUserById } from 'src/services/user';
 import { useCourseContext } from 'src/contexts/course/course.context';
-import { IMAGES_ROUTES } from 'src/services/config';
+import LoadingIcon from 'src/components/common/load';
+import CreatorContent from './content';
 import './creator.scss';
 
 export default function EpisodeCreator() {
     const [creator, setCreator] = React.useState({});
+    const [isLoading, setIsLoading] = React.useState(true);
     const { course } = useCourseContext();
 
     React.useEffect(() => {
         const controller = new AbortController();
         const signal = controller.signal;
 
+        setIsLoading(true);
+
         getUserById(signal, course.creator)
             .then(response => {
                 setCreator(response);
-                console.log(response)
+                setIsLoading(false);
             })
 
         return () => controller.abort();
     }, [course.creator]);
 
+    const output = isLoading ? <LoadingIcon /> : <CreatorContent creator={creator} />;
+
     return (
         <article className="creator-info">
-            <img src={`${IMAGES_ROUTES}${creator.profileImage}`} />
-            <h3>{creator.name} {creator.lastName}</h3>
+            {output}
         </article>
     )
 }
