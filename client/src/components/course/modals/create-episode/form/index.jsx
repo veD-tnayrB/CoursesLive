@@ -32,7 +32,7 @@ export default function CreateEpisodeForm() {
         formData.append('video', videoFile);
         formData.append('title', form.title.value)
         formData.append('description', form.description.value)
-        formData.append('video', videoFile.name);
+        formData.append('videoName', videoFile.name);
 
         uploadEpisode(course.id, formData)
         .then((response) => {

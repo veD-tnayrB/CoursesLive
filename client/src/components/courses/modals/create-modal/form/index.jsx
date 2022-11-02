@@ -40,6 +40,7 @@ export default function CreateCourseForm() {
 
         createCourse(formatedCourse)
         .then(newCourse => {
+            console.log(0, newCourse)
             setModals(otherModals => ({...otherModals, create: {...otherModals.create, show: false}}));
             setCourses(otherCourses => [newCourse, ...otherCourses]);
         });

@@ -77,6 +77,11 @@ const ERRORS = {
         status: 204
     },
 
+    'you dont have permisions to make this request': {
+        message: "ME CAGO EN LA PUTA",
+        status: 400
+    },
+
 
     // EPISODE ERRORS
 

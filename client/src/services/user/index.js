@@ -47,7 +47,7 @@ export async function changeUserRank(userId, rank) {
 
 export async function getUserById(signal, userId) {
     try {
-        const { data } = await axios.get(`${ENVIRONMENT}users/${userId}`, { signal });
+        const { data } = await axios.get(`${ENVIRONMENT}users/user/${userId}`, { signal });
         return data;
 
     } catch ({ response: { data: errors } }) {

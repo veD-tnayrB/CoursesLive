@@ -1,3 +1,6 @@
+import TwitterIcon from '@mui/icons-material/Twitter';
+import GitHubIcon from '@mui/icons-material/GitHub';
+
 export default function SocialMedia() {
 
     return (
@@ -5,16 +8,8 @@ export default function SocialMedia() {
             <h5>Follow us!</h5>
 
             <div className="icons">
-                <img
-                    alt="twitter" 
-                    src="src/assets/icons/twitter.svg" 
-                    className="icon" 
-                />
-                <img 
-                    alt="twitter"
-                    src="src/assets/icons/github.svg" 
-                    className="icon" 
-                />
+                <TwitterIcon className="icon" />
+                <GitHubIcon className="icon" />
             </div>
         </div>
     )

@@ -4,21 +4,25 @@ import { unsuscribeToCourse } from "src/services/courses";
 import ActionButton from "src/components/common/action-button";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import { useCourseItemContext } from '../context';
 
 
 export default function UnsuscribeButton({ courseId }) {
     const [isButtonHovered, setIsButtonHovered] = React.useState(false);
-    const { updateInfo } = useUserContext();
+    const { setIsSuscribed } = useCourseItemContext();
 
     function unsuscribe({ isLoading, setIsLoading }) {
         if (isLoading) return;
         setIsLoading(true);
+        setIsSuscribed(false);
 
         unsuscribeToCourse(courseId)
-            .then(({ user }) => {
-                updateInfo(user);
+            .then(() => {
                 setIsLoading(false);
-            });
+            })
+            .catch(() => {
+                setIsSuscribed(true);
+            })
     }
 
     function toggleHover() {

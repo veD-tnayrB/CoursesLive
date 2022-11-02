@@ -21,7 +21,7 @@ const filesStorage = multer.diskStorage({
     }
 })
 
-const videoUploader = multer({ storage: filesStorage, dest: 'storage/videos' });
+export const videoUploader = multer({ storage: filesStorage, dest: 'storage/videos' });
 expressBusboy.extend(episodeRouter);
 
 

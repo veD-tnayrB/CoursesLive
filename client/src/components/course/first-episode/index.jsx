@@ -2,9 +2,9 @@ import { useCourseContext } from 'src/contexts/course/course.context';
 import { FirstEpisodeContext } from './context';
 import CreateEpisodeWarning from './create-episode-warning';
 import EpisodeCreator from './creator';
-import './first-episode.scss';
 import EpisodeInfo from './info';
 import Video from './video';
+import './first-episode.scss';
 
 export default function FirstEpisode() {
     const { course } = useCourseContext();

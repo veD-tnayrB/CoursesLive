@@ -2,6 +2,7 @@ import jwt from 'jsonwebtoken';
 import Course from '../models/course.js';
 import Episode from '../models/episode.js';
 import User from '../models/user.js';
+import { videoUploader } from '../routes/episode.js';
 
 // Gets the episodes of a course
 const getAll = async (req, res, next) => {
@@ -63,6 +64,7 @@ const getEpisode = async (req, res, next) => {
 const create = async (req, res, next) => {
     const newEpisodeInfo = req.body;
     const { courseId } = req.params;
+    console.log(1, newEpisodeInfo)
 
     try {
         const creator = req.user;
@@ -77,7 +79,7 @@ const create = async (req, res, next) => {
         const newEpisode = {
             title: newEpisodeInfo.title,
             description: newEpisodeInfo.description,
-            video: newEpisodeInfo.video,
+            video: newEpisodeInfo.videoName,
             creator: creator.id,
             course: courseId,
             people_who_liked_it: [],
@@ -90,11 +92,12 @@ const create = async (req, res, next) => {
 
         // Update the course information
         const updatedCourse = await Course.findByIdAndUpdate(courseId, { $push: { episodes: episode.id } }, { new: true });
-        console.log('M<E EJECUTO')
-        return res.status(201).json(updatedCourse);
+        next();
+        //return res.status(201).json(updatedCourse);
 
     } catch (error) {
-        next(error);
+        //next(error);
+        return res.status(400).json('error picha')
     }
 }
 

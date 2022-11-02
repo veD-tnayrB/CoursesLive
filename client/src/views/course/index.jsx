@@ -8,12 +8,12 @@ import CreateEpisodeModal from 'src/components/course/modals/create-episode';
 
 const MODALS = {
     createEpisode: { show: false, payload: {  } }
-}
+};
 
 export default function Course() {
     const { courseId } = useParams();
     const [modals, setModals] = React.useState(MODALS)
-    const [course, setCourse] = React.useState({name: '', episodes: []});
+    const [course, setCourse] = React.useState({name: '', episodes: [], creator: ''});
     const [isLoading, setIsLoading] = React.useState(true);
 
     useDocumentTitle(`${course.name} - Course`);

@@ -8,7 +8,7 @@ const userRouter = Router();
 // Get all users
 userRouter.get('/', isUserAdmin, getAll);
 
-userRouter.get('/:id', getOne);
+userRouter.get('/user/:id', getOne);
 
 // Edit user info
 userRouter.patch('/me/edit', isBodyAUser, isUser, edit);

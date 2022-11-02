@@ -34,7 +34,7 @@ app.use('/episode/', testRouter); // WORK IN PROGRESS
 app.use('/images/', imagesRouter);
 app.use('/videos/', videosRouter);
 
-app.use(errorHandler);
+// app.use(errorHandler);
 
 
 // Connect with the data base and then start to listen

@@ -62,6 +62,8 @@ const create = async (req, res, next) => {
             throw Error('course already exist');
         };
 
+        const userCreator = await User.findById(creator.id);
+
         const newCourse = {
             ...courseInfo,
             creator: creator.id,
@@ -72,7 +74,7 @@ const create = async (req, res, next) => {
         const course = await Course.create(newCourse);
         course.save();
         
-        return res.status(201).json(course);
+        return res.status(201).json({...course._doc, creator: userCreator});
 
     } catch (error) {
         next(error);
@@ -133,10 +135,6 @@ const remove = async (req, res, next) => {
         const courseToRemove = await Course.findById(courseToRemoveId);
         const courseDoesntExist = !courseToRemove;
 
-        if (courseDoesntExist) {
-            throw Error('course doesnt exist');
-        }
-
         // Check if the creator is the remover
         const courseRemover = req.user.id;
         const creator = String(courseToRemove.creator);
@@ -167,20 +165,18 @@ const suscribe = async (req, res, next) => {
     try {
         const user = req.user;
 
-        // Check if the user is already suscribed
-        const isUserAlreadySuscribed = await User.findOne({ _id: user.id, courses: { $in: [ courseId ] } })
+        const courseToModify = await Course.findById(courseId);
+        if (!courseToModify) throw Error('course doesnt exist');
 
-        if (isUserAlreadySuscribed) {
+        // Check if the user is already suscribed
+        const isUserSuscribed = courseToModify.subscribers.some(suscriber => String(suscriber) === user.id);
+        console.log('=>', isUserSuscribed)
+        if (isUserSuscribed) {
             throw Error('user is already suscribed');
         }
 
         // Add the user id to the suscribers array
         const courseToSuscribe = await Course.findByIdAndUpdate(courseId, { $push: { subscribers: user.id } }, { new: true });
-        const courseDoesntExist = !courseToSuscribe;
-
-        if (courseDoesntExist) {
-            throw Error('course doesnt exist');
-        }
         
         // Update the user information
         const updatedUser = await User.findByIdAndUpdate(user.id, { $push: { courses: courseId } }, { new: true });
@@ -198,8 +194,11 @@ const unsuscribe = async (req, res, next) => {
     try {
         const user = req.user;
 
+        const courseToModify = await Course.findById(courseId);
+        if (!courseToModify) throw Error('course doesnt exist');
+
         // Check if the user is already suscribed
-        const isUserSuscribed = await User.findOne({ _id: user.id, courses: { $all: [ courseId ] } })
+        const isUserSuscribed = courseToModify.subscribers.some(suscriber => String(suscriber) === user.id);
         const isntUserSuscribed = !isUserSuscribed;
 
         if (isntUserSuscribed) {
@@ -207,12 +206,7 @@ const unsuscribe = async (req, res, next) => {
         }
 
         // Remove the user id from the suscribers array
-        const courseToUnsuscribe = await Course.findByIdAndUpdate(courseId, { $pull: { suscribers: user.id } })
-        const courseDoesntExist = !courseToUnsuscribe;
-
-        if (courseDoesntExist) {
-            throw Error('course doesnt exist');
-        }
+        await Course.findByIdAndUpdate(courseId, { $pull: { subscribers: user.id } });
 
         // Update the courses array
         const updatedUser = await User.findByIdAndUpdate(user.id, { $pull: { courses: courseId } }, { new: true });

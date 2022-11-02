@@ -1,15 +1,15 @@
+import { useCourseItemContext } from '../context';
 import SuscribeButton from './suscribe-button';
 import UnsuscribeButton from './unsuscribe-button';
 
 export default function Suscription({ courseId, isUserSuscribed }) {    
+    const { isSuscribed } = useCourseItemContext();
 
-    const buttonToDisplay = !isUserSuscribed ? 
-    <SuscribeButton courseId={courseId} /> :
-    <UnsuscribeButton courseId={courseId} />;
+    const Button = !isSuscribed ? SuscribeButton : UnsuscribeButton;
 
     return (
         <>
-            {buttonToDisplay}
+            <Button courseId={courseId} />
         </>
     )
 }
