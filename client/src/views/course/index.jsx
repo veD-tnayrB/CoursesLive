@@ -25,7 +25,6 @@ export default function Course() {
 
         getOne(signal, courseId)
         .then(response => {
-            console.log(response)
             setCourse(response);
             setIsLoading(false);
         });
