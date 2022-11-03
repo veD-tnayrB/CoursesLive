@@ -137,38 +137,26 @@
 
                 input {
                     cursor: pointer;
-
                     width: 4rem;
                     height: 2px;
 
-                    &:hover {
-                        &::-webkit-slider-thumb {
-                            width: 12px;
-                            height: 12px;
-                            top: -65%;
-                        }
-                    }
-
                     &::-webkit-slider-runnable-track {
-
-                        background: variables.$seventh-color;
-
+                        background: variables.$main-text-color;
                         width: 100%;
-                        height: 5px;
+                        height: 2px;
                     }
 
                     &::-webkit-slider-thumb {
-
-                        background: variables.$third-color;
+                        background: variables.$main-text-color;
                         border-radius: 50%;
 
-                        width: 1px;
-                        height: 1px;
+                        width: 12px;
+                            height: 12px;
 
                         transition: all .1s linear;
 
                         position: relative;
-                        top: -50%;
+                        top: -.25rem;
                     }
                 }
 

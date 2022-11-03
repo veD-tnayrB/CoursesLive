@@ -18,7 +18,7 @@ const INITIAL_VALUES = {
 const TOTAL_INPUTS = Object.keys(INITIAL_VALUES);
 
 export default function CreateEpisodeForm() {
-    const { course, setModals } = useCourseContext();
+    const { setCourse, course, setModals } = useCourseContext();
     const [videoFile, setVideoFile] = React.useState({});
     const {form, handleChanges} = useForm(INITIAL_VALUES);
 
@@ -35,10 +35,10 @@ export default function CreateEpisodeForm() {
         formData.append('videoName', videoFile.name);
 
         uploadEpisode(course.id, formData)
-        .then((response) => {
-            console.log(response)
+        .then(newEpisode => {
+            setCourse(otherProperties => ({...otherProperties, episodes: [newEpisode, ...otherProperties.episodes]}))
+            setModals(otherModals => ({...otherModals, createEpisode: {...otherModals.createEpisode, show: false }}));
         })
-        
     }
 
     return (

@@ -9,7 +9,7 @@ export default function VideoDropzone({ video, setVideo }) {
         setVideo(videoFile);
     }, [])
     const { getRootProps, getInputProps } = useDropzone({ onDrop })
-    console.log(video)
+    
     return (
         <div {...getRootProps()} className="video-dropzone">
             <input {...getInputProps()} />

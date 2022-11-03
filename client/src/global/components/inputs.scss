@@ -38,8 +38,8 @@ input[type="range"] {
     &::-webkit-slider-runnable-track {
         -webkit-appearance: none;
         appearance: none;
-
-        background: variables.$seventh-color;
+        background: variables.$secondary-text-color;
+        border-radius: 10px;
 
         width: 100%;
         height: 5px;
@@ -49,7 +49,7 @@ input[type="range"] {
         -webkit-appearance: none;
         appearance: none;
 
-        background: variables.$secondary-color;
+        background: variables.$main-text-color;
         border-radius: 50%;
 
         width: 12px;
