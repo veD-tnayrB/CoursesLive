@@ -11,7 +11,7 @@ const getAll = async (req, res, next) => {
 
         if (theresQueries) {
             const { level, search: courseName } = req.query;
-            courses = await Course.find({level: { $regex: level }, name: { $regex: courseName }}, '-episodes -description -tags').populate('creator', {
+            courses = await Course.find({level: { $regex: level }, name: { $regex: courseName }}, '-description -tags').populate('creator', {
                 courses: 0,
                 mail: 0,
                 name: 0,
@@ -20,7 +20,7 @@ const getAll = async (req, res, next) => {
             });
 
         } else {
-            courses = await Course.find({}, '-episodes -description -tags').populate('creator', {
+            courses = await Course.find({}, '-description -tags').populate('creator', {
                 courses: 0,
                 mail: 0,
                 name: 0,

@@ -20,7 +20,7 @@ function App() {
       <Route path="/users" element={<Users />} />
 
       {/* Detailed */}
-      <Route path="/courses/course/:courseId" element={<Course />} />
+      <Route path="/courses/course/:courseId/episode/:episodeId" element={<Course />} />
     </Routes>
   )
 }

@@ -20,6 +20,7 @@ export default function Course({ course }) {
     const [isSuscribed, setIsSuscribed] = React.useState(isUserSuscribed)
     const isUserAdmin = user.role === 'admin';
     const levelClass = COLORS_BY_LEVEL[course.level];
+    const firstEpisode = course.episodes[0];
 
     const courseStatus = isSuscribed ? 'suscribed' : 'unsuscribed';
 
@@ -50,7 +51,7 @@ export default function Course({ course }) {
 
                     {
                         isSuscribed &&
-                        <Link className="default-button course-button" to={`/courses/course/${course.id}`}>
+                        <Link className="default-button course-button" to={`/courses/course/${course.id}/episode/${firstEpisode}`}>
                             See course
                         </Link>
                     }

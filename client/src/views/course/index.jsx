@@ -5,6 +5,7 @@ import { CourseContext } from 'src/contexts/course/course.context';
 import useDocumentTitle from "src/hooks/useDocumentTitle"
 import FirstEpisode from 'src/components/course/first-episode';
 import CreateEpisodeModal from 'src/components/course/modals/create-episode';
+import Episodes from 'src/components/course/episodes';
 
 const MODALS = {
     createEpisode: { show: false, payload: {  } }
@@ -45,6 +46,7 @@ export default function Course() {
             <div className="course-page">
                 <FirstEpisode />
             </div>
+            <Episodes />
             <CreateEpisodeModal />
         </CourseContext.Provider>
     )

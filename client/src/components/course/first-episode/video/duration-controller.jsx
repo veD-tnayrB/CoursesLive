@@ -5,7 +5,7 @@ import EpisodeDurationIndicator from './duration-indicator';
 export default function EpisodeDurationController() {
     const { videoRef } = useVideoContext();
     const [played, setPlayed] = React.useState(0);
-    const maxDuration = videoRef?.current?.duration;
+    const maxDuration = React.useMemo(() => videoRef.current?.duration, [videoRef.current]);
 
     React.useEffect(() => {
         if (played >= maxDuration) return;

@@ -2,11 +2,11 @@ import { useFirstEpisodeContext } from '../context';
 import Like from './like';
 
 export default function EpisodeInfo() {
-    const { firstEpisode } = useFirstEpisodeContext();
+    const { selectedEpisode } = useFirstEpisodeContext();
 
     return (
         <div className="content-info">
-            <h2>{firstEpisode?.title}</h2>
+            <h2>{selectedEpisode?.title}</h2>
             <Like />
         </div>
     )

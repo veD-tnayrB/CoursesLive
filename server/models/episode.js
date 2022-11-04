@@ -24,8 +24,8 @@ const episodeSchema = new Schema({
     },
 
     course: {
-        type: Schema.Types.ObjectId,
         ref: 'Course',
+        type: Schema.Types.ObjectId,
         required: true
     },
 

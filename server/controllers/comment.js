@@ -53,7 +53,6 @@ const create = async (req, res, next) => {
         const today = new Date();
 
         const newComment = {
-            title: commentInfo.title,
             content: commentInfo.content,
             creator: creator.id,
             episode: episodeId,

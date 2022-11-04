@@ -47,8 +47,7 @@ const getEpisode = async (req, res, next) => {
         }
 
         // Search the episodes and check if the course and the episode exist
-        const episode = await Episode.findOne({ _id: episodeId, course: courseId })
-        .populate('comments', { episode: 0 });
+        const episode = await Episode.findOne({ id: episodeId, course: courseId })//.populate('comments');
         const episodeDoesntExist = !episode;
 
         if (episodeDoesntExist) {
