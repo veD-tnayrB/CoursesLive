@@ -1,13 +1,14 @@
 import * as React from 'react';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
-import { useFirstEpisodeContext } from '../../context';
 import { useUserContext } from 'src/contexts/user/user.context';
+import { useCourseContext } from 'src/contexts/course/course.context';
+import './like.scss';
 
 export default function Like() {
     const { user } = useUserContext();
-    const { firstEpisode } = useFirstEpisodeContext();
-    const itsLikeIt = firstEpisode?.peopleWhoLikedIt?.some(person => person === user.id);
+    const { selectedEpisode } = useCourseContext();
+    const itsLikeIt = selectedEpisode?.peopleWhoLikedIt?.some(person => person === user.id);
     const [isLikeit, setIsLikeIt] = React.useState(itsLikeIt);
     
     const Icon = isLikeit ? ThumbUpAltIcon : ThumbUpOffAltIcon;
@@ -17,10 +18,12 @@ export default function Like() {
     }
 
     return (
-        <div className="like-container">
+        <div className="like">
             <button onClick={toggleLike}>
                 <Icon className="icon" />
             </button>
+
+            <span>3M Likes</span>
         </div>
     )
 }

@@ -1,0 +1,29 @@
+@use 'src/global/_variables.scss';
+
+.like {
+    background: variables.$third-color;
+    border-radius: 40px;
+
+    width: -moz-fit-content;
+    width: fit-content;
+
+    height: 2.6rem;
+    // width: 11.875rem;
+
+    padding: .5rem 2rem;
+
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+
+    button {
+        .icon {
+                font-size: 1.87rem;
+            }
+    }
+
+    span {
+        font-size: 1rem;
+        font-weight: normal;
+    }
+}

@@ -11,6 +11,8 @@ export default function EpisodeCreator() {
     const { course } = useCourseContext();
 
     React.useEffect(() => {
+        if (!course.creator) return;
+
         const controller = new AbortController();
         const signal = controller.signal;
 

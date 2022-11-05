@@ -1,6 +1,6 @@
 @use 'src/global/_variables.scss';
 
-.first-episode-section {
+.selected-episode-section {
     .video-error {
         background-color: variables.$black;
         height: 80vh;
@@ -56,18 +56,20 @@
 
         width: 100%;
         height: 80vh;
-        
+
         position: relative;
         overflow: hidden;
 
         &:hover {
+
             .controls,
             .play-btn {
                 opacity: 1;
             }
         }
 
-        .play-btn, .controls {
+        .play-btn,
+        .controls {
             transition: all .1s linear;
         }
 
@@ -98,9 +100,9 @@
         .controls {
             background: rgba(0, 0, 0, 0.633);
             -webkit-box-shadow: -2px 39px 76px 75px rgba(0, 0, 0, 0.755);
-            -moz-box-shadow: -2px 39px 76px 75px rgba(0,0,0,0.755);
+            -moz-box-shadow: -2px 39px 76px 75px rgba(0, 0, 0, 0.755);
             box-shadow: -2px 39px 76px 75px rgba(0, 0, 0, 0.755);
-            
+
             width: 100%;
             padding: 1rem 1rem 0 1rem;
 
@@ -153,7 +155,7 @@
                         border-radius: 50%;
 
                         width: 12px;
-                            height: 12px;
+                        height: 12px;
 
                         transition: all .1s linear;
 

@@ -1,6 +1,6 @@
-import { useParams } from 'react-router-dom';
 import { useCourseContext } from 'src/contexts/course/course.context';
 import Episode from './episode';
+import './episodes.scss';
 
 export default function Episodes() {
     const { course } = useCourseContext();
@@ -10,7 +10,7 @@ export default function Episodes() {
     ))
 
     return (
-        <div className="section">
+        <div className="episodes-section">
             <ul>
                 {episodesElements}
             </ul>
