@@ -15,7 +15,7 @@ const MODAL_DEFAULT_VALUES = {
     create: { show: false, payload: {} },
     delete: { show: false, payload: {} },
     edit: { show: false, payload: {} },
-}
+};
 
 export default function Courses() {
     useDocumentTitle('Courses - CoursesLive');
@@ -27,29 +27,27 @@ export default function Courses() {
     React.useEffect(() => {
         const controller = new AbortController();
         const signal = controller.signal;
-        
+
         setIsLoading(true);
 
-        getAllCourses(signal, search.value, search.selectedFilter)
-            .then(response => {
-                console.log(1, response);
-                setCourses(response);
-                setIsLoading(false);
-            })
+        getAllCourses(signal, search.value, search.selectedFilter).then((response) => {
+            setCourses(response);
+            setIsLoading(false);
+        });
 
         return () => controller.abort();
     }, [search]);
 
     const contextValue = {
         courses,
-        setCourses, 
-        modals, 
+        setCourses,
+        modals,
         setModals,
         isLoading,
         setIsLoading,
-        search, 
-        setSearch
-    }
+        search,
+        setSearch,
+    };
     return (
         <CoursesContext.Provider value={contextValue}>
             <div className="courses-page page">
@@ -57,7 +55,7 @@ export default function Courses() {
                     <h2>Courses</h2>
                 </Header>
                 <SearchCourses setSearchResults={setCourses} />
-                
+
                 <CoursesSection />
 
                 <RegisterModal />
@@ -66,5 +64,5 @@ export default function Courses() {
                 <EditCourseModal />
             </div>
         </CoursesContext.Provider>
-    )
+    );
 }

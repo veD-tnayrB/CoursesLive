@@ -1,9 +1,9 @@
-import { useCoursesContext } from "src/contexts/courses/courses.context";
-import { useUserContext } from "src/contexts/user/user.context";
-import List from "src/components/common/list";
-import NewCourse from "./new-course";
-import Course from "./course";
-import PreloadList from "src/components/common/card/preload/List";
+import { useCoursesContext } from 'src/contexts/courses/courses.context';
+import { useUserContext } from 'src/contexts/user/user.context';
+import List from 'src/components/common/list';
+import NewCourse from './new-course';
+import Course from './course';
+import PreloadList from 'src/components/common/card/preload/List';
 import './section.scss';
 
 export default function CoursesSection() {
@@ -13,11 +13,9 @@ export default function CoursesSection() {
     const isUserAuthorized = user.role === 'teacher' || user.role === 'admin';
     const showCreateCourse = isUserAuthorized && !theresQueries;
 
-    if(isLoading) return <PreloadList />;
+    if (isLoading) return <PreloadList />;
 
-    const elements = courses.map(item => (
-        <Course key={item.id} course={item} />
-    ))
+    const elements = courses.map((item) => <Course key={item.id} course={item} />);
 
     return (
         <div className="course-section">
@@ -26,5 +24,5 @@ export default function CoursesSection() {
                 {elements}
             </List>
         </div>
-    )
+    );
 }

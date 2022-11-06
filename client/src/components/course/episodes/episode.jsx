@@ -4,32 +4,27 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 export default function Episode({ episode }) {
     const { courseId, episodeId } = useParams();
-    const isSelected = episode.id === episodeId;
+    const isSelected = episode.id === episodeId ? 'selected' : '';
     const [isHovered, setIsHovered] = React.useState(false);
 
     function hoverToggle() {
-        setIsHovered(currentValue => !currentValue);
+        setIsHovered((currentValue) => !currentValue);
     }
 
     return (
-        <li className="episode-item" style={{background: isSelected ? 'red ' : ''}}>
+        <li className={`episode-item ${isSelected}`}>
             <Link to={`/courses/course/${courseId}/episode/${episode.id}`}>
-                <div
-                    className="episode"
-                    onMouseEnter={hoverToggle}
-                    onMouseLeave={hoverToggle}
-                >
+                <div className="episode" onMouseEnter={hoverToggle} onMouseLeave={hoverToggle}>
                     <span>{episode.title}</span>
                     <p className="description">{episode.description}</p>
 
-                    {
-                        isHovered &&
+                    {isHovered && (
                         <button>
                             <DeleteIcon className="icon" id="delete" />
                         </button>
-                    }
+                    )}
                 </div>
             </Link>
         </li>
-    )
+    );
 }

@@ -6,11 +6,7 @@ import './selected-episode.scss';
 
 export default function SelectedEpisode() {
     const { selectedEpisode } = useCourseContext();
-    const output = selectedEpisode ? <Video episode={selectedEpisode} /> : <CreateEpisodeWarning />;
+    const output = selectedEpisode ? <Video /> : <CreateEpisodeWarning />;
 
-    return (
-        <section className="selected-episode-section">
-            {output}
-        </section>
-    )
+    return <section className="selected-episode-section">{output}</section>;
 }

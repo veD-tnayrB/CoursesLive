@@ -9,15 +9,15 @@ import './course.scss';
 import { CourseItemContext } from './context';
 
 const COLORS_BY_LEVEL = {
-    'Beginner': 'blue',
+    Beginner: 'blue',
     'Mid Level': 'green',
-    'Senior': 'red'
-}
+    Senior: 'red',
+};
 
 export default function Course({ course }) {
     const { user } = useUserContext();
-    const isUserSuscribed = course.subscribers?.some(suscriber => suscriber === user.id);
-    const [isSuscribed, setIsSuscribed] = React.useState(isUserSuscribed)
+    const isUserSuscribed = course.subscribers?.some((suscriber) => suscriber === user.id);
+    const [isSuscribed, setIsSuscribed] = React.useState(isUserSuscribed);
     const isUserAdmin = user.role === 'admin';
     const levelClass = COLORS_BY_LEVEL[course.level];
     const firstEpisode = course.episodes[0];
@@ -27,8 +27,8 @@ export default function Course({ course }) {
     const contextValue = {
         isSuscribed,
         setIsSuscribed,
-        course
-    }
+        course,
+    };
     return (
         <CourseItemContext.Provider value={contextValue}>
             <Card className="course-item">
@@ -44,19 +44,21 @@ export default function Course({ course }) {
                 </header>
                 <div className={`actions-container ${courseStatus}`}>
                     {isUserAdmin && <CourseAdminActions course={course} />}
-                    
+
                     <div className="end-button">
                         <Suscription courseId={course.id} />
                     </div>
 
-                    {
-                        isSuscribed &&
-                        <Link className="default-button course-button" to={`/courses/course/${course.id}/episode/${firstEpisode}`}>
+                    {isSuscribed && (
+                        <Link
+                            className="default-button course-button"
+                            to={`/courses/course/${course.id}/episode/${firstEpisode}`}
+                        >
                             See course
                         </Link>
-                    }
+                    )}
                 </div>
             </Card>
         </CourseItemContext.Provider>
-    )
+    );
 }

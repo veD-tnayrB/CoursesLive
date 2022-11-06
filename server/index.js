@@ -4,8 +4,8 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 
 // Routers imports
-import authRouter from './routes/auth.js';
-import courseRouter from './routes/course.js';
+import authRouter from './routes/auth.route.js';
+import courseRouter from './routes/course.route.js';
 import userRouter from './routes/user.js';
 import episodeRouter from './routes/episode.js';
 import commentRouter from './routes/comment.js';

@@ -12,18 +12,18 @@ const levelPattern = /^(Beginner|Mid Level|Senior)$/;
 const tagsPattern = /[a-zA-Z]\,/;
 
 const INITIAL_VALUES = {
-    name: {value: '', isCorrect: false, validation: namePattern},
-    description: {value: '', isCorrect: true, validation: descriptionPattern},
-    level: {value: 'Beginner', isCorrect: true, validation: levelPattern},
-    tags: {value: '', isCorrect: true, validation: tagsPattern}
-}
+    name: { value: '', isCorrect: false, validation: namePattern },
+    description: { value: '', isCorrect: true, validation: descriptionPattern },
+    level: { value: 'Beginner', isCorrect: true, validation: levelPattern },
+    tags: { value: '', isCorrect: true, validation: tagsPattern },
+};
 const TOTAL_INPUTS = Object.keys(INITIAL_VALUES);
 
 export default function CreateCourseForm() {
     const { setCourses, setModals } = useCoursesContext();
-    const {form, handleChanges, setFormValues} = useForm(INITIAL_VALUES);
+    const { form, handleChanges, setFormValues } = useForm(INITIAL_VALUES);
 
-    const correctInputs = Object.keys(form).filter(prop => form[prop].isCorrect);
+    const correctInputs = Object.keys(form).filter((prop) => form[prop].isCorrect);
     const isInfoCorrect = correctInputs.length === TOTAL_INPUTS.length;
 
     function create(event) {
@@ -35,53 +35,51 @@ export default function CreateCourseForm() {
             name: form.name.value,
             description: form.description.value,
             level: form.level.value,
-            tags: formatedTags
+            tags: formatedTags,
         };
 
-        createCourse(formatedCourse)
-        .then(newCourse => {
-            console.log(0, newCourse)
-            setModals(otherModals => ({...otherModals, create: {...otherModals.create, show: false}}));
-            setCourses(otherCourses => [newCourse, ...otherCourses]);
+        createCourse(formatedCourse).then((newCourse) => {
+            setModals((otherModals) => ({ ...otherModals, create: { ...otherModals.create, show: false } }));
+            setCourses((otherCourses) => [newCourse, ...otherCourses]);
         });
     }
 
     return (
         <form className="create-course-form" onSubmit={create}>
-            <ValidationInput 
+            <ValidationInput
                 type="text"
                 name="name"
                 value={form.name.value}
                 onChange={handleChanges}
                 placeholder="Name"
                 autoComplete="off"
-                isCorrect={form.name.isCorrect} 
+                isCorrect={form.name.isCorrect}
             />
 
             <div className="input-container">
-                <textarea 
+                <textarea
                     type="text"
                     name="description"
                     value={form.description.value}
                     onChange={handleChanges}
                     placeholder="Description (Optional)"
-                    autoComplete="off" 
+                    autoComplete="off"
                 />
             </div>
 
             <Levels form={form} setFormValues={setFormValues} />
 
-            <ValidationInput 
+            <ValidationInput
                 type="text"
                 name="tags"
                 value={form.tags.value}
                 onChange={handleChanges}
                 placeholder="Tags (Optional)"
                 autoComplete="off"
-                isCorrect={form.tags.isCorrect} 
+                isCorrect={form.tags.isCorrect}
             />
 
             <CreationModalActions isInfoCorrect={isInfoCorrect} />
         </form>
-    )
+    );
 }

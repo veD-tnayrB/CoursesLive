@@ -1,5 +1,47 @@
+@use 'src/global/_variables.scss';
+
 .episodes-section {
+    min-height: 100%;
+
+    .filters {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+
+        .filter {
+            background: variables.$third-color;
+            border-radius: 20px;
+            width: 100%;
+
+            &.selected {
+                button {
+                    background: variables.$main-text-color;
+                    border-radius: 20px;
+                    color: variables.$black;
+                }
+            }
+
+            button {
+                font-size: 1.1rem;
+                font-weight: bold;
+                width: 100%;
+                padding: 0.5rem;
+            }
+        }
+    }
+
     ul {
         list-style: none;
+
+        .episode-item {
+            &.selected {
+                background: blue;
+            }
+
+            .episode {
+                display: flex;
+            }
+        }
     }
 }

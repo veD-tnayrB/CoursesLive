@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { login, signup } from '../controllers/auth.js';
+import auth from '../controllers/auth.controller.js';
 import isBodyAUser from '../dtos/isBodyAUser.js';
 
 // ALSO TEMPORAL
@@ -8,12 +8,10 @@ import User from '../models/user.js';
 const authRouter = Router();
 
 // Log the user
-authRouter.post('/login', login);
+authRouter.post('/login', auth.login);
 
 // Register the user
-authRouter.post('/signup', isBodyAUser, signup);
-
-
+authRouter.post('/signup', isBodyAUser, auth.signup);
 
 // TEMPORAL
 authRouter.get('/admin', (req, res, next) => {
