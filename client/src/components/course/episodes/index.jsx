@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useCourseContext } from 'src/contexts/course/course.context';
 import Episode from './episode';
 import Filters from './filters';
+import NewEpisode from './new-episode';
 import './episodes.scss';
 
 export default function Episodes() {
@@ -13,7 +14,10 @@ export default function Episodes() {
     return (
         <section className="episodes-section">
             <Filters selectedFilter={selectedFilter} setSelectedFilter={setSelectedFilter} />
-            <ul>{episodesElements}</ul>
+            <ul>
+                <NewEpisode />
+                {episodesElements}
+            </ul>
         </section>
     );
 }

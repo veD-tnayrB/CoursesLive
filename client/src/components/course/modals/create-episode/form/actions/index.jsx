@@ -1,29 +1,22 @@
-import ActionButton from "src/components/common/action-button";
-import { useCourseContext } from "src/contexts/course/course.context";
+import ActionButton from 'src/components/common/action-button';
+import { useCourseContext } from 'src/contexts/course/course.context';
 
 export default function CreationModalActions({ isInfoCorrect }) {
     const { setModals } = useCourseContext();
 
     function back() {
-        setModals(othersModals => ({...othersModals, createEpisode: {...othersModals.createEpisode, show: false}}));
+        setModals((othersModals) => ({ ...othersModals, create: { ...othersModals.create, show: false } }));
     }
 
     return (
         <div className="actions-container">
-            <button
-                onClick={back}
-                type="reset"
-                className="secondary-button"
-            >
+            <button onClick={back} type="reset" className="secondary-button">
                 Back
             </button>
 
-            <ActionButton
-                className="primary-button"
-                disabled={!isInfoCorrect}
-            >
+            <ActionButton className="primary-button" disabled={!isInfoCorrect}>
                 Create
             </ActionButton>
         </div>
-    )
+    );
 }

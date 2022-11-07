@@ -7,7 +7,7 @@ import cors from 'cors';
 import authRouter from './routes/auth.route.js';
 import courseRouter from './routes/course.route.js';
 import userRouter from './routes/user.js';
-import episodeRouter from './routes/episode.js';
+import episodeRouter from './routes/episode.route.js';
 import commentRouter from './routes/comment.js';
 import testRouter from './routes/test.js';
 import imagesRouter from './routes/images.js';
@@ -36,12 +36,11 @@ app.use('/videos/', videosRouter);
 
 app.use(errorHandler);
 
-
 // Connect with the data base and then start to listen
 mongoose.connect(process.env.MONGODB_URL, (error) => {
     if (error) return console.log(`DATA BASE NOT CONNECTED`);
 
     app.listen(process.env.PORT, () => {
         console.log(`SERVER STARTED ON ${process.env.PORT}`);
-    })
-})
+    });
+});

@@ -1,10 +1,12 @@
 import * as React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { useCourseContext } from 'src/contexts/course/course.context';
 
 export default function Episode({ episode }) {
-    const { courseId, episodeId } = useParams();
-    const isSelected = episode.id === episodeId ? 'selected' : '';
+    const { selectedEpisode } = useCourseContext();
+    const { courseId } = useParams();
+    const isSelected = episode.id === selectedEpisode.id ? 'selected' : '';
     const [isHovered, setIsHovered] = React.useState(false);
 
     function hoverToggle() {

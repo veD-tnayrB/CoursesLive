@@ -8,18 +8,11 @@ export default function CreateEpisodeModal() {
     const { modals, setModals } = useCourseContext();
 
     return (
-        <ModalContainer 
-            className="create-episode-modal"
-            show={modals.createEpisode.show}
-        >
-
-            <Modal 
-                setModals={setModals}
-                modal="createEpisode" 
-            >
+        <ModalContainer className="create-episode-modal" show={modals.create.show}>
+            <Modal setModals={setModals} modal="createEpisode">
                 <CreateEpisodeHeader />
                 <CreateEpisodeForm />
             </Modal>
         </ModalContainer>
-    )
+    );
 }

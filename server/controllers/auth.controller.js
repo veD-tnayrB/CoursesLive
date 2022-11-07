@@ -13,13 +13,12 @@ class Auth {
 
             const token = jwt.sign({ id: user.id, role: user.role }, process.env.JWT_SECRET);
             return res.status(200).json({ user, token });
-
         } catch (error) {
             next(error);
         }
     }
 
-    async signup() {
+    async signup(req, res, next) {
         try {
             const userInfo = req.body;
 
@@ -35,13 +34,12 @@ class Auth {
                 mail: userInfo.mail.toLowerCase(),
                 profileImage: 'default-user.svg',
                 role: DEFAULT_ROLE,
-                courses: []
+                courses: [],
             });
 
             const token = jwt.sign({ id: newUser.id, role: newUser.role }, process.env.JWT_SECRET);
             newUser.save();
             return res.status(201).json({ user: newUser, token });
-
         } catch (error) {
             next(error);
         }

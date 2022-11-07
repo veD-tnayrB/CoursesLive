@@ -1,12 +1,11 @@
 import Course from '../models/course.js';
 import Episode from '../models/episode.js';
-import User from '../models/user.js';
 import { unlink } from 'fs';
 
 const VIDEOS_LOCATION = 'storage/videos';
 
 class Episodes {
-    async getAll() {
+    async getAll(req, res, next) {
         try {
             const { courseId } = req.params;
 
@@ -27,7 +26,7 @@ class Episodes {
         }
     }
 
-    async getById() {
+    async getById(req, res, next) {
         try {
             const { courseId, episodeId } = req.params;
 
@@ -45,11 +44,11 @@ class Episodes {
         }
     }
 
-    async create() {
+    async create(req, res, next) {
+        const video = req.file.filename;
         try {
             const newEpisodeInfo = req.body;
             const { courseId } = req.params;
-            const video = req.file.filename;
             const creator = req.user;
 
             // Check if the episode already exist
@@ -81,7 +80,7 @@ class Episodes {
         }
     }
 
-    async edit() {
+    async edit(req, res, next) {
         try {
             const { courseId, episodeId } = req.params;
             const modifiedEpisodeInfo = req.body;
@@ -124,133 +123,95 @@ class Episodes {
             next(error);
         }
     }
+
+    async remove(req, res, next) {
+        try {
+            const { courseId, episodeId } = req.params;
+            const remover = req.user;
+
+            // Check if the episode exist
+            const episodeToRemove = await Episode.findById(episodeId);
+
+            if (!episodeToRemove) return res.status(404).json('EPISODE_DOESNT_EXISTS');
+
+            // Check if the user remover info is actually correct and if it owner
+            const userIsntOwner = String(episodeToRemove.creator) !== remover.id;
+
+            if (userIsntOwner) return res.status(304).json('USER_NOT_AUTHORIZED');
+
+            // Remove the episode
+            const episode = await Episode.findByIdAndRemove(episodeId);
+
+            // Update the course information
+            const updatedCourse = await Course.findByIdAndUpdate(
+                courseId,
+                { $pull: { episodes: episodeId } },
+                { new: true }
+            );
+
+            return res.status(202).json(updatedCourse);
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    async like(req, res, next) {
+        try {
+            const { courseId, episodeId } = req.params;
+            const liker = req.user;
+
+            // Check if the course exist
+            const course = await Course.findById(courseId).populate('episodes');
+            if (!course) return res.status(404).json({ message: 'COURSE_DOESNT_EXISTS' });
+
+            // Check if the episode exists and if it's part of the course
+            const episode = course.episodes.find((episode) => String(episode.id) === episodeId);
+            if (!episode) return res.status(404).json({ message: 'EPISODE_DOESNT_EXISTS' });
+
+            const isLikedIt = episode.people_who_liked_it.some((person) => String(person) === liker.id);
+            if (isLikedIt) return res.status(304).json({ message: 'UNAUTHORIZED' });
+            // Update the people who liked it array
+            const updatedEpisode = await Episode.findByIdAndUpdate(
+                episodeId,
+                { $push: { people_who_liked_it: liker.id } },
+                { new: true }
+            );
+
+            return res.status(200).json(updatedEpisode);
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    async unlike(req, res, next) {
+        try {
+            const { courseId, episodeId } = req.params;
+            const unliker = req.user;
+
+            // Check if the course exist
+            const course = await Course.findById(courseId).populate('episodes');
+            if (!course) return res.status(404).json('COURSE_DOESNT_EXISTS');
+
+            // Check if the episode exists and if it's part of the course
+            const episode = course.episodes.find((episode) => String(episode.id) === episodeId);
+            if (!episode) return res.status(404).json({ message: 'EPISODE_DOESNT_EXISTS' });
+
+            const isLikedIt = episode.people_who_liked_it.some((person) => String(person) === unliker.id);
+            if (!isLikedIt) return res.status(304).json({ message: 'UNAUTHORIZED' });
+
+            // Update the people who liked it array
+            const updatedEpisode = await Episode.findByIdAndUpdate(
+                episodeId,
+                { $pull: { people_who_liked_it: unliker.id } },
+                { new: true }
+            );
+
+            return res.status(200).json(updatedEpisode);
+        } catch (error) {
+            next(error);
+        }
+    }
 }
 
-// Remove a episode
-const remove = async (req, res, next) => {
-    const { courseId, episodeId } = req.params;
-
-    try {
-        const remover = req.user;
-
-        // Check if the episode exist
-        const episodeToRemove = await Episode.findById(episodeId);
-        const episodeDoesntExist = !episodeExistToRemove;
-
-        if (episodeDoesntExist) {
-            throw Error('episode doesnt exist');
-        }
-
-        // Check if the user remover info is actually correct and if it owner
-        const userIsntOwner = String(episodeToRemove.creator) !== remover.id;
-
-        /*                                    */
-        /*  |||  SEVERAL SECURITY ISSUE  |||  */
-        /*                                    */
-
-        if (userIsntOwner) {
-            throw Error('user not authorized');
-        }
-
-        // Remove the episode
-        const episode = await Episode.findByIdAndRemove(episodeId);
-        const episodeWasntRemoved = !episode;
-
-        if (episodeWasntRemoved) {
-            throw Error('episode wasnt removed');
-        }
-
-        // Update the course information
-        const updatedCourse = await Course.findByIdAndUpdate(
-            courseId,
-            { $pull: { episodes: episodeId } },
-            { new: true }
-        );
-
-        return res.status(202).json(updatedCourse);
-    } catch (error) {
-        next(error);
-    }
-};
-
-// Like a episode
-const like = async (req, res, next) => {
-    const { courseId, episodeId } = req.params;
-
-    try {
-        const liker = req.user;
-
-        // Check if the course exist
-        const course = await Course.findById(courseId);
-        const courseDoesntExist = !course;
-
-        if (courseDoesntExist) {
-            throw Error('course doesnt exist');
-        }
-
-        // Check if the episode exists and if it's part of the course
-        const episode = await Episode.findOne({ _id: episodeId, course: courseId });
-        const episodeDoesntExist = !episode;
-
-        if (episodeDoesntExist) {
-            throw Error('episode doesnt exist');
-        }
-
-        // Update the people who liked it array
-        const updatedEpisode = await Episode.findByIdAndUpdate(
-            episodeId,
-            { $push: { people_who_liked_it: liker.id } },
-            { new: true }
-        );
-        const episodeWasntUpdated = !updatedEpisode;
-
-        if (episodeWasntUpdated) {
-            throw Error('episode wasnt updated');
-        }
-
-        return res.status(200).json(updatedEpisode);
-    } catch (error) {
-        next(error);
-    }
-};
-
-// Dislike a episode
-const dislike = async (req, res, next) => {
-    const { courseId, episodeId } = req.params;
-
-    try {
-        // Check if the course exist
-        const course = await Course.findById(courseId);
-        const courseDoesntExist = !course;
-
-        if (courseDoesntExist) {
-            throw Error('course doesnt exist');
-        }
-
-        // Check if the episode exists and if it's part of the course
-        const episode = await Episode.findOne({ _id: episodeId, course: courseId });
-        const episodeDoesntExist = !episode;
-
-        if (episodeDoesntExist) {
-            throw Error('episode doesnt exist');
-        }
-
-        // Update the people who liked it array
-        const updatedEpisode = await Episode.findByIdAndUpdate(
-            episodeId,
-            { $pull: { people_who_liked_it: disliker.id } },
-            { new: true }
-        );
-        const episodeWasntUpdated = !updatedEpisode;
-
-        if (episodeWasntUpdated) {
-            throw Error('episode wasnt updated');
-        }
-
-        return res.status(200).json(updatedEpisode);
-    } catch (error) {
-        next(error);
-    }
-};
-
-export { getAll, getEpisode, create, edit, like, dislike, remove };
+const episodes = new Episodes();
+export default episodes;

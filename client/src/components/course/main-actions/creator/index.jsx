@@ -1,12 +1,19 @@
 import * as React from 'react';
 import { useCourseContext } from 'src/contexts/course/course.context';
 import LoadingIcon from 'src/components/common/load';
-import CreatorContent from './content';
+import { IMAGES_ROUTES } from 'src/services/config';
 import './creator.scss';
 
 export default function EpisodeCreator() {
-    const { course, isLoading } = useCourseContext();
+    const { course } = useCourseContext();
+    const creator = course.creator;
 
-    const output = isLoading ? <LoadingIcon /> : <CreatorContent creator={course.creator} />;
-    return <article className="creator-info">{output}</article>;
+    return (
+        <div className="creator-info">
+            <img src={`${IMAGES_ROUTES}${creator.profileImage}`} />
+            <h3>
+                {creator.name} {creator.lastName}
+            </h3>
+        </div>
+    );
 }

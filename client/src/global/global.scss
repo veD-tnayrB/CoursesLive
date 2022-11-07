@@ -6,7 +6,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    
+
     font-family: variables.$primary-font;
     font-weight: normal;
     font-size: 1rem;
@@ -14,7 +14,7 @@
 
     &::-webkit-scrollbar {
         width: 10px;
-      }
+    }
 
     &::-webkit-scrollbar-track {
         background: variables.$fifth-color;
@@ -22,7 +22,7 @@
     }
 
     &::-webkit-scrollbar-thumb {
-        background-color: variables.$primary-background;
+        background-color: variables.$third-color;
         border-radius: 10px;
     }
 }
@@ -60,7 +60,7 @@ section {
 }
 
 @media (max-width: variables.$mobile-breakpoint) {
-    main{ 
+    main {
         padding: 0 1rem;
     }
 }

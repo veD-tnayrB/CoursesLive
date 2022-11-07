@@ -7,10 +7,11 @@
         .actions-container {
             &.suscribed {
                 grid-template-columns: 3rem 3rem 3rem 1fr;
-                grid-template-areas: "delete modify suscription profile";
+                grid-template-areas: 'delete modify suscription profile';
 
                 .course-button {
                     grid-area: profile;
+                    padding: 0.8rem 1rem;
                 }
 
                 .end-button {
@@ -40,7 +41,7 @@
                 }
 
                 &.loading {
-                    padding: .5rem 0;
+                    padding: 0.5rem 0;
 
                     .loading-icon::after {
                         width: 15px;
@@ -52,7 +53,7 @@
             .end-button {
                 .default-button {
                     display: flex;
-                    gap: .5rem;
+                    gap: 0.5rem;
 
                     .icon {
                         aspect-ratio: 1/1;

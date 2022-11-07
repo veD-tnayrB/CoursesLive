@@ -5,8 +5,8 @@ import Video from './video';
 import './selected-episode.scss';
 
 export default function SelectedEpisode() {
-    const { selectedEpisode } = useCourseContext();
-    const output = selectedEpisode ? <Video /> : <CreateEpisodeWarning />;
+    const { course } = useCourseContext();
+    const output = course.episodes.length > 0 ? <Video /> : <CreateEpisodeWarning />;
 
     return <section className="selected-episode-section">{output}</section>;
 }

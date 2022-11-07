@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useUserContext } from 'src/contexts/user/user.context';
 import { useParams } from 'react-router-dom';
 import { getOne } from 'src/services/courses';
 import { CourseContext } from 'src/contexts/course/course.context';
@@ -8,29 +9,34 @@ import CreateEpisodeModal from 'src/components/course/modals/create-episode';
 import EpisodeInfo from 'src/components/course/info';
 import MainActions from 'src/components/course/main-actions';
 import Episodes from 'src/components/course/episodes';
+import DeleteEpisodeModal from 'src/components/course/modals/delete-episode';
 import './course.scss';
 
 const MODALS = {
-    createEpisode: { show: false, payload: {} },
+    create: { show: false, payload: {} },
+    delete: { show: false, payload: {} },
 };
 
 const DEFAULT_COURSE = {
     name: '',
-    creator: { name: '', profileImage: '' },
+    creator: { name: '', profileImage: '', id: '' },
     episodes: [],
 };
 
 const DEFAULT_SELECTED_EPISODE = {
     title: '',
     video: '',
+    peopleWhoLikedIt: [],
 };
 
 export default function Course() {
     const { courseId, episodeId } = useParams();
+    const { user } = useUserContext();
     const [modals, setModals] = React.useState(MODALS);
     const [course, setCourse] = React.useState(DEFAULT_COURSE);
     const [selectedEpisode, setSelectedEpisode] = React.useState(DEFAULT_SELECTED_EPISODE);
     const [isLoading, setIsLoading] = React.useState(true);
+    const isCourseCreator = course.creator.id === user.id;
 
     useDocumentTitle(`${course.name} - Course`);
 
@@ -61,6 +67,7 @@ export default function Course() {
         setIsLoading,
         modals,
         setModals,
+        isCourseCreator,
     };
     return (
         <CourseContext.Provider value={contextValue}>
@@ -76,6 +83,7 @@ export default function Course() {
                 </section>
             </div>
             <CreateEpisodeModal />
+            <DeleteEpisodeModal />
         </CourseContext.Provider>
     );
 }

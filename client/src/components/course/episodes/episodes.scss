@@ -2,6 +2,9 @@
 
 .episodes-section {
     min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
 
     .filters {
         width: 100%;
