@@ -5,8 +5,8 @@ export default function EpisodeInfo() {
     const { selectedEpisode } = useCourseContext();
 
     return (
-        <div className="info">
+        <div className="info" title={selectedEpisode.title}>
             <h1>{selectedEpisode.title}</h1>
         </div>
-    )
+    );
 }

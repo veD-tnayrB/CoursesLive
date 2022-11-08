@@ -1,0 +1,39 @@
+@use 'src/global/_variables.scss';
+
+.edit-course-form {
+    .validation-input {
+        margin: 1.5rem 0;
+        width: 100%;
+    }
+
+    .video-dropzone {
+        border: 1px solid variables.$main-text-color;
+        border-radius: 5px;
+        cursor: pointer;
+        height: 8rem;
+
+        margin: 1.5rem 0;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .icon {
+            width: 40px;
+            height: 40px;
+            aspect-ratio: 1/1;
+            margin: 0 auto;
+        }
+
+        .empty-dropzone, .filled-dropzone {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+
+    .actions-container {
+        display: flex;
+        justify-content: flex-end;
+    }
+}

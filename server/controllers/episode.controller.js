@@ -35,7 +35,7 @@ class Episodes {
             if (!course) return res.status(404).json('COURSE_DOESNT_EXISTS');
 
             // Search the episodes and check if the course and the episode exist
-            const episode = await Episode.findOne({ id: episodeId, course: courseId }); //.populate('comments');
+            const episode = await Episode.findOne({ id: episodeId, course: courseId }).populate('comments');
             if (!episode) return res.status(404).json('EPISODE_DOESNT_EXISTS');
 
             return res.status(200).json(episode);

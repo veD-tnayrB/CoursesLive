@@ -60,3 +60,13 @@ export async function remove(courseId, episodeId) {
         throw new Error(errors.message);
     }
 }
+
+export async function createComment(episodeId, comment) {
+    try {
+        const { data } = await axios.post(`${ENVIRONMENT}episode/${episodeId}/comment/create`, comment);
+        return data;
+    } catch ({ response: { data: errors } }) {
+        console.error(errors);
+        throw new Error(errors.message);
+    }
+}

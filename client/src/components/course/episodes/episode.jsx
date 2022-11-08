@@ -1,30 +1,29 @@
 import * as React from 'react';
 import { Link, useParams } from 'react-router-dom';
-import DeleteIcon from '@mui/icons-material/Delete';
 import { useCourseContext } from 'src/contexts/course/course.context';
 
 export default function Episode({ episode }) {
-    const { selectedEpisode } = useCourseContext();
+    const { course, selectedEpisode, setSelectedEpisode } = useCourseContext();
     const { courseId } = useParams();
     const isSelected = episode.id === selectedEpisode.id ? 'selected' : '';
-    const [isHovered, setIsHovered] = React.useState(false);
 
-    function hoverToggle() {
-        setIsHovered((currentValue) => !currentValue);
+    function updateSelectedEpisode() {
+        setSelectedEpisode(course.episodes.find((otherEpisode) => otherEpisode.id === episode.id));
     }
 
     return (
-        <li className={`episode-item ${isSelected}`}>
-            <Link to={`/courses/course/${courseId}/episode/${episode.id}`}>
-                <div className="episode" onMouseEnter={hoverToggle} onMouseLeave={hoverToggle}>
-                    <span>{episode.title}</span>
-                    <p className="description">{episode.description}</p>
+        <li className={`episode-item ${isSelected}`} title={episode.title}>
+            <Link to={`/courses/course/${courseId}/episode/${episode.id}`} onClick={updateSelectedEpisode}>
+                <div className="episode">
+                    <img src="" alt="" className="episode-preview" />
 
-                    {isHovered && (
-                        <button>
-                            <DeleteIcon className="icon" id="delete" />
-                        </button>
-                    )}
+                    <div className="info-container">
+                        <span className="title">{episode.title}</span>
+                        <p className="creator">
+                            {course.creator.name} {course.creator.lastName}
+                        </p>
+                        <p className="views">{episode.views}</p>
+                    </div>
                 </div>
             </Link>
         </li>

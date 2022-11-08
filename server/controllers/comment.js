@@ -17,9 +17,7 @@ const getAll = async (req, res, next) => {
         }
 
         // Get all the comments and the answers
-        const comments = await Comment.find({ episode: episodeId }).populate('answers', {
-
-        });
+        const comments = await Comment.find({ episode: episodeId }).populate('answers', {});
         const theresNoComments = !comments;
 
         if (theresNoComments) {
@@ -30,17 +28,16 @@ const getAll = async (req, res, next) => {
     } catch (error) {
         next(error);
     }
-
-}
+};
 
 // Create a comment
 const create = async (req, res, next) => {
-    const { authorization: token } = req.headers;
     const { episodeId } = req.params;
     const commentInfo = req.body;
+    console.log(commentInfo);
 
     try {
-        const creator = jwt.verify(token, process.env.JWT_SECRET);
+        const creator = req.user;
 
         // Check if the episode exist
         const episode = await Episode.findById(episodeId);
@@ -56,8 +53,8 @@ const create = async (req, res, next) => {
             content: commentInfo.content,
             creator: creator.id,
             episode: episodeId,
-            date: today.toISOString()
-        }
+            date: today.toISOString(),
+        };
 
         // Create the comment
         const comment = await Comment.create(newComment);
@@ -67,11 +64,10 @@ const create = async (req, res, next) => {
         await Episode.findByIdAndUpdate(episodeId, { $push: { comments: comment } }, { new: true });
 
         return res.status(202).json(comment);
-
     } catch (error) {
         next(error);
     }
-}
+};
 
 // Delete comment
 const remove = async (req, res, next) => {
@@ -106,14 +102,14 @@ const remove = async (req, res, next) => {
 
         // Delete the comment and update the episode info
         const deletedComment = await Comment.findByIdAndRemove(commentId);
-        
+
         await Episode.findByIdAndUpdate(episodeId, { $pull: { comments: commentId } }, { new: true });
 
         return res.status(200).json(deletedComment);
     } catch (error) {
         next(error);
     }
-}
+};
 
 // Edit a comment
 const edit = async (req, res, next) => {
@@ -149,15 +145,15 @@ const edit = async (req, res, next) => {
         // Update the comment
         const newCommentInfo = {
             title: newComment.title,
-            content: newComment.content
-        }
+            content: newComment.content,
+        };
 
-        const modifiedComment = await Comment.findByIdAndUpdate(commentId, newCommentInfo, { new: true }); 
-        
+        const modifiedComment = await Comment.findByIdAndUpdate(commentId, newCommentInfo, { new: true });
+
         return res.status(200).json(modifiedComment);
     } catch (error) {
         next(error);
     }
-}
+};
 
 export { getAll, create, edit, remove };

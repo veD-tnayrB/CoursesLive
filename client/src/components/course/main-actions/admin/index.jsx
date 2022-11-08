@@ -13,11 +13,11 @@ export default function AdminEpisodesActions() {
 
     return (
         <div className="main-episodes-actions">
-            <button onClick={showModal} id="delete" title="Delete episode">
-                <DeleteIcon className="icon" />
-            </button>
             <button onClick={showModal} id="edit" title="Edit episode">
                 <EditIcon className="icon" />
+            </button>
+            <button onClick={showModal} id="delete" title="Delete episode">
+                <DeleteIcon className="icon" />
             </button>
         </div>
     );

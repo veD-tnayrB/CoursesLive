@@ -36,14 +36,54 @@
 
     ul {
         list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 1.2rem;
 
         .episode-item {
-            &.selected {
-                background: blue;
-            }
+            height: 6rem;
 
-            .episode {
+            a {
+                text-decoration: none;
                 display: flex;
+
+                &:hover {
+                    .episode {
+                        .title {
+                            text-decoration: underline;
+                        }
+                    }
+                }
+
+                &.selected {
+                    background: blue;
+                }
+
+                .episode {
+                    height: 60%;
+                    display: flex;
+                    gap: 0.5rem;
+
+                    .episode-preview {
+                        border-radius: 20px;
+                        aspect-ratio: 16/9;
+                        width: 10rem;
+                        height: 100%;
+                    }
+
+                    .info-container {
+                        .title {
+                            overflow: hidden;
+                            display: -webkit-box;
+                            -webkit-line-clamp: 2;
+                            -webkit-box-orient: vertical;
+                        }
+
+                        .creator {
+                            color: variables.$secondary-text-color;
+                        }
+                    }
+                }
             }
         }
     }

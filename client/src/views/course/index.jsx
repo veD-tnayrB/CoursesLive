@@ -10,11 +10,15 @@ import EpisodeInfo from 'src/components/course/info';
 import MainActions from 'src/components/course/main-actions';
 import Episodes from 'src/components/course/episodes';
 import DeleteEpisodeModal from 'src/components/course/modals/delete-episode';
+import EpisodeDescription from 'src/components/course/description';
+import EditEpisodeModal from 'src/components/course/modals/edit-episode';
+import EpisodeComments from 'src/components/course/comments';
 import './course.scss';
 
 const MODALS = {
     create: { show: false, payload: {} },
     delete: { show: false, payload: {} },
+    edit: { show: false, payload: {} },
 };
 
 const DEFAULT_COURSE = {
@@ -27,6 +31,7 @@ const DEFAULT_SELECTED_EPISODE = {
     title: '',
     video: '',
     peopleWhoLikedIt: [],
+    comments: [],
 };
 
 export default function Course() {
@@ -56,7 +61,7 @@ export default function Course() {
         });
 
         return () => controller.abort();
-    }, [episodeId, courseId]);
+    }, [courseId]);
 
     const contextValue = {
         course,
@@ -78,12 +83,15 @@ export default function Course() {
                     <div className="episode-info-container">
                         <EpisodeInfo />
                         <MainActions />
+                        <EpisodeDescription />
+                        <EpisodeComments />
                     </div>
                     <Episodes />
                 </section>
             </div>
             <CreateEpisodeModal />
             <DeleteEpisodeModal />
+            <EditEpisodeModal />
         </CourseContext.Provider>
     );
 }

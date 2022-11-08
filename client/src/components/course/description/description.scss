@@ -1,0 +1,33 @@
+@use 'src/global/_variables.scss';
+
+.episode-description {
+    background: variables.$third-color;
+    border-radius: 20px;
+
+    height: 10rem;
+    padding: 1.2rem 1.2rem 3.2rem 1.2rem;
+    overflow: hidden;
+
+    position: relative;
+
+    &.opened {
+        height: auto;
+    }
+
+    p {
+        height: 100%;
+        display: block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    button {
+        position: absolute;
+        bottom: 1rem;
+        right: 1.5rem;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}

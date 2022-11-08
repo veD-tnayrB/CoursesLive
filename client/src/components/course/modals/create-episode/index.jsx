@@ -9,7 +9,7 @@ export default function CreateEpisodeModal() {
 
     return (
         <ModalContainer className="create-episode-modal" show={modals.create.show}>
-            <Modal setModals={setModals} modal="createEpisode">
+            <Modal setModals={setModals} modal="create">
                 <CreateEpisodeHeader />
                 <CreateEpisodeForm />
             </Modal>
