@@ -1,62 +1,81 @@
 @use 'src/global/_variables.scss';
 
 .comments-section {
-    width: 100%;
-    min-height: 10rem;
-    margin: 1rem 0 0 0;
+	width: 100%;
+	min-height: 10rem;
+	margin: 1rem 0 0 0;
 
-    .new-comment {
-        width: 100%;
+	.new-comment {
+		width: 100%;
+		margin: 0 0 0.5rem 0;
+		padding: 0;
 
-        form {
-            width: 100%;
-            max-width: 100%;
+		form {
+			width: 100%;
+			max-width: 100%;
 
-            position: relative;
+			position: relative;
 
-            textarea {
-                background: variables.$third-color;
-                border-radius: 20px;
+			textarea {
+				background: variables.$third-color;
+				border-radius: 20px;
 
-                max-width: 100%;
-                min-width: 100%;
-                min-height: 10rem;
-                max-height: 10rem;
+				max-width: 100%;
+				min-width: 100%;
+				min-height: 10rem;
+				max-height: 10rem;
 
-                padding: 1.2rem;
-            }
+				padding: 1.2rem;
+			}
 
-            button {
-                padding: 0.8rem 2rem;
-                position: absolute;
-                right: 1rem;
-                bottom: 1rem;
-            }
-        }
-    }
+			button {
+				padding: 0.8rem 2rem;
+				position: absolute;
+				right: 1rem;
+				bottom: 1rem;
+			}
+		}
+	}
 
-    article {
-        display: grid;
-        gap: 1rem;
+	article {
+		padding: 2rem 0;
 
-        header {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+		display: grid;
+		gap: 1rem;
 
-            .creator {
-                font-size: 1.1rem;
-            }
-        }
-    }
+		header {
+			display: flex;
+			align-items: center;
+			gap: 0.5rem;
 
-    img {
-        width: 2.2rem;
-        height: 2.2rem;
-    }
+			.creator {
+				font-size: 1.1rem;
+			}
+		}
+	}
 
-    ul {
-        display: grid;
-        gap: 3rem;
-    }
+	img {
+		width: 2.2rem;
+		height: 2.2rem;
+	}
+
+	ul {
+		display: grid;
+		gap: 1rem;
+
+		.comment {
+			width: 100%;
+			position: relative;
+
+			.actions {
+				position: absolute;
+				top: 2.5rem;
+				right: 0;
+
+				.tools {
+					position: absolute;
+				}
+			}
+		}
+	}
 }

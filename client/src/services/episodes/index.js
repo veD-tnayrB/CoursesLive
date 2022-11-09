@@ -70,3 +70,13 @@ export async function createComment(episodeId, comment) {
         throw new Error(errors.message);
     }
 }
+
+export async function getComments(signal, episodeId) {
+    try {
+        const { data } = await axios.get(`${ENVIRONMENT}episode/${episodeId}/comments`, { signal });
+        return data;
+    } catch ({ response: { data: errors } }) {
+        console.error(errors);
+        throw new Error(errors.message);
+    }
+}

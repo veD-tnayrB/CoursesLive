@@ -17,13 +17,9 @@ const getAll = async (req, res, next) => {
         }
 
         // Get all the comments and the answers
-        const comments = await Comment.find({ episode: episodeId }).populate('answers', {});
-        const theresNoComments = !comments;
-
-        if (theresNoComments) {
-            throw Error('theres no comments');
-        }
-
+        const comments = await Comment.find({ episode: episodeId })
+            .populate('creator', { mail: 0 })
+            .sort({ date: 'desc' });
         return res.status(200).json(comments);
     } catch (error) {
         next(error);
