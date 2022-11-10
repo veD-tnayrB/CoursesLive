@@ -16,82 +16,84 @@ import EpisodeComments from 'src/components/course/comments';
 import './course.scss';
 
 const MODALS = {
-    create: { show: false, payload: {} },
-    delete: { show: false, payload: {} },
-    edit: { show: false, payload: {} },
+	create: { show: false, payload: {} },
+	delete: { show: false, payload: {} },
+	edit: { show: false, payload: {} },
 };
 
 const DEFAULT_COURSE = {
-    name: '',
-    creator: { name: '', profileImage: '', id: '' },
-    episodes: [],
+	name: '',
+	creator: { name: '', profileImage: '', id: '' },
+	episodes: [],
 };
 
 const DEFAULT_SELECTED_EPISODE = {
-    title: '',
-    video: '',
-    peopleWhoLikedIt: [],
-    comments: [],
+	title: '',
+	video: '',
+	peopleWhoLikedIt: [],
+	comments: [],
+	description: '',
 };
 
 export default function Course() {
-    const { courseId, episodeId } = useParams();
-    const { user } = useUserContext();
-    const [modals, setModals] = React.useState(MODALS);
-    const [course, setCourse] = React.useState(DEFAULT_COURSE);
-    const [selectedEpisode, setSelectedEpisode] = React.useState(DEFAULT_SELECTED_EPISODE);
-    const [isLoading, setIsLoading] = React.useState(true);
-    const isCourseCreator = course.creator.id === user.id;
+	const { courseId, episodeId } = useParams();
+	const { user } = useUserContext();
+	const [modals, setModals] = React.useState(MODALS);
+	const [course, setCourse] = React.useState(DEFAULT_COURSE);
+	const [selectedEpisode, setSelectedEpisode] = React.useState(DEFAULT_SELECTED_EPISODE);
+	const [isLoading, setIsLoading] = React.useState(true);
+	const isCourseCreator = course.creator.id === user.id;
+	const theresDescription = selectedEpisode.description.length > 0;
 
-    useDocumentTitle(`${course.name} - Course`);
+	useDocumentTitle(`${course.name} - Course`);
 
-    React.useEffect(() => {
-        const controller = new AbortController();
-        const signal = controller.signal;
+	React.useEffect(() => {
+		const controller = new AbortController();
+		const signal = controller.signal;
 
-        setIsLoading(true);
+		setIsLoading(true);
 
-        getOne(signal, courseId).then((response) => {
-            const { episodes } = response;
-            setCourse(response);
-            const episode = episodes.find((episode) => episode.id === episodeId);
-            if (episode) setSelectedEpisode(episode);
+		getOne(signal, courseId).then((response) => {
+			const { episodes } = response;
+			setCourse(response);
+			const episode = episodes.find((episode) => episode.id === episodeId);
+			if (episode) setSelectedEpisode(episode);
 
-            setIsLoading(false);
-        });
+			setIsLoading(false);
+		});
 
-        return () => controller.abort();
-    }, [courseId]);
+		return () => controller.abort();
+	}, [courseId]);
 
-    const contextValue = {
-        course,
-        setCourse,
-        selectedEpisode,
-        setSelectedEpisode,
-        isLoading,
-        setIsLoading,
-        modals,
-        setModals,
-        isCourseCreator,
-    };
-    return (
-        <CourseContext.Provider value={contextValue}>
-            <div className="course-page">
-                <SelectedEpisode />
+	const contextValue = {
+		course,
+		setCourse,
+		selectedEpisode,
+		setSelectedEpisode,
+		isLoading,
+		setIsLoading,
+		modals,
+		setModals,
+		isCourseCreator,
+	};
+	return (
+		<CourseContext.Provider value={contextValue}>
+			<div className="course-page">
+				<SelectedEpisode />
 
-                <section className="hotbar">
-                    <div className="episode-info-container">
-                        <EpisodeInfo />
-                        <MainActions />
-                        <EpisodeDescription />
-                        <EpisodeComments />
-                    </div>
-                    <Episodes />
-                </section>
-            </div>
-            <CreateEpisodeModal />
-            <DeleteEpisodeModal />
-            <EditEpisodeModal />
-        </CourseContext.Provider>
-    );
+				<section className="hotbar">
+					<div className="episode-info-container">
+						<EpisodeInfo />
+						<MainActions />
+						{theresDescription && <EpisodeDescription />}
+						<EpisodeComments />
+					</div>
+					<Episodes />
+				</section>
+			</div>
+			<CreateEpisodeModal />
+			<DeleteEpisodeModal />
+			<EditEpisodeModal />
+		</CourseContext.Provider>
+	);
 }

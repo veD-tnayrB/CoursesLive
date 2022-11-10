@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { useParams } from 'react-router-dom';
+import { editComment } from 'src/services/episodes';
 import { useUserContext } from 'src/contexts/user/user.context';
 import { IMAGES_ROUTES } from 'src/services/config';
-import { createComment } from 'src/services/episodes';
 import { useCommentsContext } from './context';
 import useForm from 'src/hooks/useForm';
 
-export default function NewComment() {
+export default function EditComment({ prevComment, setInEdition }) {
 	const { setComments } = useCommentsContext();
-	const { form, handleChange, setFormValues } = useForm({ comment: '' });
+	const { form, handleChange, setFormValues } = useForm({ comment: prevComment.content });
 	const { user } = useUserContext();
 	const { episodeId } = useParams();
 
@@ -17,11 +17,20 @@ export default function NewComment() {
 		if (form.comment === '') return;
 
 		setFormValues({ comment: '' });
-		const creator = { name: user.name, lastName: user.lastName, profileImage: user.profileImage };
 
-		createComment(episodeId, { content: form }).then((response) =>
-			setComments((prevValues) => [{ ...response, creator }, ...prevValues])
+		setComments((prevValues) =>
+			prevValues.map((comment) => {
+				if (comment.id !== prevComment.id) return comment;
+
+				return {
+					...comment,
+					edited: true,
+					content: form,
+				};
+			})
 		);
+		setInEdition(false);
+		editComment(episodeId, prevComment.id, { content: form });
 	}
 
 	return (
@@ -35,7 +44,7 @@ export default function NewComment() {
 
 			<form onSubmit={handleSubmit}>
 				<textarea placeholder="Insert a comment..." onChange={handleChange} value={form.comment} />
-				<button className="default-button">SEND</button>
+				<button className="default-button">EDIT</button>
 			</form>
 		</article>
 	);

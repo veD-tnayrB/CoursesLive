@@ -8,42 +8,42 @@ import { like, unlike } from 'src/services/episodes';
 import './like.scss';
 
 export default function Like() {
-    const { courseId, episodeId } = useParams();
-    const { user } = useUserContext();
-    const { selectedEpisode, setSelectedEpisode } = useCourseContext();
-    const itsLikeIt = selectedEpisode.peopleWhoLikedIt.some((person) => person === user.id);
-    const numberOfLikes = selectedEpisode.peopleWhoLikedIt.length;
+	const { courseId, episodeId } = useParams();
+	const { user } = useUserContext();
+	const { selectedEpisode, setSelectedEpisode } = useCourseContext();
+	const itsLikeIt = selectedEpisode.peopleWhoLikedIt.some((person) => person === user.id);
+	const numberOfLikes = selectedEpisode.peopleWhoLikedIt.length;
 
-    const Icon = itsLikeIt ? ThumbUpAltIcon : ThumbUpOffAltIcon;
+	const Icon = itsLikeIt ? ThumbUpAltIcon : ThumbUpOffAltIcon;
 
-    function handleLike() {
-        like(courseId, episodeId);
-        setSelectedEpisode((otherValues) => ({
-            ...otherValues,
-            peopleWhoLikedIt: [...otherValues.peopleWhoLikedIt, user.id],
-        }));
-    }
+	function handleLike() {
+		setSelectedEpisode((otherValues) => ({
+			...otherValues,
+			peopleWhoLikedIt: [...otherValues.peopleWhoLikedIt, user.id],
+		}));
+		like(courseId, episodeId);
+	}
 
-    function handleUnlike() {
-        unlike(courseId, episodeId);
-        setSelectedEpisode((otherValues) => ({
-            ...otherValues,
-            peopleWhoLikedIt: otherValues.peopleWhoLikedIt.filter((person) => person !== user.id),
-        }));
-    }
+	function handleUnlike() {
+		setSelectedEpisode((otherValues) => ({
+			...otherValues,
+			peopleWhoLikedIt: otherValues.peopleWhoLikedIt.filter((person) => person !== user.id),
+		}));
+		unlike(courseId, episodeId);
+	}
 
-    function toggleLike() {
-        if (!itsLikeIt) return handleLike();
-        handleUnlike();
-    }
+	function toggleLike() {
+		if (!itsLikeIt) return handleLike();
+		handleUnlike();
+	}
 
-    return (
-        <div className="like">
-            <button onClick={toggleLike}>
-                <Icon className="icon" />
-            </button>
+	return (
+		<div className="like">
+			<button onClick={toggleLike}>
+				<Icon className="icon" />
+			</button>
 
-            <span>{numberOfLikes} Likes</span>
-        </div>
-    );
+			<span>{numberOfLikes} Likes</span>
+		</div>
+	);
 }

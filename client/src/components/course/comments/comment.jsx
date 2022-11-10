@@ -4,17 +4,21 @@ import en from 'javascript-time-ago/locale/en';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { IMAGES_ROUTES } from 'src/services/config';
 import Tools from './tools';
+import EditComment from './edit-comment';
 
 TimeAgo.addDefaultLocale(en);
 const timeAgo = new TimeAgo('en-US');
 
 export default function EpisodeComment({ comment }) {
 	const [showTools, setShowTools] = React.useState(false);
+	const [inEdition, setInEdition] = React.useState(false);
 	const formatedDate = timeAgo.format(new Date(comment.date).getTime());
 
 	function showToolsTab() {
 		setShowTools((prevValue) => !prevValue);
 	}
+
+	if (inEdition) return <EditComment setInEdition={setInEdition} prevComment={comment} />;
 
 	return (
 		<li className="comment">
@@ -31,7 +35,7 @@ export default function EpisodeComment({ comment }) {
 					<button onClick={showToolsTab} className="show-tools-button">
 						<MoreVertIcon className="icon" />
 					</button>
-					{showTools && <Tools />}
+					{showTools && <Tools setInEdition={setInEdition} commentId={comment.id} />}
 				</div>
 			</article>
 		</li>
