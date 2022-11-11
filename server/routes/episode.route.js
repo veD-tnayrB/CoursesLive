@@ -10,14 +10,14 @@ import Episode from '../models/episode.js';
 const episodeRouter = Router();
 
 const filesStorage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'storage/videos');
-    },
+	destination: (req, file, cb) => {
+		cb(null, 'storage/videos');
+	},
 
-    filename: (req, file, cb) => {
-        const fileName = Date.now() + '-' + file.originalname.split(' ').join('-');
-        cb(null, fileName);
-    },
+	filename: (req, file, cb) => {
+		const fileName = Date.now() + '-' + file.originalname.split(' ').join('-');
+		cb(null, fileName);
+	},
 });
 
 export const videoUploader = multer({ storage: filesStorage, dest: 'storage/videos' });
@@ -30,11 +30,11 @@ episodeRouter.get('/:courseId/episode/:episodeId', episodes.getById);
 
 // Create
 episodeRouter.post(
-    '/:courseId/episodes/create',
-    isUserAdminOrTeacher,
-    videoUploader.single('video'),
-    isBodyAEpisode,
-    episodes.create
+	'/:courseId/episodes/create',
+	isUserAdminOrTeacher,
+	videoUploader.single('video'),
+	isBodyAEpisode,
+	episodes.create
 );
 
 // Edit
@@ -52,8 +52,8 @@ episodeRouter.get('/:courseId/episodes/:episodeId/unlike', isUser, episodes.unli
 // TEMPORAL
 // GET ALL EPISODES
 episodeRouter.get('/episodes', async (req, res, next) => {
-    const episodes = await Episode.find({});
-    return res.status(200).json(episodes);
+	const episodes = await Episode.find({});
+	return res.status(200).json(episodes);
 });
 
 export default episodeRouter;

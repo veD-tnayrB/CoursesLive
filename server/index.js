@@ -11,7 +11,7 @@ import episodeRouter from './routes/episode.route.js';
 import commentRouter from './routes/comment.route.js';
 import testRouter from './routes/test.js';
 import imagesRouter from './routes/images.js';
-import videosRouter from './routes/videos.js';
+import videosRouter from './routes/videos.route.js';
 
 // Middlewares imports
 import errorHandler from './middlewares/errorHandler.js';

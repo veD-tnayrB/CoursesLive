@@ -5,7 +5,6 @@ import { getOne } from 'src/services/courses';
 import { CourseContext } from 'src/contexts/course/course.context';
 import useDocumentTitle from 'src/hooks/useDocumentTitle';
 import SelectedEpisode from 'src/components/course/selected-episode';
-import CreateEpisodeModal from 'src/components/course/modals/create-episode';
 import EpisodeInfo from 'src/components/course/info';
 import MainActions from 'src/components/course/main-actions';
 import Episodes from 'src/components/course/episodes';
@@ -91,7 +90,7 @@ export default function Course() {
 					<Episodes />
 				</section>
 			</div>
-			<CreateEpisodeModal />
+
 			<DeleteEpisodeModal />
 			<EditEpisodeModal />
 		</CourseContext.Provider>

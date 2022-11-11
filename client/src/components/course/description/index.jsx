@@ -6,7 +6,6 @@ export default function EpisodeDescription() {
 	const [isOpened, setIsOpened] = React.useState(false);
 	const { selectedEpisode } = useCourseContext();
 	const opened = isOpened ? 'opened' : '';
-
 	const theresEnoughDescription = selectedEpisode.description.length > 100;
 
 	function toggleOpen() {

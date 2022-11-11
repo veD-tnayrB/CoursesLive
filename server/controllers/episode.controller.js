@@ -8,17 +8,15 @@ class Episodes {
 	async getAll(req, res, next) {
 		try {
 			const { courseId } = req.params;
-
-			// Check if the course exist
-			const course = await Course.findById(courseId);
-			const courseDoesntExist = !course;
-
-			if (courseDoesntExist) return res.status(404).json('COURSE_DOESNT_EXISTS');
+			const filterBy = req.query.filterBy;
 
 			// Search the episode and check if they exists
-			const episodes = await Episode.findById(courseId);
+			let { episodes } = await Course.findById(courseId).populate('episodes');
+			if (!episodes) return res.status(404).json([]);
 
-			if (!episodes) return res.status(404).json('COURSE_HASNT_EPISODES');
+			episodes;
+			if (filterBy === 'Last') episodes.reverse();
+			if (filterBy === 'Viewed') episodes; // TODO
 
 			return res.status(200).json(episodes);
 		} catch (error) {
@@ -36,7 +34,6 @@ class Episodes {
 
 			// Search the episodes and check if the course and the episode exist
 			const episode = await Episode.findOne({ id: episodeId, course: courseId });
-			console.log(0, episode.comments);
 			if (!episode) return res.status(404).json('EPISODE_DOESNT_EXISTS');
 
 			return res.status(200).json(episode);
@@ -69,6 +66,7 @@ class Episodes {
 				course: courseId,
 				people_who_liked_it: [],
 				comments: [],
+				views: 0,
 			});
 			episode.save();
 

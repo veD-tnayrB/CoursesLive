@@ -11,9 +11,9 @@ export async function uploadEpisode(courseId, episode) {
 	}
 }
 
-export async function getEpisodes(signal, courseId) {
+export async function getEpisodes(signal, filterBy, courseId) {
 	try {
-		const { data } = await axios.post(`${ENVIRONMENT}course/${courseId}/episodes`, { signal });
+		const { data } = await axios.get(`${ENVIRONMENT}course/${courseId}/episodes?filterBy=${filterBy}`, { signal });
 		return data;
 	} catch ({ response: { data: errors } }) {
 		console.error(errors);
