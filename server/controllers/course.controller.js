@@ -5,8 +5,7 @@ import Episode from '../models/episode.js';
 class Courses {
 	async getAll(req, res, next) {
 		try {
-			const theresQueries = req.query;
-
+			const theresQueries = req.query.search !== '' || req.query.level !== '';
 			if (theresQueries) {
 				const { level, search: courseName } = req.query;
 				const courses = await Course.find(
@@ -27,12 +26,7 @@ class Courses {
 				return res.status(200).json(courses);
 			}
 
-			const courses = await Course.find(
-				{
-					'episodes.1': { $exists: true },
-				},
-				'-description -tags'
-			).populate('creator', {
+			const courses = await Course.find({}, '-description -tags').populate('creator', {
 				courses: 0,
 				mail: 0,
 				name: 0,

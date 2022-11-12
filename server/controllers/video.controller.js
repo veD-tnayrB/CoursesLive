@@ -6,8 +6,8 @@ class Video {
 		try {
 			const { userId, episodeId, fileName } = req.params;
 
-			const che = await Episode.findByIdAndUpdate(episodeId, { $push: { views: userId } }, { new: true });
-			console.log(che);
+			await Episode.findByIdAndUpdate(episodeId, { $push: { views: userId } }, { new: true });
+
 			const dirname = path.resolve();
 			const fullfilepath = path.join(dirname, 'storage/videos/' + fileName);
 

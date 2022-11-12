@@ -18,7 +18,7 @@ const episodeSchema = new Schema({
 	},
 
 	views: {
-		type: Schema.Types.ObjectId,
+		type: [Schema.Types.ObjectId],
 		ref: 'User',
 	},
 

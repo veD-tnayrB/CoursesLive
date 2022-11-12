@@ -5,7 +5,6 @@ import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import { useUserContext } from 'src/contexts/user/user.context';
 import { useCourseContext } from 'src/contexts/course/course.context';
 import { like, unlike } from 'src/services/episodes';
-import './like.scss';
 
 export default function Like() {
 	const { courseId, episodeId } = useParams();
@@ -38,7 +37,7 @@ export default function Like() {
 	}
 
 	return (
-		<div className="like">
+		<div className="action-button">
 			<button onClick={toggleLike}>
 				<Icon className="icon" />
 			</button>

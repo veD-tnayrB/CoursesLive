@@ -4,9 +4,6 @@ import episodes from '../controllers/episode.controller.js';
 import { isUser, isUserAdminOrTeacher } from '../middlewares/isUserRole.js';
 import isBodyAEpisode from '../dtos/isBodyAEpisode.js';
 
-// TEMPORAL
-import Episode from '../models/episode.js';
-
 const episodeRouter = Router();
 
 const filesStorage = multer.diskStorage({
@@ -48,12 +45,4 @@ episodeRouter.get('/:courseId/episodes/:episodeId/like', isUser, episodes.like);
 
 // Dislike
 episodeRouter.get('/:courseId/episodes/:episodeId/unlike', isUser, episodes.unlike);
-
-// TEMPORAL
-// GET ALL EPISODES
-episodeRouter.get('/episodes', async (req, res, next) => {
-	const episodes = await Episode.find({});
-	return res.status(200).json(episodes);
-});
-
 export default episodeRouter;

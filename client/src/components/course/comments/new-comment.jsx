@@ -17,7 +17,7 @@ export default function NewComment() {
 		if (form.comment === '') return;
 
 		setFormValues({ comment: '' });
-		const creator = { name: user.name, lastName: user.lastName, profileImage: user.profileImage };
+		const creator = { id: user.id, name: user.name, lastName: user.lastName, profileImage: user.profileImage };
 
 		createComment(episodeId, { content: form }).then((response) =>
 			setComments((prevValues) => [{ ...response, creator }, ...prevValues])

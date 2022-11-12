@@ -66,7 +66,7 @@ class Episodes {
 				course: courseId,
 				people_who_liked_it: [],
 				comments: [],
-				views: 0,
+				views: [creator.id],
 			});
 			episode.save();
 

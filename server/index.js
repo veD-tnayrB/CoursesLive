@@ -9,7 +9,7 @@ import courseRouter from './routes/course.route.js';
 import userRouter from './routes/user.js';
 import episodeRouter from './routes/episode.route.js';
 import commentRouter from './routes/comment.route.js';
-import testRouter from './routes/test.js';
+import testRouter from './routes/test.route.js';
 import imagesRouter from './routes/images.js';
 import videosRouter from './routes/videos.route.js';
 

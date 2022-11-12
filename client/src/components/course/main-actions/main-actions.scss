@@ -1,15 +1,39 @@
+@use 'src/global/_variables.scss';
+
 .main-actions {
-    height: 2.6rem;
+	height: 2.6rem;
 
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
 
-    .right {
-        height: 2.6rem;
+	.right {
+		height: 2.6rem;
 
-        display: flex;
-        align-items: center;
-        gap: 0.8rem;
-    }
+		display: flex;
+		align-items: center;
+		gap: 0.8rem;
+	}
+
+	.action-button {
+		background: variables.$third-color;
+		border-radius: 40px;
+
+		width: -moz-fit-content;
+		width: fit-content;
+
+		height: 100%;
+
+		padding: 0.5rem 2rem;
+
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+
+		button {
+			.icon {
+				font-size: 1.87rem;
+			}
+		}
+	}
 }

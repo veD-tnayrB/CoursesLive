@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useUserContext } from 'src/contexts/user/user.context';
-import { useParams } from 'react-router-dom';
+import { Outlet, useParams } from 'react-router-dom';
 import { getOne } from 'src/services/courses';
 import { CourseContext } from 'src/contexts/course/course.context';
 import useDocumentTitle from 'src/hooks/useDocumentTitle';
@@ -93,6 +93,7 @@ export default function Course() {
 
 			<DeleteEpisodeModal />
 			<EditEpisodeModal />
+			<Outlet />
 		</CourseContext.Provider>
 	);
 }

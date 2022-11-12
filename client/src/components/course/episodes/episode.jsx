@@ -24,7 +24,7 @@ export default function Episode({ episode }) {
 						<p className="creator">
 							{course.creator.name} {course.creator.lastName}
 						</p>
-						<p className="views">{episode.views}</p>
+						<p className="views">{episode.views.length} Views</p>
 					</div>
 				</div>
 			</Link>

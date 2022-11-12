@@ -1,14 +1,7 @@
 @use 'src/global/_variables.scss';
 
 .main-episodes-actions {
-    height: 100%;
-    display: flex;
-    gap: 0.8rem;
-
-    button {
-        background: variables.$third-color;
-        border-radius: 20px;
-        height: 100%;
-        padding: 0.5rem 3rem;
-    }
+	height: 100%;
+	display: flex;
+	gap: 0.8rem;
 }
