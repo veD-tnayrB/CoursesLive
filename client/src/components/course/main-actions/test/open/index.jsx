@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 export default function OpenTest() {
 	return (
 		<Link className="action-button" to="test">
-			<ArticleIcon />
+			<ArticleIcon className="icon" />
 		</Link>
 	);
 }

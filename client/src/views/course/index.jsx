@@ -12,12 +12,14 @@ import DeleteEpisodeModal from 'src/components/course/modals/delete-episode';
 import EpisodeDescription from 'src/components/course/description';
 import EditEpisodeModal from 'src/components/course/modals/edit-episode';
 import EpisodeComments from 'src/components/course/comments';
+import CreateTestModal from 'src/components/course/modals/create-test';
 import './course.scss';
 
 const MODALS = {
 	create: { show: false, payload: {} },
 	delete: { show: false, payload: {} },
 	edit: { show: false, payload: {} },
+	createTest: { show: false, payload: {} },
 };
 
 const DEFAULT_COURSE = {
@@ -93,6 +95,7 @@ export default function Course() {
 
 			<DeleteEpisodeModal />
 			<EditEpisodeModal />
+			<CreateTestModal />
 			<Outlet />
 		</CourseContext.Provider>
 	);
