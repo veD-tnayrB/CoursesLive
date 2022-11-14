@@ -5,6 +5,7 @@ import Question from './question';
 import NewQuestion from './new-question/new-question';
 import useForm from 'src/hooks/useForm';
 import { CreateTestContext } from './context';
+import './form.scss';
 
 const titlePattern = /.{5,50}/;
 
@@ -13,7 +14,7 @@ const FORM_VALUES = {
 };
 
 export default function CreateTestForm() {
-	const [createQuestion, setCreateQuestion] = React.useState(false);
+	const [selectedQuestion, setSelectedQuestion] = React.useState(false);
 	const [questions, setQuestions] = React.useState([]);
 	const { form, handleChanges } = useForm(FORM_VALUES);
 
@@ -21,28 +22,30 @@ export default function CreateTestForm() {
 		event.preventDefault();
 	}
 
-	const questionsElements = questions.map((question) => <Question question="che" options={[]} />);
+	const questionsElements = questions.map((question) => <Question question={question} />);
 
 	const contextValue = {
-		createQuestion,
-		setCreateQuestion,
+		selectedQuestion,
+		setSelectedQuestion,
 		questions,
 		setQuestions,
 	};
 	return (
 		<CreateTestContext.Provider value={contextValue}>
-			<form onSubmit={onSubmit}>
-				<ValidationInput
-					name="title"
-					isCorrect={form.title.isCorrect}
-					value={form.title.value}
-					onChange={handleChanges}
-					placeholder="Title"
-				/>
-				<CreateQuestionButton />
-				{createQuestion && <NewQuestion />}
+			<form onSubmit={onSubmit} className="create-test-form">
+				<div className="main-actions-container title">
+					<ValidationInput
+						name="title"
+						isCorrect={form.title.isCorrect}
+						value={form.title.value}
+						onChange={handleChanges}
+						placeholder="Title"
+					/>
+					<CreateQuestionButton />
+				</div>
+				{selectedQuestion?.title && <NewQuestion selectedQuestion={selectedQuestion} />}
 
-				<ul>{questionsElements}</ul>
+				<ul className="questions">{questionsElements}</ul>
 			</form>
 		</CreateTestContext.Provider>
 	);

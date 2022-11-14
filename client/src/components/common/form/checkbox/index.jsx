@@ -3,26 +3,20 @@ import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import './checkbox.scss';
 
 export default function CheckBox({ handleChange, checkbox, selectedOption }) {
-    const { label, value } = checkbox;
-    const isSelected = selectedOption === value;
+	const { label, value } = checkbox;
+	const isSelected = selectedOption === value;
 
-    const icon = isSelected ? <CheckBoxIcon className="icon" /> : <CheckBoxOutlineBlankIcon className="icon" />;
+	const Icon = isSelected ? CheckBoxIcon : CheckBoxOutlineBlankIcon;
 
-    return (
-        <div className="checkbox">
-            <label>
-                {icon}
+	return (
+		<div className="checkbox">
+			<label>
+				<Icon className="icon" />
 
-                <input
-                    type="radio"
-                    value={value}
-                    checked={isSelected}
-                    onChange={handleChange}
-                    required
-                />
+				<input type="radio" value={value} checked={isSelected} onChange={handleChange} required />
 
-                <span>{label}</span>
-            </label>
-        </div>
-    )
+				<span>{label}</span>
+			</label>
+		</div>
+	);
 }
