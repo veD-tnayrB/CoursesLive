@@ -1,82 +1,88 @@
 @use '../variables';
 
 button {
-    cursor: pointer;
-    background: transparent;
-    border: none;
+	cursor: pointer;
+	background: transparent;
+	border: none;
 }
 
 .primary-button {
-    background: variables.$main-text-color;
-    border: 1px solid transparent;
-    color: variables.$primary-background;
-    border-radius: 5px;
-    cursor: pointer;
-    
-    font-weight: 700;
-    font-size: 1.05rem;
+	background: variables.$main-text-color;
+	border: 1px solid transparent;
+	color: variables.$primary-background;
+	border-radius: 5px;
+	cursor: pointer;
 
-    padding: .7rem 3rem;
-    transition: background .1s linear;
+	font-weight: 700;
+	font-size: 1.05rem;
 
-    &.loading {
-        padding: 0 3rem;
+	padding: 0.7rem 3rem;
+	transition: background 0.1s linear;
 
-        .loading-icon::after {
-            width: 15px;
-            height: 15px;
-            border-color: variables.$primary-background transparent variables.$primary-background transparent;
-        }
+	&.loading {
+		padding: 0 3rem;
 
-        &:hover, &:active {
-            background: variables.$main-text-color;
-            border: 1px solid transparent;
-            color: variables.$primary-background;
-        }
-    }
+		.loading-icon::after {
+			width: 15px;
+			height: 15px;
+			border-color: variables.$primary-background transparent variables.$primary-background transparent;
+		}
 
-    &:hover {
-        background: variables.$primary-background;
-        border: 1px solid variables.$main-text-color;
-        color: variables.$main-text-color;
-    }
+		&:hover,
+		&:active {
+			background: variables.$main-text-color;
+			border: 1px solid transparent;
+			color: variables.$primary-background;
+		}
+	}
 
-    &:disabled {
-        cursor: not-allowed;
-        opacity: .5;
+	&:hover {
+		background: variables.$primary-background;
+		border: 1px solid variables.$main-text-color;
+		color: variables.$main-text-color;
+	}
 
-        &:hover {
-            background: variables.$main-text-color;
-            color: variables.$primary-background;
-        }
-    }
+	&:disabled {
+		cursor: not-allowed;
+		opacity: 0.5;
+
+		&:hover {
+			background: variables.$main-text-color;
+			color: variables.$primary-background;
+		}
+	}
 }
 
 .default-button {
-    background: variables.$primary-background;
-    color: variables.$main-text-color;
-    font-weight: bold;
-    border-radius: 5px;
-    padding: .8rem 1.4rem;
+	background: variables.$primary-background;
+	color: variables.$main-text-color;
+	font-weight: bold;
+	border-radius: 5px;
+	padding: 0.8rem 1.4rem;
 
-    &.hover:hover {
-        background: variables.$fifth-color;
-    }
+	&.hover:hover {
+		background: variables.$fifth-color;
+	}
+
+	&:disabled {
+		background: variables.$fifth-color;
+		cursor: not-allowed;
+	}
 }
 
 .secondary-button {
-    background: transparent;
-    padding: .8rem 2rem;
+	background: transparent;
+	padding: 0.8rem 2rem;
 
-    &:hover {
-        text-decoration: underline;
-    }
+	&:hover {
+		text-decoration: underline;
+	}
 }
 
 a {
-    text-decoration: none;
+	text-decoration: none;
 
-    &:hover {
-        text-decoration: underline;
-    }
+	&:hover {
+		text-decoration: underline;
+	}
 }

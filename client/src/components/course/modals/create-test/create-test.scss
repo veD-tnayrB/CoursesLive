@@ -1,0 +1,132 @@
+@use 'src/global/_variables.scss';
+
+$action-button-size: 3.3rem;
+
+.modal-container {
+	.modal {
+		min-height: 90vh;
+
+		.header {
+			height: -moz-fit-content;
+			height: fit-content;
+			margin: 0 0 0.8rem 0;
+
+			display: grid;
+			justify-items: start;
+			gap: 1rem;
+
+			p {
+				height: -moz-fit-content;
+				height: fit-content;
+			}
+		}
+
+		.create-test-form {
+			display: grid;
+			align-content: start;
+			gap: 1rem;
+
+			.open {
+				min-height: 25rem;
+			}
+
+			.validation-input {
+				height: 3.375rem;
+			}
+
+			.action-button {
+				background: variables.$third-color;
+				border-radius: 10px;
+
+				aspect-ratio: 1/1;
+				padding: 0.5rem;
+				width: $action-button-size;
+			}
+
+			.main-actions-container {
+				height: -moz-fit-content;
+				height: fit-content;
+				display: grid;
+				grid-template-columns: calc(100% - $action-button-size) $action-button-size;
+				gap: 1rem;
+			}
+
+			.new-question {
+				width: calc(100% - 2% - $action-button-size);
+
+				.main-actions-container {
+					margin: 0 0 1rem 0;
+				}
+
+				.question-list {
+					.new-option {
+						width: calc(100% - 13% - $action-button-size);
+
+						.actions {
+							display: flex;
+							gap: 1rem;
+						}
+					}
+				}
+			}
+		}
+
+		.test-results {
+			min-height: 0;
+
+			h2 {
+				padding: 0;
+				margin: 0 0 0.5rem 0;
+			}
+
+			.questions {
+				display: grid;
+				gap: 1rem;
+
+				.question {
+					display: grid;
+					gap: 0.5rem;
+
+					.main-information {
+						display: flex;
+						justify-content: space-between;
+
+						p {
+							font-size: 1.5rem;
+						}
+
+						.actions {
+							display: flex;
+							gap: 1rem;
+						}
+
+						button {
+							border-bottom: 1px solid transparent;
+							display: flex;
+							align-items: center;
+							gap: 0.5rem;
+
+							.icon {
+								font-size: 1.2rem;
+							}
+
+							&:hover {
+								border-bottom: 1px solid variables.$main-text-color;
+							}
+						}
+					}
+
+					ul li .checkbox label {
+						.icon {
+							width: 30px;
+						}
+
+						span {
+							font-size: 1.2rem;
+						}
+					}
+				}
+			}
+		}
+	}
+}

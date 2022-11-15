@@ -3,6 +3,7 @@ import Modal from 'src/components/common/modal';
 import ModalContainer from 'src/components/common/modal/ModalContainer';
 import CreateTestForm from './form';
 import CreateTestHeader from './header';
+import './create-test.scss';
 
 export default function CreateTestModal() {
 	const { setModals, modals } = useCourseContext();

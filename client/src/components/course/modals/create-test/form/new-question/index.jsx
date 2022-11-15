@@ -3,13 +3,15 @@ import CloseIcon from '@mui/icons-material/Close';
 import { useCreateTextContext } from '../context';
 
 export default function CreateQuestionButton() {
-	const { selectedQuestion, setSelectedQuestion } = useCreateTextContext();
+	const { selectedQuestion, setSelectedQuestion, showSelectedQuestion, setShowSelectedQuestion } =
+		useCreateTextContext();
 
 	function openNewQuestion() {
-		setSelectedQuestion({ title: 'Question', options: [] });
+		setShowSelectedQuestion(!showSelectedQuestion);
+		if (!selectedQuestion.options.length) setSelectedQuestion({ title: '', options: [] });
 	}
 
-	const Icon = selectedQuestion?.title ? CloseIcon : AddIcon;
+	const Icon = showSelectedQuestion ? CloseIcon : AddIcon;
 	const toolTip = selectedQuestion?.title ? 'Cancel question' : 'Add question';
 
 	return (

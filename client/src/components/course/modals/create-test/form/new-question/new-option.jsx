@@ -1,12 +1,10 @@
 import * as React from 'react';
-import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
-import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import ValidationInput from 'src/components/common/validation-input';
 import DeleteIcon from '@mui/icons-material/Delete';
 import CheckIcon from '@mui/icons-material/Check';
 
-export default function NewOption({ option, setOptions }) {
-	const index = option.index;
+export default function NewOption({ option, setOptions, index }) {
+	const id = option.id;
 	const isOptionSelected = option.isCorrect;
 
 	function selectOption() {
@@ -18,7 +16,7 @@ export default function NewOption({ option, setOptions }) {
 					return { ...element, isCorrect: false };
 				}
 
-				if (element.index === index) return { ...element, isCorrect: true };
+				if (element.id === id) return { ...element, isCorrect: true };
 				return element;
 			})
 		);
@@ -29,7 +27,7 @@ export default function NewOption({ option, setOptions }) {
 
 		setOptions((otherOptions) =>
 			otherOptions.map((option) => {
-				if (option.index !== index) return option;
+				if (option.id !== id) return option;
 				return {
 					...option,
 					value,
@@ -39,7 +37,20 @@ export default function NewOption({ option, setOptions }) {
 	}
 
 	function remove() {
-		setOptions((prevOptions) => prevOptions.filter((element) => element.index !== index));
+		setOptions((prevOptions) => prevOptions.filter((element) => element.id !== id));
+
+		if (!option.isCorrect) return;
+
+		setOptions((prevOptions) =>
+			prevOptions.map((element, elementIndex, array) => {
+				if (element.id === id) {
+					return { ...element, isCorrect: false };
+				}
+
+				if (array[0]?.id === element.id) return { ...element, isCorrect: true };
+				return element;
+			})
+		);
 	}
 
 	return (

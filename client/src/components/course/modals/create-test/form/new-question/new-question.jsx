@@ -1,40 +1,27 @@
 import * as React from 'react';
+import uniqid from 'uniqid';
 import AddIcon from '@mui/icons-material/Add';
 import ValidationInput from 'src/components/common/validation-input';
-import { useCreateTextContext } from '../context';
 import NewOption from './new-option';
+import SaveQuestion from './save-question';
 import { inputHandleChange } from 'src/utils/input';
 
 export default function NewQuestion({ selectedQuestion }) {
-	const { setQuestions, setSelectedQuestion } = useCreateTextContext();
 	const [title, setTitle] = React.useState(selectedQuestion.title ?? '');
 	const [options, setOptions] = React.useState(selectedQuestion.options ?? []);
-	const theresOptions = options.length > 0;
 
 	function handleChange(event) {
 		inputHandleChange(event, setTitle);
 	}
 
-	function saveQuestion() {
-		if (!theresOptions || !title) return;
-
-		const newQuestion = {
-			title,
-			options,
-		};
-
-		setSelectedQuestion({});
-		setQuestions((otherQuestions) => [newQuestion, ...otherQuestions]);
-	}
-
 	function addOption() {
-		const isCorrect = options.length + 1 === 1;
-		const newOption = { value: '', isCorrect, index: options.length + 1 };
+		const isCorrect = options.length === 0;
+		const newOption = { value: '', isCorrect, id: uniqid() };
 		setOptions([...options, newOption]);
 	}
 
-	const optionsElements = options.map((option) => (
-		<NewOption key={option.index} option={option} setOptions={setOptions} />
+	const optionsElements = options.map((option, index) => (
+		<NewOption key={option.id} option={option} index={index + 1} setOptions={setOptions} />
 	));
 
 	return (
@@ -58,14 +45,7 @@ export default function NewQuestion({ selectedQuestion }) {
 
 			<ul className="question-list">{optionsElements}</ul>
 
-			<button
-				disabled={!theresOptions}
-				className="default-button"
-				title="Save questions"
-				type="button"
-				onClick={saveQuestion}>
-				Save Question
-			</button>
+			<SaveQuestion title={title} options={options} />
 		</section>
 	);
 }
