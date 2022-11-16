@@ -43,18 +43,13 @@ export default function CreateTestForm() {
 		setShowSelectedQuestion,
 		questions,
 		setQuestions,
+		title: form.title,
 	};
 	return (
 		<CreateTestContext.Provider value={contextValue}>
 			<form onSubmit={onSubmit} className={`create-test-form ${cls}`}>
 				<div className="main-actions-container title">
-					<ValidationInput
-						name="title"
-						isCorrect={form.title.isCorrect}
-						value={form.title.value}
-						onChange={handleChanges}
-						placeholder="Title"
-					/>
+					<ValidationInput name="title" isCorrect={form.title.isCorrect} value={form.title.value} onChange={handleChanges} placeholder="Title" />
 					<CreateQuestionButton />
 				</div>
 				{showSelectedQuestion && <NewQuestion selectedQuestion={selectedQuestion} />}

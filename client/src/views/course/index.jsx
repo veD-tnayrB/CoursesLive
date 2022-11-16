@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useUserContext } from 'src/contexts/user/user.context';
 import { Outlet, useParams } from 'react-router-dom';
-import { getOne } from 'src/services/courses';
+import { courseService } from 'src/services/courses';
 import { CourseContext } from 'src/contexts/course/course.context';
 import useDocumentTitle from 'src/hooks/useDocumentTitle';
 import SelectedEpisode from 'src/components/course/selected-episode';
@@ -54,7 +54,7 @@ export default function Course() {
 
 		setIsLoading(true);
 
-		getOne(signal, courseId).then((response) => {
+		courseService.getOne(signal, courseId).then((response) => {
 			const { episodes } = response;
 			setCourse(response);
 			const episode = episodes.find((episode) => episode.id === episodeId);
