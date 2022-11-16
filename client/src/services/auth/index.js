@@ -4,25 +4,33 @@ import { ENVIRONMENT } from '../config';
 class AuthService {
 	async signup(user) {
 		try {
-			const formatedBody = { ...user, mail: body.mail.toLowerCase() };
+			const formatedBody = { ...user, mail: user.mail.toLowerCase() };
 			const { data } = await axios.post(`${ENVIRONMENT}auth/signup`, formatedBody);
 
 			return data;
-		} catch ({ response: { data: errors } }) {
-			console.error(errors);
-			throw new Error(errors.message);
+		} catch ({
+			response: {
+				data: { error },
+			},
+		}) {
+			console.error(error);
+			throw new Error(error);
 		}
 	}
 
 	async login(user) {
 		try {
-			const formatedBody = { ...user, mail: body.mail.toLowerCase() };
+			const formatedBody = { ...user, mail: user.mail.toLowerCase() };
 			const { data } = await axios.post(`${ENVIRONMENT}auth/login`, formatedBody);
 
 			return data;
-		} catch ({ response: { data: errors } }) {
-			console.error(errors);
-			throw new Error(errors.message);
+		} catch ({
+			response: {
+				data: { error },
+			},
+		}) {
+			console.error(error);
+			throw new Error(error);
 		}
 	}
 }

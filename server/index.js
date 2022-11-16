@@ -30,7 +30,7 @@ app.use('/courses/', courseRouter);
 app.use('/users/', userRouter);
 app.use('/course/', episodeRouter);
 app.use('/episode/', commentRouter);
-app.use('/episode/', testRouter); // WORK IN PROGRESS
+app.use('/episode/', testRouter);
 app.use('/images/', imagesRouter);
 app.use('/videos/', videosRouter);
 
