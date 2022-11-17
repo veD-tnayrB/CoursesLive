@@ -7,7 +7,7 @@ class Tests {
 		const { episodeId } = req.params;
 
 		try {
-			const test = await Test.findOne({ episode: episodeId }).populate('questions');
+			const test = await Test.findOne({ episode: episodeId });
 			return res.status(200).json(test);
 		} catch (error) {
 			next(error);
@@ -31,28 +31,25 @@ class Tests {
 			}
 
 			// Check if the creator is actually the creator
-			const creatorIsntAuthorized = episode.creator.toString() !== creator.id;
+			const creatorIsntAuthorized = String(episode.creator) !== creator.id;
 
 			if (creatorIsntAuthorized) {
 				throw Error('user not authorized');
 			}
 
-			// Create the test
-			const newTest = {
+			const test = await Test.create({
 				title: testInformation.title,
-				level: testInformation.level,
 				episode: episodeId,
-				questions: [],
-			};
+				questions: testInformation.questions,
+			});
 
-			const test = await Test.create(newTest);
 			test.save();
-			console.log(test);
 			// Add the test to the episode
 			await Episode.findByIdAndUpdate(episodeId, { test: test._id });
 
 			return res.status(202).json(test);
 		} catch (error) {
+			console.log(error);
 			next(error);
 		}
 	}

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useParams } from 'react-router-dom';
 import { useUserContext } from 'src/contexts/user/user.context';
 import { EpisodesContext } from './context';
-import { getEpisodes } from 'src/services/episodes';
+import { episodeService } from 'src/services/episodes';
 import Episode from './episode';
 import Filters from './filters';
 import NewEpisode from './new-episode';
@@ -20,7 +20,7 @@ export default function Episodes() {
 		const controller = new AbortController();
 		const signal = controller.signal;
 
-		getEpisodes(signal, selectedFilter, courseId).then((response) => {
+		episodeService.getEpisodes(signal, selectedFilter, courseId).then((response) => {
 			setEpisodes(response);
 		});
 

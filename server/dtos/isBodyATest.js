@@ -1,16 +1,14 @@
 // Validators
 const titlePattern = /\w/;
-const levelPattern = /^[A-Z]+[a-z]+/;
 
 const isBodyATest = (req, res, next) => {
 	try {
-		const { title, level, questions } = req.body;
+		const { title, questions } = req.body;
 
 		// Check if the property exist, then check if their valur is incorrect or doesnt meet the requirements
 		const validators = {
 			isTitleIncorrect: !titlePattern.test(title),
-			isLevelIncorrect: !levelPattern.test(level),
-			areQuestionsIncorrect: questions.length < 2,
+			areQuestionsIncorrect: questions.length < 1,
 		};
 
 		// Check if theres some validator incorrect

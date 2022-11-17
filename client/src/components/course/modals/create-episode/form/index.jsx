@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useCourseContext } from 'src/contexts/course/course.context';
-import { uploadEpisode } from 'src/services/episodes';
+import { episodeService } from 'src/services/episodes';
 import { useEpisodeContext } from 'src/components/course/episodes/context';
 import ValidationInput from 'src/components/common/validation-input';
 import CreationModalActions from './actions';
@@ -39,7 +39,7 @@ export default function CreateEpisodeForm() {
 		formData.append('description', form.description.value);
 		formData.append('videoName', videoFile.name);
 
-		uploadEpisode(course.id, formData).then((newEpisode) => {
+		episodeService.uploadEpisode(course.id, formData).then((newEpisode) => {
 			setEpisodes((episodes) => [...episodes, newEpisode]);
 
 			setModals((otherModals) => ({
@@ -54,25 +54,10 @@ export default function CreateEpisodeForm() {
 
 	return (
 		<form className="edit-course-form" onSubmit={create}>
-			<ValidationInput
-				type="text"
-				name="title"
-				value={form.title.value}
-				onChange={handleChanges}
-				placeholder="Title"
-				autoComplete="off"
-				isCorrect={form.title.isCorrect}
-			/>
+			<ValidationInput type="text" name="title" value={form.title.value} onChange={handleChanges} placeholder="Title" autoComplete="off" isCorrect={form.title.isCorrect} />
 
 			<div className="input-container">
-				<textarea
-					type="text"
-					name="description"
-					value={form.description.value}
-					onChange={handleChanges}
-					placeholder="Description (Optional)"
-					autoComplete="off"
-				/>
+				<textarea type="text" name="description" value={form.description.value} onChange={handleChanges} placeholder="Description (Optional)" autoComplete="off" />
 			</div>
 
 			<VideoDropzone video={videoFile} setVideo={setVideoFile} />

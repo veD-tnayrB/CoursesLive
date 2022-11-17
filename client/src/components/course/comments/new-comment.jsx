@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useParams } from 'react-router-dom';
 import { useUserContext } from 'src/contexts/user/user.context';
 import { IMAGES_ROUTES } from 'src/services/config';
-import { createComment } from 'src/services/episodes';
+import { episodeService } from 'src/services/episodes';
 import { useCommentsContext } from './context';
 import useForm from 'src/hooks/useForm';
 
@@ -19,9 +19,7 @@ export default function NewComment() {
 		setFormValues({ comment: '' });
 		const creator = { id: user.id, name: user.name, lastName: user.lastName, profileImage: user.profileImage };
 
-		createComment(episodeId, { content: form }).then((response) =>
-			setComments((prevValues) => [{ ...response, creator }, ...prevValues])
-		);
+		episodeService.createComment(episodeId, { content: form }).then((response) => setComments((prevValues) => [{ ...response, creator }, ...prevValues]));
 	}
 
 	return (

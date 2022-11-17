@@ -7,11 +7,6 @@ const testSchema = new Schema({
 		required: true,
 	},
 
-	level: {
-		type: String,
-		required: true,
-	},
-
 	episode: {
 		type: Schema.Types.ObjectId,
 		ref: 'Episode',
@@ -19,7 +14,7 @@ const testSchema = new Schema({
 	},
 
 	questions: {
-		type: [Object],
+		type: [{ title: String, options: [{ id: String, value: String, isCorrect: Boolean }] }],
 		required: true,
 	},
 });

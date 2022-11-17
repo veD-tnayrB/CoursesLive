@@ -4,7 +4,7 @@ import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import { useUserContext } from 'src/contexts/user/user.context';
 import { useCourseContext } from 'src/contexts/course/course.context';
-import { like, unlike } from 'src/services/episodes';
+import { episodeService } from 'src/services/episodes';
 
 export default function Like() {
 	const { courseId, episodeId } = useParams();
@@ -20,7 +20,7 @@ export default function Like() {
 			...otherValues,
 			peopleWhoLikedIt: [...otherValues.peopleWhoLikedIt, user.id],
 		}));
-		like(courseId, episodeId);
+		episodeService.like(courseId, episodeId);
 	}
 
 	function handleUnlike() {
@@ -28,7 +28,7 @@ export default function Like() {
 			...otherValues,
 			peopleWhoLikedIt: otherValues.peopleWhoLikedIt.filter((person) => person !== user.id),
 		}));
-		unlike(courseId, episodeId);
+		episodeService.unlike(courseId, episodeId);
 	}
 
 	function toggleLike() {

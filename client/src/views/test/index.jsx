@@ -1,6 +1,7 @@
 import { useCourseContext } from 'src/contexts/course/course.context';
 import ModalContainer from 'src/components/common/modal/ModalContainer';
 import Modal from 'src/components/common/modal';
+import TestHeader from 'src/components/test/header';
 
 export default function Test() {
 	const { selectedEpisode } = useCourseContext();
@@ -9,7 +10,9 @@ export default function Test() {
 	return (
 		<div className="test-page">
 			<ModalContainer show>
-				<Modal close={false}>CUCHA PICHA</Modal>
+				<Modal close={false}>
+					<TestHeader />
+				</Modal>
 			</ModalContainer>
 		</div>
 	);

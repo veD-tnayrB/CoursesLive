@@ -1,7 +1,10 @@
+import axios from 'axios';
+import { ENVIRONMENT } from 'src/services/config';
+
 class TestService {
 	async getOne(episodeId) {
 		try {
-			const { data } = await axios.get(`${ENVIRONMENT}episode/${episodeId}/test`, { signal });
+			const { data } = await axios.get(`${ENVIRONMENT}episode/${episodeId}/test`);
 			return data;
 		} catch ({ response: { data: error } }) {
 			console.error(error);
@@ -11,7 +14,7 @@ class TestService {
 
 	async create(episodeId, test) {
 		try {
-			const { data } = await axios.post(`${ENVIRONMENT}episode/${episodeId}/create`, test);
+			const { data } = await axios.post(`${ENVIRONMENT}episode/${episodeId}/test/create`, test);
 			return data;
 		} catch ({ response: { data: error } }) {
 			console.error(error);
@@ -37,15 +40,6 @@ class TestService {
 			console.error(error);
 			throw new Error(error.message);
 		}
-	}
-}
-export async function getAllUsers(signal, episodeId) {
-	try {
-		const { data } = await axios.get(`${ENVIRONMENT}users?search=${search}&role=${role}`, { signal });
-		return data;
-	} catch ({ response: { data: error } }) {
-		console.error(error);
-		throw new Error(error.message);
 	}
 }
 

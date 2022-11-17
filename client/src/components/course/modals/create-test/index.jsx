@@ -10,10 +10,12 @@ export default function CreateTestModal() {
 
 	return (
 		<ModalContainer show={modals.createTest.show}>
-			<Modal setModals={setModals} modal="createTest">
-				<CreateTestHeader />
-				<CreateTestForm />
-			</Modal>
+			<div className="create-test">
+				<Modal setModals={setModals} modal="createTest">
+					<CreateTestHeader />
+					<CreateTestForm />
+				</Modal>
+			</div>
 		</ModalContainer>
 	);
 }

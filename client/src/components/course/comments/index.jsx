@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useParams } from 'react-router-dom';
-import { getComments } from 'src/services/episodes';
+import { episodeService } from 'src/services/episodes';
 import EpisodeComment from './comment';
 import NewComment from './new-comment';
 import './comments.scss';
@@ -17,7 +17,7 @@ export default function EpisodeComments() {
 
 		setIsLoading(true);
 
-		getComments(signal, episodeId).then((response) => {
+		episodeService.getComments(signal, episodeId).then((response) => {
 			setComments(response);
 			setIsLoading(false);
 		});

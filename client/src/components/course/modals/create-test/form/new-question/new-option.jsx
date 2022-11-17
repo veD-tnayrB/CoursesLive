@@ -6,6 +6,7 @@ import CheckIcon from '@mui/icons-material/Check';
 export default function NewOption({ option, setOptions, index }) {
 	const id = option.id;
 	const isOptionSelected = option.isCorrect;
+	console.log(option);
 
 	function selectOption() {
 		if (isOptionSelected) return;
@@ -56,19 +57,10 @@ export default function NewOption({ option, setOptions, index }) {
 	return (
 		<li className="new-option">
 			<div className="main-actions-container">
-				<ValidationInput
-					name="option"
-					onChange={onChange}
-					value={option.value}
-					placeholder={`Option #${index}`}
-					isCorrect={option.value}
-				/>
+				<ValidationInput name="option" onChange={onChange} value={option.value} placeholder={`Option #${index}`} isCorrect={option.value} />
 
 				<div className="actions">
-					<button
-						onClick={selectOption}
-						className="save-option action-button"
-						title="Select option as correct">
+					<button onClick={selectOption} className="save-option action-button" title="Select option as correct">
 						{isOptionSelected && <CheckIcon />}
 					</button>
 

@@ -8,13 +8,20 @@ export default function SaveTestButton() {
 	const isButtonDisabled = questions.length === 0;
 
 	function saveTest() {
-		const test = { title, questions };
+		const test = { title: title.value, questions };
 		testService.create(episodeId, test);
 	}
 
+	function test() {
+		testService.getOne(episodeId).then((response) => console.log(response));
+	}
+
 	return (
-		<button onClick={saveTest} disabled={isButtonDisabled} className="default-button">
-			Add test
-		</button>
+		<>
+			<button onClick={saveTest} disabled={isButtonDisabled} className="default-button">
+				Add test
+			</button>
+			<button onClick={test}>TEST</button>
+		</>
 	);
 }

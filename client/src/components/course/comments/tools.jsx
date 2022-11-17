@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useParams } from 'react-router-dom';
-import { removeComment } from 'src/services/episodes';
+import { episodeService } from 'src/services/episodes';
 import { useCommentsContext } from './context';
 
 export default function Tools({ setInEdition, commentId }) {
@@ -13,7 +13,7 @@ export default function Tools({ setInEdition, commentId }) {
 
 	function remove() {
 		setComments((prevValues) => prevValues.filter((comment) => comment.id !== commentId));
-		removeComment(episodeId, commentId);
+		episodeService.removeComment(episodeId, commentId);
 	}
 
 	return (

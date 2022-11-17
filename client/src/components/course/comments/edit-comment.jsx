@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useParams } from 'react-router-dom';
-import { editComment } from 'src/services/episodes';
+import { episodeService } from 'src/services/episodes';
 import { useUserContext } from 'src/contexts/user/user.context';
 import { IMAGES_ROUTES } from 'src/services/config';
 import { useCommentsContext } from './context';
@@ -30,7 +30,7 @@ export default function EditComment({ prevComment, setInEdition }) {
 			})
 		);
 		setInEdition(false);
-		editComment(episodeId, prevComment.id, { content: form });
+		episodeService.editComment(episodeId, prevComment.id, { content: form });
 	}
 
 	return (

@@ -8,8 +8,8 @@ import CreateTest from './test/create';
 import './main-actions.scss';
 
 export default function MainActions() {
-	const { isCourseCreator, selectedCourse } = useCourseContext();
-	const episodeHasTest = selectedCourse?.test;
+	const { isCourseCreator, selectedEpisode } = useCourseContext();
+	const episodeHasTest = selectedEpisode?.test;
 	const testButton = episodeHasTest ? <OpenTest /> : <CreateTest />;
 
 	return (
