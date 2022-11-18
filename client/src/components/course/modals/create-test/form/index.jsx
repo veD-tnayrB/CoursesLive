@@ -6,7 +6,7 @@ import Question from './question';
 import NewQuestion from './new-question/new-question';
 import useForm from 'src/hooks/useForm';
 import SaveTestButton from './save-test-button';
-import { CreateTestContext } from './context';
+import { CreateTestContext, useCreateTextContext } from './context';
 
 const titlePattern = /.{5,50}/;
 
@@ -28,9 +28,13 @@ export default function CreateTestForm() {
 	const [showSelectedQuestion, setShowSelectedQuestion] = React.useState(true);
 	const [questions, setQuestions] = React.useState([]);
 	const { form, handleChanges } = useForm(FORM_VALUES);
+	const { title } = useCreateTextContext();
 
 	function onSubmit(event) {
 		event.preventDefault();
+
+		const test = { title: title.value, questions };
+		testService.create(episodeId, test);
 	}
 
 	const cls = showSelectedQuestion ? 'open' : 'close';

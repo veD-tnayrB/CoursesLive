@@ -1,0 +1,34 @@
+.test-response-form {
+	display: grid;
+	gap: 1rem;
+
+	.send-test {
+		width: 100%;
+	}
+
+	.question-list {
+		display: grid;
+		gap: 1.2rem;
+
+		li {
+			display: grid;
+			gap: 0.5rem;
+
+			h3 {
+				font-size: 1.5rem;
+			}
+
+			ul {
+				gap: 0.5rem;
+
+				li {
+					.checkbox {
+						label .icon {
+							width: 30px;
+						}
+					}
+				}
+			}
+		}
+	}
+}

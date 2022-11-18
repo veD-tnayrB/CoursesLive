@@ -2,10 +2,10 @@
 
 $action-button-size: 3.3rem;
 
-.create-test {
-	.modal-container {
+.modal-container {
+	.create-test {
 		.modal {
-			min-height: 90vh;
+			min-height: 95vh;
 
 			.header {
 				height: -moz-fit-content;
@@ -74,6 +74,8 @@ $action-button-size: 3.3rem;
 
 			.test-results {
 				width: 100%;
+				display: grid;
+				gap: 0.5rem;
 
 				h2 {
 					width: 100%;
@@ -85,7 +87,7 @@ $action-button-size: 3.3rem;
 
 				.questions {
 					display: grid;
-					gap: 1rem;
+					gap: 1.2rem;
 
 					.question {
 						display: grid;
