@@ -28,12 +28,11 @@ export default function CreateTestForm() {
 	const [showSelectedQuestion, setShowSelectedQuestion] = React.useState(true);
 	const [questions, setQuestions] = React.useState([]);
 	const { form, handleChanges } = useForm(FORM_VALUES);
-	const { title } = useCreateTextContext();
 
 	function onSubmit(event) {
 		event.preventDefault();
 
-		const test = { title: title.value, questions };
+		const test = { title: form.title.value, questions };
 		testService.create(episodeId, test);
 	}
 

@@ -2,15 +2,21 @@
 	display: grid;
 	gap: 1rem;
 
+	h3 {
+		height: fit-content;
+	}
+
 	.send-test {
 		width: 100%;
 	}
 
 	.question-list {
+		height: 100%;
 		display: grid;
 		gap: 1.2rem;
 
 		li {
+			height: fit-content;
 			display: grid;
 			gap: 0.5rem;
 
