@@ -10,7 +10,7 @@ import './main-actions.scss';
 export default function MainActions() {
 	const { isCourseCreator, selectedEpisode } = useCourseContext();
 	const episodeHasTest = selectedEpisode?.test;
-	const testButton = episodeHasTest ? <OpenTest /> : <CreateTest />;
+	const testButton = episodeHasTest ? <OpenTest test={selectedEpisode?.test} /> : <CreateTest />;
 
 	return (
 		<section className="main-actions">

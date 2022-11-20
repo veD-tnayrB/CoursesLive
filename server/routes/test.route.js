@@ -1,7 +1,8 @@
 import { Router } from 'express';
 import tests from '../controllers/test.controller.js';
+import result from '../controllers/result.controller.js';
 import isBodyATest from '../dtos/isBodyATest.js';
-import { isUserAdminOrTeacher } from '../middlewares/isUserRole.js';
+import { isUser, isUserAdminOrTeacher } from '../middlewares/isUserRole.js';
 
 const testRouter = Router();
 
@@ -16,5 +17,8 @@ testRouter.patch('/:episodeId/test/:testId/edit', isUserAdminOrTeacher, isBodyAT
 
 // Remove a test
 testRouter.delete('/:episodeId/test/:testId/remove', isUserAdminOrTeacher, tests.remove);
+
+// Save results
+testRouter.post('/:testId/save-results', isUser, result.save);
 
 export default testRouter;

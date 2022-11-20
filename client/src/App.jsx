@@ -21,7 +21,7 @@ function App() {
 
 			{/* Detailed */}
 			<Route path="/courses/course/:courseId/episode/:episodeId/" element={<Course />}>
-				<Route path="test" element={<Test />} />
+				<Route path="test/:testId" element={<Test />} />
 			</Route>
 		</Routes>
 	);

@@ -41,6 +41,16 @@ class TestService {
 			throw new Error(error.message);
 		}
 	}
+
+	async saveResults(testId, options) {
+		try {
+			const { data } = await axios.post(`${ENVIRONMENT}episode/${testId}/save-results`, options);
+			return data;
+		} catch ({ response: { data: error } }) {
+			console.error(error);
+			throw new Error(error.message);
+		}
+	}
 }
 
 export const testService = new TestService();
