@@ -27,12 +27,7 @@ export default function Video() {
 	return (
 		<VideoContext.Provider value={contextValue}>
 			<div className="video-container">
-				<video
-					onEnded={handleEnd}
-					ref={videoRef}
-					className="video"
-					src={`${VIDEOS_ROUTES}${user.id}/${episodeId}/${selectedEpisode.video}`}
-				/>
+				<video onEnded={handleEnd} ref={videoRef} className="video" src={`${VIDEOS_ROUTES}${user.id}/${episodeId}/${selectedEpisode.video}`} />
 				<PlayButton />
 
 				<div className="controls">

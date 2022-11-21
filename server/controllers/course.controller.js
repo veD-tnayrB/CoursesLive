@@ -69,7 +69,7 @@ class Courses {
 				suscribers: [],
 			});
 			course.save();
-			return res.status(201).json({ ...course._doc, creator: userCreator });
+			return res.status(201).json({ ...course._doc, id: course._doc._id, creator: userCreator });
 		} catch (error) {
 			next(error);
 		}
@@ -140,11 +140,7 @@ class Courses {
 			if (isUserSuscribed) return res.status(304).json('USER_ALREADY_SUSCRIBED');
 
 			// Add the user id to the suscribers array
-			const courseToSuscribe = await Course.findByIdAndUpdate(
-				courseId,
-				{ $push: { subscribers: user.id } },
-				{ new: true }
-			);
+			const courseToSuscribe = await Course.findByIdAndUpdate(courseId, { $push: { subscribers: user.id } }, { new: true });
 
 			// Update the user information
 			const updatedUser = await User.findByIdAndUpdate(user.id, { $push: { courses: courseId } }, { new: true });

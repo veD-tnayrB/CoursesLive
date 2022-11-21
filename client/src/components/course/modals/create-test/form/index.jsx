@@ -1,12 +1,14 @@
 import * as React from 'react';
 import uniqid from 'uniqid';
+import { CreateTestContext } from './context';
+import { testService } from 'src/services/test';
+import { useParams } from 'react-router-dom';
 import ValidationInput from 'src/components/common/validation-input';
 import CreateQuestionButton from './new-question';
 import Question from './question';
 import NewQuestion from './new-question/new-question';
 import useForm from 'src/hooks/useForm';
 import SaveTestButton from './save-test-button';
-import { CreateTestContext, useCreateTextContext } from './context';
 
 const titlePattern = /.{5,50}/;
 
@@ -17,10 +19,11 @@ const FORM_VALUES = {
 const DEFAULT_QUESTION = {
 	title: '',
 	options: [
-		{ value: '', isCorrect: true, id: 1 },
-		{ value: '', isCorrect: false, id: 2 },
-		{ value: '', isCorrect: false, id: 3 },
+		{ value: '', id: 1 },
+		{ value: '', id: 2 },
+		{ value: '', id: 3 },
 	],
+	correct_option: { value: '', id: 1 },
 };
 
 export default function CreateTestForm() {
@@ -28,11 +31,13 @@ export default function CreateTestForm() {
 	const [showSelectedQuestion, setShowSelectedQuestion] = React.useState(true);
 	const [questions, setQuestions] = React.useState([]);
 	const { form, handleChanges } = useForm(FORM_VALUES);
+	const { episodeId } = useParams();
 
 	function onSubmit(event) {
 		event.preventDefault();
-
+		console.log(questions);
 		const test = { title: form.title.value, questions };
+
 		testService.create(episodeId, test);
 	}
 
@@ -56,14 +61,14 @@ export default function CreateTestForm() {
 					<CreateQuestionButton />
 				</div>
 				{showSelectedQuestion && <NewQuestion selectedQuestion={selectedQuestion} />}
+
+				<section className="test-results">
+					<h2>{form.title.value}</h2>
+					<ul className="questions">{questionsElements}</ul>
+				</section>
+
+				<SaveTestButton />
 			</form>
-
-			<section className="test-results">
-				<h2>{form.title.value}</h2>
-				<ul className="questions">{questionsElements}</ul>
-			</section>
-
-			<SaveTestButton />
 		</CreateTestContext.Provider>
 	);
 }

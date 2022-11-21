@@ -1,34 +1,32 @@
 import mongoose from 'mongoose';
 const { Schema, model } = mongoose;
 
-const testSchema = new Schema({
+const questionSchema = new Schema({
 	title: {
 		type: String,
 		required: true,
 	},
 
-	episode: {
-		type: Schema.Types.ObjectId,
-		ref: 'Episode',
+	options: {
+		type: [{ id: String, value: String }],
 		required: true,
 	},
 
-	questions: {
-		type: [Schema.Types.ObjectId],
-		ref: 'Question',
+	correct_option: {
+		type: { id: String, value: String },
 		required: true,
 	},
 });
 
-testSchema.set('toJSON', {
+questionSchema.set('toJSON', {
 	transform: (document, returnedObject) => {
 		returnedObject.id = returnedObject._id;
+		returnedObject.correctOption = returnedObject.correct_option;
 
 		delete returnedObject._id;
 		delete returnedObject.__v;
 	},
 });
 
-const Test = model('Test', testSchema);
-
-export default Test;
+const Question = model('Question', questionSchema);
+export default Question;

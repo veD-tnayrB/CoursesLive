@@ -3,8 +3,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import { useCreateTextContext } from '../context';
 
 export default function CreateQuestionButton() {
-	const { selectedQuestion, setSelectedQuestion, showSelectedQuestion, setShowSelectedQuestion } =
-		useCreateTextContext();
+	const { selectedQuestion, setSelectedQuestion, showSelectedQuestion, setShowSelectedQuestion } = useCreateTextContext();
 
 	function openNewQuestion() {
 		setShowSelectedQuestion(!showSelectedQuestion);
@@ -15,7 +14,7 @@ export default function CreateQuestionButton() {
 	const toolTip = selectedQuestion?.title ? 'Cancel question' : 'Add question';
 
 	return (
-		<button title={toolTip} onClick={openNewQuestion} className="create-question-button action-button">
+		<button type="button" title={toolTip} onClick={openNewQuestion} className="create-question-button action-button">
 			<Icon className="icon" />
 		</button>
 	);

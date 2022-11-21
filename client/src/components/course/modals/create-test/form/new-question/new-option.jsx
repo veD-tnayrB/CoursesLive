@@ -3,24 +3,13 @@ import ValidationInput from 'src/components/common/validation-input';
 import DeleteIcon from '@mui/icons-material/Delete';
 import CheckIcon from '@mui/icons-material/Check';
 
-export default function NewOption({ option, setOptions, index }) {
+export default function NewOption({ option, setOptions, setCorrectOption, correctOption, options, index }) {
 	const id = option.id;
-	const isOptionSelected = option.isCorrect;
-	console.log(option);
+	const isOptionCorrect = correctOption?.id === option.id;
 
 	function selectOption() {
-		if (isOptionSelected) return;
-
-		setOptions((prevOptions) =>
-			prevOptions.map((element) => {
-				if (element.isCorrect) {
-					return { ...element, isCorrect: false };
-				}
-
-				if (element.id === id) return { ...element, isCorrect: true };
-				return element;
-			})
-		);
+		if (isOptionCorrect) return;
+		setCorrectOption(option);
 	}
 
 	function onChange(event) {
@@ -35,23 +24,14 @@ export default function NewOption({ option, setOptions, index }) {
 				};
 			})
 		);
+
+		if (isOptionCorrect) setCorrectOption({ id, value });
 	}
 
 	function remove() {
 		setOptions((prevOptions) => prevOptions.filter((element) => element.id !== id));
-
-		if (!option.isCorrect) return;
-
-		setOptions((prevOptions) =>
-			prevOptions.map((element, elementIndex, array) => {
-				if (element.id === id) {
-					return { ...element, isCorrect: false };
-				}
-
-				if (array[0]?.id === element.id) return { ...element, isCorrect: true };
-				return element;
-			})
-		);
+		if (!isOptionCorrect) return;
+		setCorrectOption(options[0]?.id === correctOption?.id ? options[1] : options[0]);
 	}
 
 	return (
@@ -60,11 +40,11 @@ export default function NewOption({ option, setOptions, index }) {
 				<ValidationInput name="option" onChange={onChange} value={option.value} placeholder={`Option #${index}`} isCorrect={option.value} />
 
 				<div className="actions">
-					<button onClick={selectOption} className="save-option action-button" title="Select option as correct">
-						{isOptionSelected && <CheckIcon />}
+					<button type="button" onClick={selectOption} className="save-option action-button" title="Select option as correct">
+						{isOptionCorrect && <CheckIcon />}
 					</button>
 
-					<button onClick={remove} className="delete-option action-button">
+					<button type="button" onClick={remove} className="delete-option action-button">
 						<DeleteIcon className="icon" />
 					</button>
 				</div>

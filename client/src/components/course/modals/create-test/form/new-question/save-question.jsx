@@ -1,6 +1,6 @@
 import { useCreateTextContext } from '../context';
 
-export default function SaveQuestion({ title, options }) {
+export default function SaveQuestion({ title, options, correctOption }) {
 	const { setQuestions, setSelectedQuestion, setShowSelectedQuestion } = useCreateTextContext();
 	const theresOptions = options.length >= 2 && options.every((option) => option.value) && title.length >= 3;
 
@@ -10,6 +10,7 @@ export default function SaveQuestion({ title, options }) {
 		const newQuestion = {
 			title,
 			options,
+			correct_option: correctOption,
 		};
 
 		setSelectedQuestion({ title: '', options: [] });
@@ -18,12 +19,7 @@ export default function SaveQuestion({ title, options }) {
 	}
 
 	return (
-		<button
-			disabled={!theresOptions}
-			className="default-button"
-			title="Save questions"
-			type="button"
-			onClick={saveQuestion}>
+		<button disabled={!theresOptions} className="default-button" title="Save questions" type="button" onClick={saveQuestion}>
 			Save Question
 		</button>
 	);

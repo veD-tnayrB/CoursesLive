@@ -26,11 +26,7 @@ export default function Question({ question }) {
 
 	const questionOptions = question.options.map((option) => (
 		<li key={uniqid()}>
-			<CheckBox
-				checkbox={{ value: option.value, label: option.value }}
-				selectedOption={selectedOption}
-				handleChange={handleChange}
-			/>
+			<CheckBox checkbox={{ value: option.value, label: option.value }} selectedOption={selectedOption} handleChange={handleChange} />
 		</li>
 	));
 
@@ -41,12 +37,12 @@ export default function Question({ question }) {
 					<p>{question.title}</p>
 
 					<div className="actions">
-						<button onClick={removeQuestion}>
+						<button type="button" onClick={removeQuestion}>
 							<DeleteIcon className="icon" />
 							Delete
 						</button>
 
-						<button onClick={selectQuestion}>
+						<button type="button" onClick={selectQuestion}>
 							<EditIcon className="icon" />
 							Edit
 						</button>

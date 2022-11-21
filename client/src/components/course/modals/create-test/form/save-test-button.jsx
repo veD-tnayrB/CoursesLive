@@ -1,22 +1,12 @@
-import { useParams } from 'react-router-dom';
 import { useCreateTextContext } from './context';
-import { testService } from 'src/services/test';
 
 export default function SaveTestButton() {
-	const { questions, title } = useCreateTextContext();
-	const { episodeId } = useParams();
+	const { questions } = useCreateTextContext();
 	const isButtonDisabled = questions.length === 0;
 
-	function test() {
-		testService.getOne(episodeId).then((response) => console.log(response));
-	}
-
 	return (
-		<>
-			<button disabled={isButtonDisabled} className="default-button">
-				Add test
-			</button>
-			<button onClick={test}>TEST</button>
-		</>
+		<button disabled={isButtonDisabled} className="default-button">
+			Add test
+		</button>
 	);
 }

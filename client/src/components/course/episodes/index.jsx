@@ -8,12 +8,14 @@ import Filters from './filters';
 import NewEpisode from './new-episode';
 import CreateEpisodeModal from '../modals/create-episode';
 import './episodes.scss';
+import { useCourseContext } from 'src/contexts/course/course.context';
 
 export default function Episodes() {
 	const [selectedFilter, setSelectedFilter] = React.useState('All');
 	const [episodes, setEpisodes] = React.useState([]);
 	const { user } = useUserContext();
 	const { courseId } = useParams();
+	const { selectedEpisode } = useCourseContext();
 	const canCreateEpisodes = user.role === 'admin' || user.role === 'teacher';
 
 	React.useEffect(() => {
@@ -25,7 +27,7 @@ export default function Episodes() {
 		});
 
 		return () => controller.abort();
-	}, [courseId, selectedFilter]);
+	}, [courseId, selectedFilter, selectedEpisode]);
 
 	const episodesElements = episodes.map((episode) => <Episode key={episode.id} episode={episode} />);
 

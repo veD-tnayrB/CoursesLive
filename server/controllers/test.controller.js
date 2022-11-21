@@ -1,13 +1,14 @@
 import jwt from 'jsonwebtoken';
 import Test from '../models/test.js';
 import Episode from '../models/episode.js';
+import Question from '../models/question.js';
 
 class Tests {
 	async getOne(req, res, next) {
 		const { episodeId } = req.params;
 
 		try {
-			const test = await Test.findOne({ episode: episodeId });
+			const test = await Test.findOne({ episode: episodeId }).populate('questions');
 			return res.status(200).json(test);
 		} catch (error) {
 			next(error);
@@ -37,10 +38,14 @@ class Tests {
 				throw Error('user not authorized');
 			}
 
+			const questions = await Question.insertMany(testInformation.questions);
+			const questionsId = questions.map((question) => question._id);
+			console.log(99, questionsId);
+
 			const test = await Test.create({
 				title: testInformation.title,
 				episode: episodeId,
-				questions: testInformation.questions,
+				questions: questionsId,
 			});
 
 			test.save();

@@ -18,12 +18,7 @@ export default function DeleteEpisodeModal() {
 			navigateTo(`/courses/course/${courseId}/episode/${nextEpisode.id}`);
 		}
 
-		setCourse((otherValues) => ({
-			...otherValues,
-			episodes: otherValues.episodes.filter((episode) => episode.id !== selectedEpisode.id),
-		}));
-
-		episodeService.removeEpisode(courseId, selectedEpisode.id).then(() => {
+		episodeService.remove(courseId, selectedEpisode.id).then(() => {
 			setIsLoading(false);
 			setModals((otherModals) => ({ ...otherModals, delete: { ...otherModals.delete, show: false } }));
 		});
