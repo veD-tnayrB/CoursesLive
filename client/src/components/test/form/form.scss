@@ -1,3 +1,5 @@
+@use 'src/global/_variables.scss';
+
 .test-response-form {
 	display: grid;
 	gap: 1rem;
@@ -13,19 +15,28 @@
 	.question-list {
 		height: 100%;
 		display: grid;
-		gap: 1.2rem;
 
 		li {
 			height: fit-content;
 			display: grid;
 			gap: 0.5rem;
+			border-radius: 10px;
+
+			&.correct {
+				border: 1px solid variables.$smooth-green;
+			}
+
+			&.incorrect {
+				border: 1px solid variables.$smooth-red;
+			}
 
 			h3 {
 				font-size: 1.5rem;
 			}
 
 			ul {
-				gap: 0.5rem;
+				display: grid;
+				gap: 0.05rem;
 
 				li {
 					.checkbox {

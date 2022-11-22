@@ -14,8 +14,7 @@ export default function Episodes() {
 	const [selectedFilter, setSelectedFilter] = React.useState('All');
 	const [episodes, setEpisodes] = React.useState([]);
 	const { user } = useUserContext();
-	const { courseId } = useParams();
-	const { selectedEpisode } = useCourseContext();
+	const { courseId, episodeId } = useParams();
 	const canCreateEpisodes = user.role === 'admin' || user.role === 'teacher';
 
 	React.useEffect(() => {
@@ -27,7 +26,7 @@ export default function Episodes() {
 		});
 
 		return () => controller.abort();
-	}, [courseId, selectedFilter, selectedEpisode]);
+	}, [courseId, selectedFilter, episodeId]);
 
 	const episodesElements = episodes.map((episode) => <Episode key={episode.id} episode={episode} />);
 

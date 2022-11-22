@@ -9,6 +9,7 @@ import Question from './question';
 import NewQuestion from './new-question/new-question';
 import useForm from 'src/hooks/useForm';
 import SaveTestButton from './save-test-button';
+import { useCourseContext } from 'src/contexts/course/course.context';
 
 const titlePattern = /.{5,50}/;
 
@@ -31,14 +32,17 @@ export default function CreateTestForm() {
 	const [showSelectedQuestion, setShowSelectedQuestion] = React.useState(true);
 	const [questions, setQuestions] = React.useState([]);
 	const { form, handleChanges } = useForm(FORM_VALUES);
+	const { setCourse, setModals } = useCourseContext();
 	const { episodeId } = useParams();
 
 	function onSubmit(event) {
 		event.preventDefault();
-		console.log(questions);
 		const test = { title: form.title.value, questions };
 
-		testService.create(episodeId, test);
+		testService.create(episodeId, test).then((response) => {
+			console.log(0, response);
+			setModals((otherModals) => ({ ...otherModals, createTest: { ...otherModals.createTest, show: false } }));
+		});
 	}
 
 	const cls = showSelectedQuestion ? 'open' : 'close';

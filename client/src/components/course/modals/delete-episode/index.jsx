@@ -18,6 +18,8 @@ export default function DeleteEpisodeModal() {
 			navigateTo(`/courses/course/${courseId}/episode/${nextEpisode.id}`);
 		}
 
+		navigateTo(`/courses/course/${courseId}/episode/${undefined}`);
+
 		episodeService.remove(courseId, selectedEpisode.id).then(() => {
 			setIsLoading(false);
 			setModals((otherModals) => ({ ...otherModals, delete: { ...otherModals.delete, show: false } }));

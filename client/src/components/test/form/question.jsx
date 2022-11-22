@@ -1,19 +1,11 @@
 import * as React from 'react';
-import CheckBox from 'src/components/common/form/checkbox';
-import { useTestContext } from '../context';
+import { useTestFormContext } from './context';
+import Option from './option';
 
 export default function Question({ question }) {
 	const [selectedOption, setSelectedOption] = React.useState(question.options[0].value);
-	function handleChange(event) {
-		const { value } = event.target;
-		setSelectedOption(value);
-	}
-
-	const optionsElements = question.options.map((option) => (
-		<li key={option._id}>
-			<CheckBox handleChange={handleChange} checkbox={{ label: option.value, value: option.value }} selectedOption={selectedOption} />
-		</li>
-	));
+	const { showResults } = useTestFormContext();
+	const optionsElements = question.options.map((option) => <Option key={option._id} correctOption={question.correctOption} showResults={showResults} option={option} setSelectedOption={setSelectedOption} selectedOption={selectedOption} />);
 
 	return (
 		<li>
