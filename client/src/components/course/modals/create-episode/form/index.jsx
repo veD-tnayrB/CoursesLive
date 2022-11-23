@@ -8,6 +8,7 @@ import CreationModalActions from './actions';
 import useForm from 'src/hooks/useForm';
 import VideoDropzone from './video-dropzone';
 import './form.scss';
+import MiniatureDropzone from './miniature-dropzone';
 
 const titlePattern = /./;
 const descriptionPattern = /.{0,250}/;
@@ -24,6 +25,7 @@ export default function CreateEpisodeForm() {
 	const { course, setModals, setSelectedEpisode } = useCourseContext();
 	const { setEpisodes } = useEpisodeContext();
 	const [videoFile, setVideoFile] = React.useState({});
+	const [imageFile, setImageFile] = React.useState({});
 	const { form, handleChanges } = useForm(INITIAL_VALUES);
 	const navigateTo = useNavigate();
 
@@ -54,6 +56,9 @@ export default function CreateEpisodeForm() {
 
 	return (
 		<form className="edit-course-form" onSubmit={create}>
+			<div className="miniature-zone">
+				<MiniatureDropzone image={imageFile} setImage={setImageFile} />
+			</div>
 			<ValidationInput type="text" name="title" value={form.title.value} onChange={handleChanges} placeholder="Title" autoComplete="off" isCorrect={form.title.isCorrect} />
 
 			<div className="input-container">
@@ -61,7 +66,6 @@ export default function CreateEpisodeForm() {
 			</div>
 
 			<VideoDropzone video={videoFile} setVideo={setVideoFile} />
-
 			<CreationModalActions isInfoCorrect={isInfoCorrect} />
 		</form>
 	);

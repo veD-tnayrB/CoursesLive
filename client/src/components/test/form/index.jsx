@@ -9,6 +9,9 @@ import './form.scss';
 
 export default function TestForm() {
 	const { test } = useTestContext();
+	console.log(0, test.questions);
+	const [selectedOptions, setSelectedOptions] = React.useState(test.questions.map((question) => ({ id: question.id, selectedOption: question.options[0] })));
+	console.log(-1, selectedOptions);
 	const [showResults, setShowResults] = React.useState(false);
 	const { testId } = useParams();
 
@@ -23,6 +26,8 @@ export default function TestForm() {
 	const contextValue = {
 		showResults,
 		setShowResults,
+		selectedOptions,
+		setSelectedOptions,
 	};
 	return (
 		<TestFormContext.Provider value={contextValue}>

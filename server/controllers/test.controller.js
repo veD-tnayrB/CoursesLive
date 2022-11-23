@@ -40,7 +40,6 @@ class Tests {
 
 			const questions = await Question.insertMany(testInformation.questions);
 			const questionsId = questions.map((question) => question._id);
-			console.log(99, questionsId);
 
 			const test = await Test.create({
 				title: testInformation.title,
