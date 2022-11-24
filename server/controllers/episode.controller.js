@@ -3,6 +3,7 @@ import Episode from '../models/episode.js';
 import { unlink } from 'fs';
 
 const VIDEOS_LOCATION = 'storage/videos';
+const IMAGES_LOCATION = 'storage/images';
 
 class Episodes {
 	async getAll(req, res, next) {
@@ -43,6 +44,7 @@ class Episodes {
 	}
 
 	async create(req, res, next) {
+		console.log(0, req.files);
 		const video = req.file.filename;
 		try {
 			const newEpisodeInfo = req.body;
@@ -62,6 +64,7 @@ class Episodes {
 				title: newEpisodeInfo.title,
 				description: newEpisodeInfo.description,
 				video,
+				miniature,
 				creator: creator.id,
 				course: courseId,
 				people_who_liked_it: [],
@@ -75,6 +78,7 @@ class Episodes {
 			return res.status(201).json(episode);
 		} catch (error) {
 			unlink(`${VIDEOS_LOCATION}/${video}`, (err) => next(err));
+			unlink(`${IMAGES_LOCATION}/${miniature}`, (err) => next(err));
 			next(error);
 		}
 	}
@@ -142,11 +146,7 @@ class Episodes {
 			const episode = await Episode.findByIdAndRemove(episodeId);
 
 			// Update the course information
-			const updatedCourse = await Course.findByIdAndUpdate(
-				courseId,
-				{ $pull: { episodes: episodeId } },
-				{ new: true }
-			);
+			const updatedCourse = await Course.findByIdAndUpdate(courseId, { $pull: { episodes: episodeId } }, { new: true });
 
 			return res.status(202).json(updatedCourse);
 		} catch (error) {
@@ -171,11 +171,7 @@ class Episodes {
 
 			if (isLikedIt) return res.status(304).json({ message: 'UNAUTHORIZED' });
 			// Update the people who liked it array
-			const updatedEpisode = await Episode.findByIdAndUpdate(
-				episodeId,
-				{ $push: { people_who_liked_it: liker.id } },
-				{ new: true }
-			);
+			const updatedEpisode = await Episode.findByIdAndUpdate(episodeId, { $push: { people_who_liked_it: liker.id } }, { new: true });
 
 			return res.status(200).json(updatedEpisode);
 		} catch (error) {
@@ -200,11 +196,7 @@ class Episodes {
 			if (!isLikedIt) return res.status(304).json({ message: 'UNAUTHORIZED' });
 
 			// Update the people who liked it array
-			const updatedEpisode = await Episode.findByIdAndUpdate(
-				episodeId,
-				{ $pull: { people_who_liked_it: unliker.id } },
-				{ new: true }
-			);
+			const updatedEpisode = await Episode.findByIdAndUpdate(episodeId, { $pull: { people_who_liked_it: unliker.id } }, { new: true });
 
 			return res.status(200).json(updatedEpisode);
 		} catch (error) {

@@ -17,6 +17,11 @@ const episodeSchema = new Schema({
 		required: true,
 	},
 
+	miniature: {
+		type: String,
+		required: true,
+	},
+
 	views: {
 		type: [Schema.Types.ObjectId],
 		ref: 'User',

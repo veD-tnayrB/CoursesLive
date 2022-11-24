@@ -7,8 +7,8 @@ import ValidationInput from 'src/components/common/validation-input';
 import CreationModalActions from './actions';
 import useForm from 'src/hooks/useForm';
 import VideoDropzone from './video-dropzone';
-import './form.scss';
 import MiniatureDropzone from './miniature-dropzone';
+import './form.scss';
 
 const titlePattern = /./;
 const descriptionPattern = /.{0,250}/;
@@ -56,16 +56,16 @@ export default function CreateEpisodeForm() {
 
 	return (
 		<form className="edit-course-form" onSubmit={create}>
-			<div className="miniature-zone">
-				<MiniatureDropzone image={imageFile} setImage={setImageFile} />
-			</div>
-			<ValidationInput type="text" name="title" value={form.title.value} onChange={handleChanges} placeholder="Title" autoComplete="off" isCorrect={form.title.isCorrect} />
+			<VideoDropzone video={videoFile} setVideo={setVideoFile} />
 
-			<div className="input-container">
+			<ValidationInput type="text" name="title" value={form.title.value} onChange={handleChanges} placeholder="Title" autoComplete="off" isCorrect={form.title.isCorrect} />
+			<div className="input-container description">
 				<textarea type="text" name="description" value={form.description.value} onChange={handleChanges} placeholder="Description (Optional)" autoComplete="off" />
 			</div>
 
-			<VideoDropzone video={videoFile} setVideo={setVideoFile} />
+			<div className="miniature-zone">
+				<MiniatureDropzone image={imageFile} setImage={setImageFile} />
+			</div>
 			<CreationModalActions isInfoCorrect={isInfoCorrect} />
 		</form>
 	);

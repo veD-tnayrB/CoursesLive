@@ -11,7 +11,7 @@ export default function MiniatureDropzone({ image, setImage }) {
 	const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
 	return (
-		<div {...getRootProps()} className="image-dropzone">
+		<div {...getRootProps()} className="dropzone">
 			<input {...getInputProps()} />
 			{image.name ? <DropzoneFilled /> : <EmptyDropzone />}
 		</div>
