@@ -45,9 +45,10 @@ class Tests {
 				title: testInformation.title,
 				episode: episodeId,
 				questions: questionsId,
+				test_takers: [],
 			});
-
 			test.save();
+
 			// Add the test to the episode
 			await Episode.findByIdAndUpdate(episodeId, { test: test._id });
 

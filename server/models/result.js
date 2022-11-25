@@ -15,7 +15,7 @@ const resultSchema = new Schema({
 	},
 
 	selected_options: {
-		type: [{ id: String }],
+		type: [{ id: String, value: String }],
 		required: true,
 	},
 

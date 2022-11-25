@@ -12,15 +12,24 @@ const TEST_DEFAULT_VALUE = { questions: [], title: '' };
 
 export default function Test() {
 	const [test, setTest] = React.useState(TEST_DEFAULT_VALUE);
-	const { episodeId } = useParams();
+	const [selectedOptions, setSelectedOptions] = React.useState([]);
+	const { episodeId, testId } = useParams();
 
 	React.useEffect(() => {
-		testService.getOne(episodeId).then((response) => setTest(response));
+		Promise.all([testService.getOne(episodeId), testService.getResults(testId)]).then((response) => {
+			const [test, results] = response;
+
+			setTest(test);
+			!results && setSelectedOptions(test.questions.map((question) => ({ id: question.id, selected: question.options[0] })));
+			results && setSelectedOptions(results.selectedOptions);
+		});
 	}, [episodeId]);
 
 	const contextValue = {
 		test,
 		setTest,
+		selectedOptions,
+		setSelectedOptions,
 	};
 	return (
 		<TestContext.Provider value={contextValue}>

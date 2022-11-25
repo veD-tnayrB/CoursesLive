@@ -5,6 +5,21 @@
 		* {
 			color: variables.$disabled-color;
 		}
+
+		label {
+			&:hover .icon,
+			&:active .icon {
+				transform: none;
+			}
+
+			.icon {
+				-webkit-transition-property: none;
+				-moz-transition-property: none;
+				-o-transition-property: none;
+				transition-property: none;
+				transition: none;
+			}
+		}
 	}
 
 	label {

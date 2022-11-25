@@ -18,14 +18,22 @@ const testSchema = new Schema({
 		ref: 'Question',
 		required: true,
 	},
+
+	test_takers: {
+		type: [Schema.Types.ObjectId],
+		ref: 'User',
+		required: true,
+	},
 });
 
 testSchema.set('toJSON', {
 	transform: (document, returnedObject) => {
 		returnedObject.id = returnedObject._id;
+		returnedObject.testTakers = returnedObject.test_takers;
 
 		delete returnedObject._id;
 		delete returnedObject.__v;
+		delete returnedObject.test_takers;
 	},
 });
 

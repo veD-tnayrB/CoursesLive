@@ -17,6 +17,7 @@
 		display: grid;
 
 		li {
+			border: 1px solid transparent;
 			height: fit-content;
 			display: grid;
 			gap: 0.5rem;
@@ -24,10 +25,18 @@
 
 			&.correct {
 				border: 1px solid variables.$smooth-green;
+
+				.checkbox label span {
+					color: variables.$smooth-green;
+				}
 			}
 
 			&.incorrect {
 				border: 1px solid variables.$smooth-red;
+
+				.checkbox label span {
+					color: variables.$smooth-red;
+				}
 			}
 
 			h3 {

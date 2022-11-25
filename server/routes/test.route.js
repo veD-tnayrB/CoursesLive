@@ -21,4 +21,7 @@ testRouter.delete('/:episodeId/test/:testId/remove', isUserAdminOrTeacher, tests
 // Save results
 testRouter.post('/:testId/save-results', isUser, result.save);
 
+// Get results
+testRouter.get('/:testId/results', isUser, result.getOne);
+
 export default testRouter;
