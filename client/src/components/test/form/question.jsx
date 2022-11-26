@@ -1,10 +1,8 @@
 import * as React from 'react';
-import { useTestFormContext } from './context';
 import Option from './option';
 
 export default function Question({ question }) {
-	const { showResults } = useTestFormContext();
-	const optionsElements = question.options.map((option) => <Option key={option._id} correctOption={question.correctOption} questionId={question.id} showResults={showResults} option={option} />);
+	const optionsElements = question.options.map((option) => <Option key={option._id} options={question.options} correctOption={question.correctOption} option={option} />);
 
 	return (
 		<li>

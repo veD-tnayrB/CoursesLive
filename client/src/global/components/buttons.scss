@@ -65,7 +65,7 @@ button {
 	}
 
 	&:disabled {
-		background: variables.$fifth-color;
+		background: variables.$third-color;
 		cursor: not-allowed;
 	}
 }

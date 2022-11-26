@@ -25,6 +25,7 @@ questionSchema.set('toJSON', {
 
 		delete returnedObject._id;
 		delete returnedObject.__v;
+		delete returnedObject.correct_option;
 	},
 });
 

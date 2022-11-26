@@ -15,7 +15,7 @@ const resultSchema = new Schema({
 	},
 
 	selected_options: {
-		type: [{ id: String, value: String }],
+		type: [{ id: String }],
 		required: true,
 	},
 
@@ -33,6 +33,8 @@ resultSchema.set('toJSON', {
 
 		delete returnedObject._id;
 		delete returnedObject.__v;
+		delete returnedObject.solved_on;
+		delete returnedObject.selected_options;
 	},
 });
 

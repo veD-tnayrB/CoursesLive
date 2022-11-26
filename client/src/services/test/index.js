@@ -44,8 +44,6 @@ class TestService {
 
 	async saveResults(testId, options) {
 		try {
-			options = options.map((option) => ({ id: option.selected._id }));
-
 			const { data } = await axios.post(`${ENVIRONMENT}episode/${testId}/save-results`, options);
 			return data;
 		} catch ({ response: { data: error } }) {

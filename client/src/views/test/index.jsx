@@ -13,6 +13,7 @@ const TEST_DEFAULT_VALUE = { questions: [], title: '' };
 export default function Test() {
 	const [test, setTest] = React.useState(TEST_DEFAULT_VALUE);
 	const [selectedOptions, setSelectedOptions] = React.useState([]);
+	const [showResults, setShowResults] = React.useState(false);
 	const { episodeId, testId } = useParams();
 
 	React.useEffect(() => {
@@ -20,8 +21,14 @@ export default function Test() {
 			const [test, results] = response;
 
 			setTest(test);
-			!results && setSelectedOptions(test.questions.map((question) => ({ id: question.id, selected: question.options[0] })));
-			results && setSelectedOptions(results.selectedOptions);
+			if (!results) {
+				setSelectedOptions(test.questions.map((question) => ({ id: question.options[0]._id })));
+			}
+
+			if (results) {
+				setSelectedOptions(results.selectedOptions);
+				setShowResults(true);
+			}
 		});
 	}, [episodeId]);
 
@@ -30,6 +37,8 @@ export default function Test() {
 		setTest,
 		selectedOptions,
 		setSelectedOptions,
+		showResults,
+		setShowResults,
 	};
 	return (
 		<TestContext.Provider value={contextValue}>

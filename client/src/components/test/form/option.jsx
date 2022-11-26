@@ -1,29 +1,28 @@
-import { useTestFormContext } from './context';
 import { useTestContext } from '../context';
 import CheckBox from 'src/components/common/form/checkbox';
 
-export default function Option({ questionId, option, correctOption }) {
-	const { showResults } = useTestFormContext();
-	const { selectedOptions, setSelectedOptions } = useTestContext();
-	const { selected } = selectedOptions.length > 0 && selectedOptions?.find((question) => question.id === questionId);
+export default function Option({ options, option, correctOption }) {
+	const { selectedOptions, setSelectedOptions, showResults } = useTestContext();
+	const isOptionSelected = selectedOptions.length > 0 && selectedOptions?.find((opt) => opt.id === option._id);
 
-	const isOptionSelected = selected.value === option.value;
 	const isOptionCorrect = showResults && correctOption.id === option.id;
 	const correctClass = showResults ? (isOptionCorrect ? 'correct' : isOptionSelected ? 'incorrect' : '') : '';
 	const isCheckboxDisabled = showResults;
 
 	function handleChange() {
-		setSelectedOptions((otherValues) =>
-			otherValues.map((question) => {
-				if (question.id === questionId) return { ...question, selected: option };
-				return question;
-			})
-		);
+		setSelectedOptions((otherValues) => {
+			return otherValues.map((opt) => {
+				const isQuestionOption = options.some((element) => element._id === opt.id);
+
+				if (!isQuestionOption) return opt;
+				return { id: option._id };
+			});
+		});
 	}
 
 	return (
 		<li className={correctClass}>
-			<CheckBox disabled={isCheckboxDisabled} handleChange={handleChange} checkbox={{ label: option.value, value: option.value }} selectedOption={selected.value} />
+			<CheckBox disabled={isCheckboxDisabled} handleChange={handleChange} checkbox={{ label: option.value, value: option.value }} selectedOption={isOptionSelected && option.value} />
 		</li>
 	);
 }
