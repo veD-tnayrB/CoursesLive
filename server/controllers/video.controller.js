@@ -16,6 +16,18 @@ class Video {
 			next(error);
 		}
 	}
+
+	async getMiniature(req, res, next) {
+		try {
+			const { fileName } = req.params;
+			const dirname = path.resolve();
+			const fullfilepath = path.join(dirname, 'storage/videos/' + fileName);
+
+			return res.sendFile(fullfilepath);
+		} catch (error) {
+			next(error);
+		}
+	}
 }
 
 const video = new Video();

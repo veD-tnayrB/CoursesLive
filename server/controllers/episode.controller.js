@@ -44,8 +44,9 @@ class Episodes {
 	}
 
 	async create(req, res, next) {
-		console.log(0, req.files);
-		const video = req.file.filename;
+		const video = req.files.video[0].filename;
+		const miniature = req.files.miniature[0].filename;
+
 		try {
 			const newEpisodeInfo = req.body;
 			const { courseId } = req.params;
@@ -54,7 +55,7 @@ class Episodes {
 			// Check if the episode already exist
 			const episodeAlreadyExist = await Episode.findOne({
 				course: courseId,
-				$and: [{ $or: [{ title: newEpisodeInfo.title }, { video: newEpisodeInfo.video }] }],
+				$and: [{ $or: [{ title: newEpisodeInfo.title }, { video }] }],
 			});
 
 			if (episodeAlreadyExist) return res.status(409).json('EPISODE_ALREADY_EXISTS');

@@ -3,10 +3,12 @@ import { useDropzone } from 'react-dropzone';
 import EmptyDropzone from './empty';
 import DropzoneFilled from './filled';
 
-export default function MiniatureDropzone({ image, setImage }) {
+export default function MiniatureDropzone({ files, setFiles }) {
+	const image = files.image;
+
 	const onDrop = React.useCallback((files) => {
 		const imageFile = files[0];
-		setImage(imageFile);
+		setFiles((otherValues) => ({ ...otherValues, image: imageFile }));
 	}, []);
 	const { getRootProps, getInputProps } = useDropzone({ onDrop });
 

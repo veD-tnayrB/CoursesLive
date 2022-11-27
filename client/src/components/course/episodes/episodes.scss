@@ -64,11 +64,19 @@
 					display: flex;
 					gap: 0.5rem;
 
-					.episode-preview {
-						border-radius: 20px;
+					.miniature-cont {
+						background: variables.$black;
 						aspect-ratio: 16/9;
 						width: 10rem;
 						height: 100%;
+
+						display: flex;
+						justify-content: center;
+						align-items: center;
+
+						.episode-preview {
+							height: 100%;
+						}
 					}
 
 					.info-container {

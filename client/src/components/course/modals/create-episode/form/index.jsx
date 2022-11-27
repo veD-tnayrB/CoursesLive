@@ -24,8 +24,7 @@ export default function CreateEpisodeForm() {
 	const { courseId } = useParams();
 	const { course, setModals, setSelectedEpisode } = useCourseContext();
 	const { setEpisodes } = useEpisodeContext();
-	const [videoFile, setVideoFile] = React.useState({});
-	const [imageFile, setImageFile] = React.useState({});
+	const [files, setFiles] = React.useState({ video: {}, image: {} });
 	const { form, handleChanges } = useForm(INITIAL_VALUES);
 	const navigateTo = useNavigate();
 
@@ -36,10 +35,10 @@ export default function CreateEpisodeForm() {
 		event.preventDefault();
 
 		const formData = new FormData();
-		formData.append('video', videoFile);
+		formData.append('video', files.video);
+		formData.append('miniature', files.image);
 		formData.append('title', form.title.value);
 		formData.append('description', form.description.value);
-		formData.append('videoName', videoFile.name);
 
 		episodeService.uploadEpisode(course.id, formData).then((newEpisode) => {
 			setEpisodes((episodes) => [...episodes, newEpisode]);
@@ -56,7 +55,7 @@ export default function CreateEpisodeForm() {
 
 	return (
 		<form className="edit-course-form" onSubmit={create}>
-			<VideoDropzone video={videoFile} setVideo={setVideoFile} />
+			<VideoDropzone files={files} setFiles={setFiles} />
 
 			<ValidationInput type="text" name="title" value={form.title.value} onChange={handleChanges} placeholder="Title" autoComplete="off" isCorrect={form.title.isCorrect} />
 			<div className="input-container description">
@@ -64,7 +63,7 @@ export default function CreateEpisodeForm() {
 			</div>
 
 			<div className="miniature-zone">
-				<MiniatureDropzone image={imageFile} setImage={setImageFile} />
+				<MiniatureDropzone files={files} setFiles={setFiles} />
 			</div>
 			<CreationModalActions isInfoCorrect={isInfoCorrect} />
 		</form>

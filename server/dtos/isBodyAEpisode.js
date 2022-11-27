@@ -3,30 +3,26 @@ const titlePattern = /./;
 const descriptionPattern = /.{0,250}/;
 
 const isBodyAEpisode = (req, res, next) => {
-    try {
-        const { title, description, videoName } = req.body;
+	try {
+		const { title, description } = req.body;
 
-        // It first checks if the property exists and then checks if it is correct based on its pattern.
-        const validators = {
-            isTitleIncorrect: !titlePattern.test(title),
-            isDescriptionIncorrect: !descriptionPattern.test(description),
-            isVideoIncorrect: !videoName
-        }
+		// It first checks if the property exists and then checks if it is correct based on its pattern.
+		const validators = {
+			isTitleIncorrect: !titlePattern.test(title),
+			isDescriptionIncorrect: !descriptionPattern.test(description),
+		};
 
-        // Check if theres some validator wrong
-        const thereSomethingWrong = Object.values(validators).some(validator => validator);
+		// Check if theres some validator wrong
+		const thereSomethingWrong = Object.values(validators).some((validator) => validator);
 
-        if (thereSomethingWrong) {
-            throw Error('info doesnt meet the requirements');
+		if (thereSomethingWrong) {
+			throw Error('info doesnt meet the requirements');
+		}
 
-        }
-
-        next();
-
-    } catch (error) {
-        next(error);
-
-    }
-}
+		next();
+	} catch (error) {
+		next(error);
+	}
+};
 
 export default isBodyAEpisode;

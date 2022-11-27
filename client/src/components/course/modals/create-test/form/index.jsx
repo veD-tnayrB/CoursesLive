@@ -32,7 +32,7 @@ export default function CreateTestForm() {
 	const [showSelectedQuestion, setShowSelectedQuestion] = React.useState(true);
 	const [questions, setQuestions] = React.useState([]);
 	const { form, handleChanges } = useForm(FORM_VALUES);
-	const { setCourse, setModals } = useCourseContext();
+	const { setModals, setSelectedEpisode } = useCourseContext();
 	const { episodeId } = useParams();
 
 	function onSubmit(event) {
@@ -40,7 +40,7 @@ export default function CreateTestForm() {
 		const test = { title: form.title.value, questions };
 
 		testService.create(episodeId, test).then((response) => {
-			console.log(0, response);
+			setSelectedEpisode((otherProperties) => ({ ...otherProperties, test: response }));
 			setModals((otherModals) => ({ ...otherModals, createTest: { ...otherModals.createTest, show: false } }));
 		});
 	}

@@ -18,5 +18,6 @@ export const videoUploader = multer({ storage: filesStorage, dest: 'storage/vide
 
 // Get video
 videoRouter.get('/watch/:userId/:episodeId/:fileName', video.get);
+videoRouter.get('/miniature/:fileName', video.getMiniature);
 
 export default videoRouter;
