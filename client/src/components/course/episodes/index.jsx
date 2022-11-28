@@ -8,7 +8,6 @@ import Filters from './filters';
 import NewEpisode from './new-episode';
 import CreateEpisodeModal from '../modals/create-episode';
 import './episodes.scss';
-import { useCourseContext } from 'src/contexts/course/course.context';
 
 export default function Episodes() {
 	const [selectedFilter, setSelectedFilter] = React.useState('All');
