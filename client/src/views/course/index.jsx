@@ -13,6 +13,7 @@ import EpisodeDescription from 'src/components/course/description';
 import EditEpisodeModal from 'src/components/course/modals/edit-episode';
 import EpisodeComments from 'src/components/course/comments';
 import CreateTestModal from 'src/components/course/modals/create-test';
+import Preloads from 'src/components/course/preloads';
 import './course.scss';
 
 const MODALS = {
@@ -60,11 +61,13 @@ export default function Course() {
 			const episode = episodes.find((episode) => episode.id === episodeId);
 			if (episode) setSelectedEpisode(episode);
 
-			setIsLoading(false);
+			//setIsLoading(false);
 		});
 
 		return () => controller.abort();
 	}, [courseId]);
+
+	if (isLoading) return <Preloads />;
 
 	const contextValue = {
 		course,
