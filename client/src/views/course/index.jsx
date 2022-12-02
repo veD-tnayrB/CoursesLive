@@ -61,7 +61,7 @@ export default function Course() {
 			const episode = episodes.find((episode) => episode.id === episodeId);
 			if (episode) setSelectedEpisode(episode);
 
-			//setIsLoading(false);
+			setIsLoading(false);
 		});
 
 		return () => controller.abort();

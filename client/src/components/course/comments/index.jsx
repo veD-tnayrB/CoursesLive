@@ -3,8 +3,8 @@ import { useParams } from 'react-router-dom';
 import { episodeService } from 'src/services/episodes';
 import EpisodeComment from './comment';
 import NewComment from './new-comment';
-import './comments.scss';
 import { CommentsContext } from './context';
+import './comments.scss';
 
 export default function EpisodeComments() {
 	const [isLoading, setIsLoading] = React.useState(true);

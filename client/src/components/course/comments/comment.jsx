@@ -28,9 +28,9 @@ export default function EpisodeComment({ comment }) {
 			<article>
 				<header>
 					<img src={`${IMAGES_ROUTES}${comment.creator.profileImage}`} />
-					<h3 className="creator">
+					<div className="creator">
 						{comment.creator.name} {comment.creator.lastName}
-					</h3>{' '}
+					</div>{' '}
 					- <span className="time-ago">{formatedDate}</span>
 				</header>
 				<p className="content">{comment.content}</p>

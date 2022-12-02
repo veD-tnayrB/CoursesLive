@@ -1,7 +1,7 @@
 import uniqid from 'uniqid';
 import CommentPreload from './comment';
 
-const NUMBER_OF_COMMENTS = 10;
+const NUMBER_OF_COMMENTS = 4;
 
 export default function CommentsPreload() {
 	const commentsElements = [...Array(NUMBER_OF_COMMENTS)].map((comment) => <CommentPreload key={uniqid()} />);

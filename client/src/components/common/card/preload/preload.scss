@@ -1,94 +1,54 @@
 @use 'src/global/_variables.scss';
+@use 'src/global/animations.scss';
 
 .card-item {
-    .card.preload {
-        header {
-            .info-container {
-                padding: .5rem 0 0 0; 
+	.card.preload {
+		header {
+			.info-container {
+				padding: 0.5rem 0 0 0;
 
-                .title {
-                    background: variables.$fourth-color;
-                    width: 100%;
-                    height: 2rem;
-                    margin: 0 0 1rem 0;
-                    position: relative;
-                    overflow: hidden;
+				.title {
+					background: variables.$fourth-color;
+					width: 100%;
+					height: 2rem;
+					margin: 0 0 1rem 0;
+					position: relative;
+					overflow: hidden;
 
-                    &::after {
-                        content: "";
-                        display: block;
-                        position: absolute;
-                        top: 0;
-                        width: 100%;
-                        height: 100%;
-                        transform: translateX(-100px);
-                        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-                        animation: loading 0.8s infinite;
-                    
-                    }
-                }
+					@include animations.preload();
+				}
 
-                .description {
-                    background: variables.$fourth-color;
-                    width: 50%;
-                    height: 1.2rem;
-                    position: relative;
-                    overflow: hidden;
+				.description {
+					background: variables.$fourth-color;
+					width: 50%;
+					height: 1.2rem;
+					position: relative;
+					overflow: hidden;
+					@include animations.preload();
+				}
+			}
 
-                    &::after {
-                        content: "";
-                        display: block;
-                        position: absolute;
-                        top: 0;
-                        width: 100%;
-                        height: 100%;
-                        transform: translateX(-100px);
-                        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-                        animation: loading 0.8s infinite;
-                    
-                    }
-                }
-            }
+			.img {
+				background: variables.$fourth-color;
+				border-radius: 50%;
+				width: 50px;
+				height: 50px;
+				justify-self: end;
+				aspect-ratio: 1/1;
+				position: relative;
+				overflow: hidden;
+				@include animations.preload();
+			}
+		}
 
-            .img {
-                background: variables.$fourth-color;
-                border-radius: 50%;
-                width: 50px;
-                height: 50px;
-                justify-self: end;
-                aspect-ratio: 1/1;
-                position: relative;
-                overflow: hidden;
+		.actions-container {
+			display: flex;
+			align-items: center;
+			justify-content: flex-end;
 
-                &::after {
-                    content: "";
-                    display: block;
-                    position: absolute;
-                    top: 0;
-                    width: 100%;
-                    height: 100%;
-                    transform: translateX(-100px);
-                    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-                    animation: loading 0.8s infinite;
-                
-                }
-            }
-        }
-
-        .actions-container {
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-
-            .default-button {
-                padding: 1.35rem 3rem;
-            }
-        }
-    }
-}
-
-@keyframes loading {
-    100% {
-        transform: translateX(100%);
-    }
+			.default-button {
+				padding: 1.35rem 3rem;
+			}
+		}
+	}
 }

@@ -4,7 +4,7 @@ export default function CommentPreload() {
 			<article>
 				<header>
 					<div className="user-img"></div>
-					<div className="creator"></div> - <span className="time-ago"></span>
+					<div className="creator"></div> <span className="time-ago"></span>
 				</header>
 				<div className="content"></div>
 				<div className="actions"></div>
