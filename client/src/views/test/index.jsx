@@ -14,22 +14,27 @@ export default function Test() {
 	const [test, setTest] = React.useState(TEST_DEFAULT_VALUE);
 	const [selectedOptions, setSelectedOptions] = React.useState([]);
 	const [showResults, setShowResults] = React.useState(false);
+	const [isLoading, setIsLoading] = React.useState(true);
 	const { episodeId, testId } = useParams();
 
 	React.useEffect(() => {
-		Promise.all([testService.getOne(episodeId), testService.getResults(testId)]).then((response) => {
-			const [test, results] = response;
+		setIsLoading(true);
 
-			setTest(test);
-			if (!results) {
-				setSelectedOptions(test.questions.map((question) => ({ id: question.options[0]._id })));
-			}
+		Promise.all([testService.getOne(episodeId), testService.getResults(testId)])
+			.then((response) => {
+				const [test, results] = response;
 
-			if (results) {
-				setSelectedOptions(results.selectedOptions);
-				setShowResults(true);
-			}
-		});
+				setTest(test);
+				if (!results) {
+					setSelectedOptions(test.questions.map((question) => ({ id: question.options[0]._id })));
+				}
+
+				if (results) {
+					setSelectedOptions(results.selectedOptions);
+					setShowResults(true);
+				}
+			})
+			.finally(() => setIsLoading(false));
 	}, [episodeId]);
 
 	const contextValue = {
@@ -39,6 +44,7 @@ export default function Test() {
 		setSelectedOptions,
 		showResults,
 		setShowResults,
+		isLoading,
 	};
 	return (
 		<TestContext.Provider value={contextValue}>

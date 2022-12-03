@@ -17,7 +17,7 @@ export default function Preloads() {
 					<MainActionsPreaload />
 					<CommentsPreload />
 				</div>
-				<EpisodesPreload />
+				<EpisodesPreload showFilters />
 			</section>
 		</div>
 	);

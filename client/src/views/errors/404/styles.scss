@@ -1,0 +1,29 @@
+.page-404 {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	position: relative;
+
+	img {
+		opacity: 0.1;
+		aspect-ratio: 16/9;
+		width: 100%;
+	}
+
+	.main-content {
+		width: 100%;
+
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 1.5rem;
+
+		position: absolute;
+
+		h1 {
+			text-align: center;
+			font-size: 2rem;
+			font-weight: bold;
+		}
+	}
+}

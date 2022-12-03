@@ -27,6 +27,11 @@
 				max-height: 10rem;
 
 				padding: 1.2rem;
+
+				&:disabled {
+					background: variables.$fifth-color;
+					cursor: no-drop;
+				}
 			}
 
 			button {

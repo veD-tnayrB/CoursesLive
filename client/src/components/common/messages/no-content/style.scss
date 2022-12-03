@@ -1,0 +1,17 @@
+@use 'src/global/_variables.scss';
+
+.no-content-message {
+	width: 100%;
+	text-align: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	p {
+		color: variables.$secondary-text-color;
+		text-align: center;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+}

@@ -1,4 +1,4 @@
 import * as React from 'react';
 
 export const EpisodesContext = React.createContext();
-export const useEpisodeContext = () => React.useContext(EpisodesContext);
+export const useEpisodesContext = () => React.useContext(EpisodesContext);

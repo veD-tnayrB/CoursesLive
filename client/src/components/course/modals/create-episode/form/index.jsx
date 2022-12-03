@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useCourseContext } from 'src/contexts/course/course.context';
 import { episodeService } from 'src/services/episodes';
-import { useEpisodeContext } from 'src/components/course/episodes/context';
+import { useEpisodesContext } from 'src/components/course/episodes/context';
 import ValidationInput from 'src/components/common/validation-input';
 import CreationModalActions from './actions';
 import useForm from 'src/hooks/useForm';
@@ -23,7 +23,7 @@ const TOTAL_INPUTS = Object.keys(INITIAL_VALUES);
 export default function CreateEpisodeForm() {
 	const { courseId } = useParams();
 	const { course, setModals, setSelectedEpisode } = useCourseContext();
-	const { setEpisodes } = useEpisodeContext();
+	const { setEpisodes } = useEpisodesContext();
 	const [files, setFiles] = React.useState({ video: {}, image: {} });
 	const { form, handleChanges } = useForm(INITIAL_VALUES);
 	const navigateTo = useNavigate();

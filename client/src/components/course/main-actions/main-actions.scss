@@ -13,6 +13,16 @@
 		display: flex;
 		align-items: center;
 		gap: 0.8rem;
+
+		.disabled {
+			background: variables.$sixth-color;
+			cursor: no-drop;
+
+			.icon {
+				transform: none;
+				rotate: none;
+			}
+		}
 	}
 
 	.action-button {

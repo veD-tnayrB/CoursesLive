@@ -2,11 +2,11 @@ import * as React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { MINIATURE_ROUTE } from 'src/services/config';
 import { useCourseContext } from 'src/contexts/course/course.context';
-import { useEpisodeContext } from './context';
+import { useEpisodesContext } from './context';
 
 export default function Episode({ episode }) {
 	const { course, selectedEpisode, setSelectedEpisode } = useCourseContext();
-	const { episodes } = useEpisodeContext();
+	const { episodes } = useEpisodesContext();
 	const { courseId } = useParams();
 	const isSelected = episode.id === selectedEpisode.id ? 'selected' : '';
 	const miniatureSrc = episode?.miniature ? `${MINIATURE_ROUTE}${episode?.miniature}` : `${MINIATURE_ROUTE}default-miniature.jpg`;
@@ -14,6 +14,9 @@ export default function Episode({ episode }) {
 	function updateSelectedEpisode() {
 		setSelectedEpisode(episodes.find((otherEpisode) => otherEpisode.id === episode.id));
 	}
+
+	const formater = Intl.NumberFormat('en', { notation: 'compact' });
+	const formatedViews = formater.format(episode.views.length);
 
 	return (
 		<li className={`episode-item ${isSelected}`} title={episode.title}>
@@ -28,7 +31,7 @@ export default function Episode({ episode }) {
 						<p className="creator">
 							{course.creator.name} {course.creator.lastName}
 						</p>
-						<p className="views">{episode.views.length} Views</p>
+						<p className="views">{formatedViews} Views</p>
 					</div>
 				</div>
 			</Link>

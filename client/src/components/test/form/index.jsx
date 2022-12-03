@@ -1,13 +1,12 @@
 import * as React from 'react';
-import uniqid from 'uniqid';
 import { useParams } from 'react-router-dom';
 import { testService } from 'src/services/test';
 import { useTestContext } from '../context';
-import Question from './question';
+import TestQuestions from './questions';
 import './form.scss';
 
 export default function TestForm() {
-	const { test, selectedOptions, showResults, setShowResults } = useTestContext();
+	const { selectedOptions, showResults, setShowResults } = useTestContext();
 	const { testId } = useParams();
 
 	function onSubmit(event) {
@@ -16,11 +15,9 @@ export default function TestForm() {
 		testService.saveResults(testId, selectedOptions);
 	}
 
-	const questionsElements = test.questions.map((question) => <Question key={uniqid()} question={question} showResults={showResults} />);
-
 	return (
 		<form onSubmit={onSubmit} className="test-response-form">
-			<ul className="question-list">{questionsElements}</ul>
+			<TestQuestions />
 			<button disabled={showResults} onClick={onSubmit} className="send-test default-button">
 				SEND TEST
 			</button>

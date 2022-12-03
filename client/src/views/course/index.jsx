@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useUserContext } from 'src/contexts/user/user.context';
-import { Outlet, useParams } from 'react-router-dom';
+import { Outlet, useNavigate, useParams } from 'react-router-dom';
 import { courseService } from 'src/services/courses';
 import { CourseContext } from 'src/contexts/course/course.context';
 import useDocumentTitle from 'src/hooks/useDocumentTitle';
@@ -27,6 +27,7 @@ const DEFAULT_COURSE = {
 	name: '',
 	creator: { name: '', profileImage: '', id: '' },
 	episodes: [],
+	subscribers: [],
 };
 
 const DEFAULT_SELECTED_EPISODE = {
@@ -44,8 +45,10 @@ export default function Course() {
 	const [course, setCourse] = React.useState(DEFAULT_COURSE);
 	const [selectedEpisode, setSelectedEpisode] = React.useState(DEFAULT_SELECTED_EPISODE);
 	const [isLoading, setIsLoading] = React.useState(true);
+	const navigateTo = useNavigate();
 	const isCourseCreator = course.creator.id === user.id;
 	const theresDescription = selectedEpisode.description.length > 0;
+	const isUserSuscribed = course.subscribers.includes(user.id);
 
 	useDocumentTitle(`${course.name} - Course`);
 
@@ -55,14 +58,16 @@ export default function Course() {
 
 		setIsLoading(true);
 
-		courseService.getOne(signal, courseId).then((response) => {
-			const { episodes } = response;
-			setCourse(response);
-			const episode = episodes.find((episode) => episode.id === episodeId);
-			if (episode) setSelectedEpisode(episode);
-
-			setIsLoading(false);
-		});
+		courseService
+			.getOne(signal, courseId)
+			.then((response) => {
+				const { episodes } = response;
+				setCourse(response);
+				const episode = episodes.find((episode) => episode.id === episodeId);
+				if (episode) setSelectedEpisode(episode);
+			})
+			.finally(() => setIsLoading(false))
+			.catch(() => navigateTo('/404'));
 
 		return () => controller.abort();
 	}, [courseId]);
@@ -79,6 +84,7 @@ export default function Course() {
 		modals,
 		setModals,
 		isCourseCreator,
+		isUserSuscribed,
 	};
 	return (
 		<CourseContext.Provider value={contextValue}>

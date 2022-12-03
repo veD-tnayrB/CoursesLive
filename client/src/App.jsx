@@ -6,6 +6,7 @@ import Signup from 'src/views/signup';
 import Login from 'src/views/login';
 import Course from 'src/views/course';
 import Test from 'src/views/test';
+import Error404 from 'src/views/errors/404';
 
 function App() {
 	return (
@@ -23,6 +24,9 @@ function App() {
 			<Route path="/courses/course/:courseId/episode/:episodeId/" element={<Course />}>
 				<Route path="test/:testId" element={<Test />} />
 			</Route>
+
+			<Route path="*" element={<Error404 />} />
+			<Route path="/404" element={<Error404 />} />
 		</Routes>
 	);
 }

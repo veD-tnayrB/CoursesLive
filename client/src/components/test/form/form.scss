@@ -12,6 +12,12 @@
 		width: 100%;
 	}
 
+	.loading-icon {
+		padding: 1rem 0;
+		display: flex;
+		justify-content: center;
+	}
+
 	.question-list {
 		height: 100%;
 		display: grid;
@@ -22,7 +28,6 @@
 			height: fit-content;
 			display: grid;
 			gap: 0.5rem;
-			border-radius: 10px;
 
 			&.correct {
 				border: 1px solid variables.$smooth-green;
@@ -49,6 +54,11 @@
 				gap: 0.05rem;
 
 				li {
+					padding: 0 1rem 0 0;
+					display: flex;
+					align-items: center;
+					justify-content: space-between;
+
 					.checkbox {
 						label .icon {
 							width: 30px;

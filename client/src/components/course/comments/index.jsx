@@ -18,10 +18,12 @@ export default function EpisodeComments() {
 
 		setIsLoading(true);
 
-		episodeService.getComments(signal, episodeId).then((response) => {
-			setComments(response);
-			setIsLoading(false);
-		});
+		episodeService
+			.getComments(signal, episodeId)
+			.then((response) => {
+				setComments(response);
+			})
+			.finally(() => setIsLoading(false));
 
 		return () => controller.abort();
 	}, [courseId, episodeId]);

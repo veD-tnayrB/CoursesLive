@@ -1,5 +1,7 @@
 import { useTestContext } from '../context';
 import CheckBox from 'src/components/common/form/checkbox';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import NotInterestedIcon from '@mui/icons-material/NotInterested';
 
 export default function Option({ options, option, correctOption }) {
 	const { selectedOptions, setSelectedOptions, showResults } = useTestContext();
@@ -20,9 +22,13 @@ export default function Option({ options, option, correctOption }) {
 		});
 	}
 
+	const displayIcon = showResults && (isOptionSelected || isOptionCorrect);
+	const Icon = showResults && isOptionCorrect ? CheckCircleOutlineIcon : NotInterestedIcon;
+
 	return (
-		<li className={correctClass}>
+		<li className={`option ${correctClass}`}>
 			<CheckBox disabled={isCheckboxDisabled} handleChange={handleChange} checkbox={{ label: option.value, value: option.value }} selectedOption={isOptionSelected && option.value} />
+			{displayIcon && <Icon />}
 		</li>
 	);
 }
