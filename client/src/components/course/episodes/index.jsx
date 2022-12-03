@@ -8,24 +8,34 @@ import Filters from './filters';
 import NewEpisode from './new-episode';
 import CreateEpisodeModal from '../modals/create-episode';
 import './episodes.scss';
+import EpisodesPreload from '../preloads/episodes';
 
 export default function Episodes() {
 	const [selectedFilter, setSelectedFilter] = React.useState('All');
 	const [episodes, setEpisodes] = React.useState([]);
+	const [isLoading, setIsLoading] = React.useState(true);
 	const { user } = useUserContext();
 	const { courseId, episodeId } = useParams();
 	const canCreateEpisodes = user.role === 'admin' || user.role === 'teacher';
 
 	React.useEffect(() => {
+		setIsLoading(true);
+
 		const controller = new AbortController();
 		const signal = controller.signal;
 
-		episodeService.getEpisodes(signal, selectedFilter, courseId).then((response) => {
-			setEpisodes(response);
-		});
+		episodeService
+			.getEpisodes(signal, selectedFilter, courseId)
+			.then((response) => {
+				setEpisodes(response);
+				setIsLoading(false);
+			})
+			.finally(() => setIsLoading(false));
 
 		return () => controller.abort();
 	}, [courseId, selectedFilter, episodeId]);
+
+	if (isLoading) return <EpisodesPreload />;
 
 	const episodesElements = episodes.map((episode) => <Episode key={episode.id} episode={episode} />);
 

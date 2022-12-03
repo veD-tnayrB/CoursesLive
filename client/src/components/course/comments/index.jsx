@@ -4,6 +4,7 @@ import { episodeService } from 'src/services/episodes';
 import EpisodeComment from './comment';
 import NewComment from './new-comment';
 import { CommentsContext } from './context';
+import CommentsPreload from '../preloads/comments';
 import './comments.scss';
 
 export default function EpisodeComments() {
@@ -24,6 +25,8 @@ export default function EpisodeComments() {
 
 		return () => controller.abort();
 	}, [courseId, episodeId]);
+
+	if (isLoading) return <CommentsPreload />;
 
 	const commentsElements = comments.map((comment) => <EpisodeComment key={comment.id} comment={comment} />);
 

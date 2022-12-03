@@ -1,9 +1,9 @@
-import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
+import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 
 export default function LikePreload() {
 	return (
 		<div className="action-button like">
-			<ThumbUpAltIcon />
+			<ThumbUpOffAltIcon className="icon" />
 			<div className="quantity"></div>
 		</div>
 	);

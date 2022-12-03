@@ -1,0 +1,46 @@
+@use 'src/global/_variables.scss';
+@use 'src/global/animations.scss';
+
+.episodes-section.preload {
+	width: 100%;
+
+	ul {
+		width: 100%;
+
+		.episode-item .episode {
+			width: 100%;
+			display: flex;
+			gap: 0.5rem;
+
+			.miniature-cont {
+				@include animations.preload();
+				aspect-ratio: 16/9;
+				width: 10rem;
+				height: 100%;
+			}
+
+			.info-container {
+				width: 60%;
+				display: grid;
+				gap: 0.2rem;
+
+				.title {
+					@include animations.preload();
+					width: 100%;
+					height: 1.5rem;
+				}
+
+				.creator,
+				.views {
+					@include animations.preload();
+					width: 80%;
+					height: 1.2rem;
+				}
+
+				.views {
+					width: 60%;
+				}
+			}
+		}
+	}
+}
