@@ -1,12 +1,14 @@
-.action-button  {
-    .icon {
-        transition: all .2s cubic-bezier( 0.445, 0.05, 0.14, 0.49 );
-    }
+@use 'src/global/_variables.scss';
 
-    &:hover {
-        .icon {
-            transform: scale(1.2);
-            rotate: y 360deg;
-        }
-    }
+.action-button {
+	.icon {
+		transition: all 0.2s cubic-bezier(0.445, 0.05, 0.14, 0.49);
+	}
+
+	&:hover {
+		.icon {
+			transform: scale(1.2);
+			rotate: y 360deg;
+		}
+	}
 }

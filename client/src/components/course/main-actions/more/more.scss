@@ -1,19 +1,24 @@
 @use 'src/global/_variables.scss';
 
 .more-button {
-    background: variables.$third-color;
-    border-radius: 50%;
+	background: variables.$third-color;
+	border-radius: 50%;
 
-    aspect-ratio: 1/1;
+	aspect-ratio: 1/1;
 
-    width: 2.6rem;
-    height: 100%;
+	width: 2.6rem;
+	height: 100%;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 
-    .icon {
-        font-size: 1.8rem;
-    }
+	.icon {
+		font-size: 1.8rem;
+	}
+
+	&:disabled {
+		background: variables.$fifth-color;
+		cursor: no-drop;
+	}
 }

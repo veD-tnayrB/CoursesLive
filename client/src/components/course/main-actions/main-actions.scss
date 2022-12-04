@@ -40,6 +40,17 @@
 		align-items: center;
 		gap: 0.5rem;
 
+		&:disabled,
+		&.disabled {
+			background: variables.$seventh-color;
+
+			.icon {
+				cursor: not-allowed;
+				transform: none;
+				rotate: none;
+			}
+		}
+
 		button {
 			.icon {
 				font-size: 1.87rem;

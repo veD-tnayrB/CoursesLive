@@ -9,11 +9,11 @@ import { useCourseContext } from 'src/contexts/course/course.context';
 
 export default function NewComment() {
 	const { setComments } = useCommentsContext();
-	const { course, isUserSuscribed } = useCourseContext();
+	const { isUserSuscribed, isCourseCreator, selectedEpisode } = useCourseContext();
 	const { form, handleChange, setFormValues } = useForm({ comment: '' });
 	const { user } = useUserContext();
 	const { episodeId } = useParams();
-	const disabled = isUserSuscribed || course.episodes.length === 0;
+	const disabled = (!isCourseCreator && !isUserSuscribed) || selectedEpisode?.itsEmpty;
 	const cls = disabled ? 'disabled' : '';
 
 	function handleSubmit(event) {

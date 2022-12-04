@@ -36,6 +36,7 @@ const DEFAULT_SELECTED_EPISODE = {
 	peopleWhoLikedIt: [],
 	comments: [],
 	description: '',
+	itsEmpty: true,
 };
 
 export default function Course() {
