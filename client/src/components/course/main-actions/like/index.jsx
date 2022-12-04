@@ -9,10 +9,10 @@ import { episodeService } from 'src/services/episodes';
 export default function Like() {
 	const { courseId, episodeId } = useParams();
 	const { user } = useUserContext();
-	const { selectedEpisode, setSelectedEpisode, isUserSuscribed, course } = useCourseContext();
+	const { selectedEpisode, setSelectedEpisode, isUserSuscribed, isCourseCreator, course } = useCourseContext();
 	const itsLikeIt = selectedEpisode.peopleWhoLikedIt.some((person) => person === user.id);
 	const numberOfLikes = selectedEpisode.peopleWhoLikedIt.length;
-	const disabled = !isUserSuscribed || course.episodes.length === 0;
+	const disabled = selectedEpisode?.itsEmpty || (!isUserSuscribed && !isCourseCreator);
 	const cls = disabled ? 'disabled' : '';
 
 	const Icon = itsLikeIt ? ThumbUpAltIcon : ThumbUpOffAltIcon;
@@ -35,7 +35,6 @@ export default function Like() {
 
 	function toggleLike() {
 		if (disabled) return;
-
 		if (!itsLikeIt) return handleLike();
 		handleUnlike();
 	}

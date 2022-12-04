@@ -7,6 +7,7 @@ export default function EpisodeDescription() {
 	const { selectedEpisode } = useCourseContext();
 	const opened = isOpened ? 'opened' : '';
 	const theresEnoughDescription = selectedEpisode.description.length > 100;
+	const message = isOpened ? 'Show less' : 'Show more';
 
 	function toggleOpen() {
 		setIsOpened(!isOpened);
@@ -15,7 +16,7 @@ export default function EpisodeDescription() {
 	return (
 		<article className={`episode-description ${opened}`}>
 			<p>{selectedEpisode.description}</p>
-			{theresEnoughDescription && <button onClick={toggleOpen}>Show more</button>}
+			{theresEnoughDescription && <button onClick={toggleOpen}>{message}</button>}
 		</article>
 	);
 }
