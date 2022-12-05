@@ -1,8 +1,25 @@
 @use 'src/global/_variables.scss';
+@use 'src/global/animations.scss';
 
 .course-section {
-    min-height: 100vh;
-    padding: 0 0 2rem 0;
-    display: flex;
-    justify-content: center;
+	min-height: 100vh;
+	padding: 0 0 2rem 0;
+	display: flex;
+	justify-content: center;
+
+	.list {
+		grid-template-columns: repeat(auto-fit, 21rem);
+		grid-template-rows: repeat(auto-fit, 24rem);
+
+		.course.preload {
+			.cover-container {
+				background: variables.$secondary-color;
+				@include animations.preload();
+			}
+
+			.preload {
+				border-radius: 0 0 15px 15px;
+			}
+		}
+	}
 }

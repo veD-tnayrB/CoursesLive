@@ -1,18 +1,25 @@
 import * as React from 'react';
 import { useParams } from 'react-router-dom';
 import { episodeService } from 'src/services/episodes';
+import { useCourseContext } from 'src/contexts/course/course.context';
+import { CommentsContext } from './context';
 import EpisodeComment from './comment';
 import NewComment from './new-comment';
-import { CommentsContext } from './context';
 import CommentsPreload from '../preloads/comments';
 import './comments.scss';
 
 export default function EpisodeComments() {
+	const { selectedEpisode } = useCourseContext();
 	const [isLoading, setIsLoading] = React.useState(true);
 	const [comments, setComments] = React.useState([]);
 	const { courseId, episodeId } = useParams();
 
 	React.useEffect(() => {
+		if (selectedEpisode?.itsEmpty) {
+			setIsLoading(false);
+			return;
+		}
+
 		const controller = new AbortController();
 		const signal = controller.signal;
 

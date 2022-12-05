@@ -11,7 +11,7 @@ import episodeRouter from './routes/episode.route.js';
 import commentRouter from './routes/comment.route.js';
 import testRouter from './routes/test.route.js';
 import imagesRouter from './routes/images.js';
-import videosRouter from './routes/videos.route.js';
+import mediaRouter from './routes/media.route.js';
 
 // Middlewares imports
 import errorHandler from './middlewares/errorHandler.js';
@@ -32,7 +32,7 @@ app.use('/course/', episodeRouter);
 app.use('/episode/', commentRouter);
 app.use('/episode/', testRouter);
 app.use('/images/', imagesRouter);
-app.use('/videos/', videosRouter);
+app.use('/media/', mediaRouter);
 
 app.use(errorHandler);
 

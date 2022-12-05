@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { MINIATURE_ROUTE } from 'src/services/config';
+import { courseMediaBasePaths } from 'src/services/config';
 import { useCourseContext } from 'src/contexts/course/course.context';
 import { useEpisodesContext } from './context';
 
@@ -9,7 +9,7 @@ export default function Episode({ episode }) {
 	const { episodes } = useEpisodesContext();
 	const { courseId } = useParams();
 	const isSelected = episode.id === selectedEpisode.id ? 'selected' : '';
-	const miniatureSrc = episode?.miniature ? `${MINIATURE_ROUTE}${episode?.miniature}` : `${MINIATURE_ROUTE}default-miniature.jpg`;
+	const miniatureSrc = episode?.miniature ? `${courseMediaBasePaths.miniature}${course.folder}/${episode?.miniature}` : `${courseMediaBasePaths.miniature}default-miniature.jpg`;
 
 	function updateSelectedEpisode() {
 		setSelectedEpisode(episodes.find((otherEpisode) => otherEpisode.id === episode.id));

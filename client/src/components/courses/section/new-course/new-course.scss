@@ -1,34 +1,35 @@
 .card-item {
-    .card.new-course {
-        display: flex;
-        justify-content: center;
-        align-items: center;
+	.card.new-course {
+		height: 402px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 
-        .create-course-button {
-            width: 100%;
-            height: 100%;
+		.create-course-button {
+			width: 100%;
+			height: 100%;
 
-            display: flex;
-            justify-content: center;
-            align-items: center;
+			display: flex;
+			justify-content: center;
+			align-items: center;
 
-            .icon {
-                font-size: 2.5rem;
-                font-weight: bold;
-                transition: all .2s linear;
-            }
+			.icon {
+				font-size: 2.5rem;
+				font-weight: bold;
+				transition: all 0.2s linear;
+			}
 
-            &:hover {
-                .icon {
-                    transform: scale(1.2);
-                }
-            }
+			&:hover {
+				.icon {
+					transform: scale(1.2);
+				}
+			}
 
-            &:active {
-                .icon {
-                    transform: scale(1);
-                }
-            }
-        }
-    }
+			&:active {
+				.icon {
+					transform: scale(1);
+				}
+			}
+		}
+	}
 }

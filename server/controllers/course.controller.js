@@ -1,3 +1,4 @@
+import fs from 'fs';
 import User from '../models/user.js';
 import Course from '../models/course.js';
 import Episode from '../models/episode.js';
@@ -14,7 +15,7 @@ class Courses {
 						'episodes.1': { $exists: true },
 						name: { $regex: courseName },
 					},
-					'-description -tags'
+					'-tags'
 				).populate('creator', {
 					courses: 0,
 					mail: 0,
@@ -26,7 +27,7 @@ class Courses {
 				return res.status(200).json(courses);
 			}
 
-			const courses = await Course.find({}, '-description -tags').populate('creator', {
+			const courses = await Course.find({}, '-tags').populate('creator', {
 				courses: 0,
 				mail: 0,
 				name: 0,
@@ -52,7 +53,9 @@ class Courses {
 	}
 
 	async create(req, res, next) {
+		const { courseFolder } = req;
 		try {
+			const cover = req.file.filename;
 			const courseInfo = req.body;
 			const creator = req.user;
 
@@ -67,10 +70,13 @@ class Courses {
 				...courseInfo,
 				creator: creator.id,
 				suscribers: [],
+				folder: courseFolder,
+				cover,
 			});
 			course.save();
 			return res.status(201).json({ ...course._doc, id: course._doc._id, creator: userCreator });
 		} catch (error) {
+			fs.rmdirSync(courseFolder);
 			next(error);
 		}
 	}

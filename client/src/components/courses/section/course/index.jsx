@@ -6,6 +6,7 @@ import { CourseItemContext } from './context';
 import Card from 'src/components/common/card';
 import CourseAdminActions from './admin';
 import Suscription from './suscription';
+import { courseMediaBasePaths } from 'src/services/config';
 import './course.scss';
 
 const COLORS_BY_LEVEL = {
@@ -25,6 +26,8 @@ export default function Course({ course }) {
 	const to = `/courses/course/${course.id}/episode/${firstEpisode}`;
 	const courseStatus = isSuscribed ? 'suscribed' : 'unsuscribed';
 
+	const coverSrc = `${courseMediaBasePaths.cover}${course.folder}/${course.cover}`;
+
 	const contextValue = {
 		isSuscribed,
 		setIsSuscribed,
@@ -32,33 +35,39 @@ export default function Course({ course }) {
 	};
 	return (
 		<CourseItemContext.Provider value={contextValue}>
-			<Card className="course-item">
-				<header>
-					<div className="info-container">
-						<div className="title-container">
-							<Link to={to}>
+			<div className="course">
+				<Link to={to}>
+					<div className="cover-container">
+						<img className="cover" src={coverSrc} alt="" />
+					</div>
+				</Link>
+
+				<Card className="course-item">
+					<header>
+						<div className="info-container">
+							<div className="title-container">
 								<h3>{course.name}</h3>
-							</Link>
+							</div>
+							<span className={levelClass}>{course.level}</span>
 						</div>
-						<span className={levelClass}>{course.level}</span>
+
+						<img src={`${IMAGES_ROUTES}${course.creator?.profileImage}`} />
+					</header>
+					<div className={`actions-container ${courseStatus}`}>
+						{isUserAdmin && <CourseAdminActions course={course} />}
+
+						<div className="end-button">
+							<Suscription courseId={course.id} />
+						</div>
+
+						{isSuscribed && (
+							<Link to={to} className="default-button course-button">
+								See course
+							</Link>
+						)}
 					</div>
-
-					<img src={`${IMAGES_ROUTES}${course.creator?.profileImage}`} />
-				</header>
-				<div className={`actions-container ${courseStatus}`}>
-					{isUserAdmin && <CourseAdminActions course={course} />}
-
-					<div className="end-button">
-						<Suscription courseId={course.id} />
-					</div>
-
-					{isSuscribed && (
-						<Link className="default-button course-button" to={to}>
-							See course
-						</Link>
-					)}
-				</div>
-			</Card>
+				</Card>
+			</div>
 		</CourseItemContext.Provider>
 	);
 }

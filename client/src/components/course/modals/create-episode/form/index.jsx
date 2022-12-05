@@ -40,7 +40,7 @@ export default function CreateEpisodeForm() {
 		formData.append('title', form.title.value);
 		formData.append('description', form.description.value);
 
-		episodeService.uploadEpisode(course.id, formData).then((newEpisode) => {
+		episodeService.uploadEpisode(course.id, course.folder, formData).then((newEpisode) => {
 			setEpisodes((episodes) => [...episodes, newEpisode]);
 
 			setModals((otherModals) => ({
