@@ -1,7 +1,27 @@
 import { Router } from 'express';
+import multer from 'multer';
+import fs from 'fs';
 import courses from '../controllers/course.controller.js';
 import { isUser, isUserAdminOrTeacher } from '../middlewares/isUserRole.js';
 import isBodyACourse from '../dtos/isBodyACourse.js';
+
+const imageStorage = multer.diskStorage({
+	destination: (req, file, cb) => {
+		const courseName = `${Date.now()}--${req.body.name.split(' ').join('-')}`;
+		const courseFolder = `storage/courses-content/${courseName}`;
+
+		fs.mkdirSync(courseFolder);
+		req.courseFolder = courseName;
+		cb(null, courseFolder);
+	},
+
+	filename: (req, file, cb) => {
+		const fileName = Date.now() + '-' + file.originalname.split(' ').join('-');
+		cb(null, fileName);
+	},
+});
+
+export const miniatureUploader = multer({ storage: imageStorage, dest: 'storage/courses-content' });
 
 const courseRouter = Router();
 
@@ -12,7 +32,7 @@ courseRouter.get('/', courses.getAll);
 courseRouter.get('/course/:courseId', courses.getById);
 
 // Create
-courseRouter.post('/create', isUserAdminOrTeacher, isBodyACourse, courses.create);
+courseRouter.post('/create', isUserAdminOrTeacher, miniatureUploader.single('cover'), isBodyACourse, courses.create);
 
 // Edit
 courseRouter.patch('/:courseId/edit', isUserAdminOrTeacher, isBodyACourse, courses.edit);

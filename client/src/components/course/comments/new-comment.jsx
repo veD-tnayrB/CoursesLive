@@ -11,10 +11,12 @@ export default function NewComment() {
 	const { setComments } = useCommentsContext();
 	const { isUserSuscribed, isCourseCreator, selectedEpisode } = useCourseContext();
 	const { form, handleChange, setFormValues } = useForm({ comment: '' });
-	const { user } = useUserContext();
+	const { user, isUserLogged } = useUserContext();
 	const { episodeId } = useParams();
 	const disabled = (!isCourseCreator && !isUserSuscribed) || selectedEpisode?.itsEmpty;
 	const cls = disabled ? 'disabled' : '';
+
+	const userImgSrc = isUserLogged ? `${IMAGES_ROUTES}${user.profileImage}` : '/src/assets/user/default-user.svg';
 
 	function handleSubmit(event) {
 		event.preventDefault();
@@ -28,7 +30,7 @@ export default function NewComment() {
 	return (
 		<article className={`new-comment ${cls}`}>
 			<header className="comment-user">
-				<img src={`${IMAGES_ROUTES}${user.profileImage}`} />
+				<img src={userImgSrc} />
 				<h3 className="creator">
 					{user.name} {user.lastName}
 				</h3>

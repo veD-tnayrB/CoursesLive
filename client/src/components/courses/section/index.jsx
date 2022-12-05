@@ -1,10 +1,13 @@
+import uniqid from 'uniqid';
 import { useCoursesContext } from 'src/contexts/courses/courses.context';
 import { useUserContext } from 'src/contexts/user/user.context';
 import List from 'src/components/common/list';
 import NewCourse from './new-course';
 import Course from './course';
-import PreloadList from 'src/components/common/card/preload/List';
+import CoursePreload from './preload';
 import './section.scss';
+
+const NUMBER_OF_ELEMENTS_BY_DEFAULT = 20;
 
 export default function CoursesSection() {
 	const { courses, isLoading, search } = useCoursesContext();
@@ -13,8 +16,12 @@ export default function CoursesSection() {
 	const isUserAuthorized = user.role === 'teacher' || user.role === 'admin';
 	const showCreateCourse = isUserAuthorized && !theresQueries;
 
-	if (isLoading) return <PreloadList />;
-	const elements = courses.map((item) => <Course key={item.id} course={item} />);
+	const coursesElements = courses.map((item) => <Course key={item.id} course={item} />);
+	const preloadElements = Array(NUMBER_OF_ELEMENTS_BY_DEFAULT)
+		.fill()
+		.map(() => <CoursePreload key={uniqid()} />);
+
+	const elements = isLoading ? preloadElements : coursesElements;
 
 	return (
 		<div className="course-section">

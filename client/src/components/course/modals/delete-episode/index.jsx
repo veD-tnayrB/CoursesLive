@@ -2,9 +2,10 @@ import DeleteModal from 'src/components/common/modals/delete-modal';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useCourseContext } from 'src/contexts/course/course.context';
 import { episodeService } from 'src/services/episodes';
+import { DEFAULT_SELECTED_EPISODE } from 'src/views/course';
 
 export default function DeleteEpisodeModal() {
-	const { modals, setModals, setSelectedEpisode, course, setCourse, selectedEpisode } = useCourseContext();
+	const { modals, setModals, setSelectedEpisode, course, selectedEpisode } = useCourseContext();
 	const navigateTo = useNavigate();
 	const { courseId } = useParams();
 
@@ -16,13 +17,15 @@ export default function DeleteEpisodeModal() {
 		if (nextEpisode) {
 			setSelectedEpisode(nextEpisode);
 			navigateTo(`/courses/course/${courseId}/episode/${nextEpisode.id}`);
+			return;
 		}
 
-		navigateTo(`/courses/course/${courseId}/episode/${undefined}`);
+		setSelectedEpisode(DEFAULT_SELECTED_EPISODE);
 
 		episodeService.remove(courseId, selectedEpisode.id).then(() => {
 			setIsLoading(false);
 			setModals((otherModals) => ({ ...otherModals, delete: { ...otherModals.delete, show: false } }));
+			navigateTo(`/courses/course/${courseId}/episode/${undefined}`);
 		});
 	}
 

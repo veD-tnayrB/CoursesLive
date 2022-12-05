@@ -2,9 +2,9 @@ import axios from 'axios';
 import { ENVIRONMENT } from '../config';
 
 class EpisodeService {
-	async uploadEpisode(courseId, episode) {
+	async uploadEpisode(courseId, folder, episode) {
 		try {
-			const { data } = await axios.post(`${ENVIRONMENT}course/${courseId}/episodes/create`, episode);
+			const { data } = await axios.post(`${ENVIRONMENT}course/${courseId}/${folder}/episodes/create`, episode);
 			return data;
 		} catch ({ response: { data: errors } }) {
 			console.error(errors);

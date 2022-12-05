@@ -2,49 +2,55 @@ import mongoose from 'mongoose';
 const { Schema, model } = mongoose;
 
 const courseSchema = new Schema({
-    name: {
-        type: String,
-        required: true
-    },
+	name: {
+		type: String,
+		required: true,
+	},
 
-    description: {
-        type: String
-    },
+	level: {
+		type: String,
+		required: true,
+	},
 
-    level: {
-        type: String,
-        required: true
-    },
+	tags: {
+		type: [String],
+	},
 
-    tags: {
-        type: [String]
-    },
+	cover: {
+		type: String,
+		required: true,
+	},
 
-    creator: {
-        type: Schema.Types.ObjectId,
-        ref: 'User',
-        required: true
-    },
+	creator: {
+		type: Schema.Types.ObjectId,
+		ref: 'User',
+		required: true,
+	},
 
-    episodes: {
-        type: [Schema.Types.ObjectId],
-        ref: 'Episode'
-    },
+	episodes: {
+		type: [Schema.Types.ObjectId],
+		ref: 'Episode',
+	},
 
-    subscribers: {
-        type: [Schema.Types.ObjectId],
-        ref: 'User'
-    }
-})
+	subscribers: {
+		type: [Schema.Types.ObjectId],
+		ref: 'User',
+	},
+
+	folder: {
+		type: String,
+		required: true,
+	},
+});
 
 courseSchema.set('toJSON', {
-    transform: (document, returnedObject) => {
-        returnedObject.id = returnedObject._id;
+	transform: (document, returnedObject) => {
+		returnedObject.id = returnedObject._id;
 
-        delete returnedObject._id;
-        delete returnedObject.__v;
-    }
-})
+		delete returnedObject._id;
+		delete returnedObject.__v;
+	},
+});
 
 const Course = model('Course', courseSchema);
 

@@ -14,6 +14,7 @@ import EditEpisodeModal from 'src/components/course/modals/edit-episode';
 import EpisodeComments from 'src/components/course/comments';
 import CreateTestModal from 'src/components/course/modals/create-test';
 import Preloads from 'src/components/course/preloads';
+import RegisterModal from 'src/components/common/modals/register-modal';
 import './course.scss';
 
 const MODALS = {
@@ -30,7 +31,7 @@ const DEFAULT_COURSE = {
 	subscribers: [],
 };
 
-const DEFAULT_SELECTED_EPISODE = {
+export const DEFAULT_SELECTED_EPISODE = {
 	title: '',
 	video: '',
 	peopleWhoLikedIt: [],
@@ -41,8 +42,8 @@ const DEFAULT_SELECTED_EPISODE = {
 
 export default function Course() {
 	const { courseId, episodeId } = useParams();
-	const { user } = useUserContext();
-	const [modals, setModals] = React.useState(MODALS);
+	const { user, isUserLogged } = useUserContext();
+	const [modals, setModals] = React.useState({ ...MODALS, register: { show: !isUserLogged } });
 	const [course, setCourse] = React.useState(DEFAULT_COURSE);
 	const [selectedEpisode, setSelectedEpisode] = React.useState(DEFAULT_SELECTED_EPISODE);
 	const [isLoading, setIsLoading] = React.useState(true);
@@ -106,6 +107,7 @@ export default function Course() {
 			<DeleteEpisodeModal />
 			<EditEpisodeModal />
 			<CreateTestModal />
+			<RegisterModal modals={modals} setModals={setModals} title="You need an account to access the content" />
 			<Outlet />
 		</CourseContext.Provider>
 	);

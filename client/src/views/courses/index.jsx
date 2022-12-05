@@ -3,7 +3,7 @@ import { CoursesContext } from 'src/contexts/courses/courses.context';
 import { courseService } from 'src/services/courses';
 import SearchCourses from 'src/components/courses/search';
 import Header from 'src/components/common/header';
-import RegisterModal from 'src/components/courses/modals/register-modal';
+import RegisterModal from 'src/components/common/modals/register-modal';
 import CreateCourseModal from 'src/components/courses/modals/create-modal';
 import DeleteCourseModal from 'src/components/courses/modals/delete-modal';
 import CoursesSection from 'src/components/courses/section';
@@ -58,7 +58,7 @@ export default function Courses() {
 
 				<CoursesSection />
 
-				<RegisterModal />
+				<RegisterModal modals={modals} setModals={setModals} title="You need an account to subscribe!!" />
 				<CreateCourseModal />
 				<DeleteCourseModal />
 				<EditCourseModal />

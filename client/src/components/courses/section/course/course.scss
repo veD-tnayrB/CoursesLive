@@ -1,67 +1,99 @@
-.card-item {
-    display: flex;
-    width: -moz-fit-content;
-    width: fit-content;
+@use 'src/global/_variables.scss';
 
-    .card.course-item {
-        .actions-container {
-            &.suscribed {
-                grid-template-columns: 3rem 3rem 3rem 1fr;
-                grid-template-areas: 'delete modify suscription profile';
+.course {
+	border-radius: 15px;
+	width: 22rem;
+	height: fit-content;
 
-                .course-button {
-                    grid-area: profile;
-                    padding: 0.8rem 1rem;
-                }
+	.cover-container {
+		border-radius: 15px 15px 0 0;
+		aspect-ratio: 16/9;
+		width: 100%;
+		height: 12.375rem;
+		overflow: hidden;
 
-                .end-button {
-                    grid-area: suscription;
-                    justify-content: center;
+		.cover {
+			border-radius: 15px 15px 0 0;
+			width: 100%;
+			transition: transform 0.2s ease-in-out;
+		}
+	}
 
-                    button {
-                        width: 3rem;
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
+	&:hover {
+		.cover-container {
+			.cover {
+				transform: scale(1.15);
+			}
+		}
+	}
 
-                        img {
-                            margin: 0;
-                        }
-                    }
-                }
-            }
+	.card-item {
+		display: flex;
+		width: -moz-fit-content;
+		width: fit-content;
 
-            .default-button {
-                display: flex;
-                justify-content: center;
-                align-items: center;
+		.card.course-item {
+			border-radius: 0 0 15px 15px;
 
-                &.suscription {
-                    width: 8.4rem;
-                }
+			.actions-container {
+				&.suscribed {
+					grid-template-columns: 3rem 3rem 3rem 1fr;
+					grid-template-areas: 'delete modify suscription profile';
 
-                &.loading {
-                    padding: 0.5rem 0;
+					.course-button {
+						grid-area: profile;
+						padding: 0.8rem 1rem;
+					}
 
-                    .loading-icon::after {
-                        width: 15px;
-                        height: 15px;
-                    }
-                }
-            }
+					.end-button {
+						grid-area: suscription;
+						justify-content: center;
 
-            .end-button {
-                .default-button {
-                    display: flex;
-                    gap: 0.5rem;
+						button {
+							width: 3rem;
+							display: flex;
+							justify-content: center;
+							align-items: center;
 
-                    .icon {
-                        aspect-ratio: 1/1;
-                        width: 22px;
-                        height: 22px;
-                    }
-                }
-            }
-        }
-    }
+							img {
+								margin: 0;
+							}
+						}
+					}
+				}
+
+				.default-button {
+					display: flex;
+					justify-content: center;
+					align-items: center;
+
+					&.suscription {
+						width: 8.4rem;
+					}
+
+					&.loading {
+						padding: 0.5rem 0;
+
+						.loading-icon::after {
+							width: 15px;
+							height: 15px;
+						}
+					}
+				}
+
+				.end-button {
+					.default-button {
+						display: flex;
+						gap: 0.5rem;
+
+						.icon {
+							aspect-ratio: 1/1;
+							width: 22px;
+							height: 22px;
+						}
+					}
+				}
+			}
+		}
+	}
 }
