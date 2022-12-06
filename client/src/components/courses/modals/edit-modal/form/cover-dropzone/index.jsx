@@ -20,5 +20,5 @@ export default function CoverDropzone({ file, setFile }) {
 	const rootProps = getRootProps();
 	const inputProps = getInputProps();
 
-	return <Dropzone rootProps={rootProps} inputProps={inputProps} filledMessage="The new course thumbnail has been successfully saved." emptyMessage="Insert the new thumbnail of the course to be used" fileExist={cover?.name} />;
+	return <Dropzone rootProps={rootProps} inputProps={inputProps} filledMessage="The course thumbnail has been successfully saved." emptyMessage="Insert the thumbnail of the course to be used" fileExist={cover?.name} />;
 }

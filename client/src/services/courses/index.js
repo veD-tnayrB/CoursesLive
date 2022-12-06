@@ -52,9 +52,9 @@ class CourseService {
 		}
 	}
 
-	async edit(courseId, newCourseData) {
+	async edit(courseId, courseFolder, newCourseData) {
 		try {
-			const { data } = await axios.patch(`${ENVIRONMENT}courses/${courseId}/edit`, newCourseData);
+			const { data } = await axios.patch(`${ENVIRONMENT}courses/${courseId}/${courseFolder}/edit`, newCourseData);
 			return data;
 		} catch ({ response: { data: errors } }) {
 			console.error(errors);

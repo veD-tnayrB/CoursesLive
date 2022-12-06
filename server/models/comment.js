@@ -27,6 +27,12 @@ const commentSchema = new Schema({
 		type: Schema.Types.Date,
 		required: true,
 	},
+
+	course: {
+		type: Schema.Types.ObjectId,
+		ref: 'Course',
+		required: true,
+	},
 });
 
 commentSchema.set('toJSON', {

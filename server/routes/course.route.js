@@ -8,10 +8,14 @@ import isBodyACourse from '../dtos/isBodyACourse.js';
 const imageStorage = multer.diskStorage({
 	destination: (req, file, cb) => {
 		const courseName = `${Date.now()}--${req.body.name.split(' ').join('-')}`;
-		const courseFolder = `storage/courses-content/${courseName}`;
+		const existingCourseFolder = req.params.courseFolder;
+		const courseFolder = existingCourseFolder ? `storage/courses-content/${existingCourseFolder}` : `storage/courses-content/${courseName}`;
 
-		fs.mkdirSync(courseFolder);
-		req.courseFolder = courseName;
+		if (!existingCourseFolder) {
+			fs.mkdirSync(courseFolder);
+		}
+
+		req.courseFolder = existingCourseFolder ? existingCourseFolder : courseName;
 		cb(null, courseFolder);
 	},
 
@@ -35,7 +39,7 @@ courseRouter.get('/course/:courseId', courses.getById);
 courseRouter.post('/create', isUserAdminOrTeacher, miniatureUploader.single('cover'), isBodyACourse, courses.create);
 
 // Edit
-courseRouter.patch('/:courseId/edit', isUserAdminOrTeacher, isBodyACourse, courses.edit);
+courseRouter.patch('/:courseId/:courseFolder/edit', isUserAdminOrTeacher, miniatureUploader.single('cover'), isBodyACourse, courses.edit);
 
 // Remove
 courseRouter.delete('/:courseId/remove', isUserAdminOrTeacher, courses.remove);

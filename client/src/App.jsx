@@ -1,4 +1,6 @@
+import * as React from 'react';
 import { Routes, Route } from 'react-router-dom';
+import useScrollTop from 'src/hooks/useScrollTop';
 import Courses from 'src/views/courses';
 import Home from 'src/views/home';
 import Users from 'src/views/users';
@@ -9,6 +11,8 @@ import Test from 'src/views/test';
 import Error404 from 'src/views/errors/404';
 
 function App() {
+	useScrollTop();
+
 	return (
 		<Routes>
 			{/* Login and Register */}

@@ -2,6 +2,10 @@ import fs from 'fs';
 import User from '../models/user.js';
 import Course from '../models/course.js';
 import Episode from '../models/episode.js';
+import { BASE_MEDIA_PATH } from './media.controller.js';
+import Test from '../models/test.js';
+import Question from '../models/question.js';
+import Comment from '../models/comment.js';
 
 class Courses {
 	async getAll(req, res, next) {
@@ -83,22 +87,38 @@ class Courses {
 
 	async edit(req, res, next) {
 		try {
-			const newCourseInformation = req.body;
+			const cover = req.file.filename;
+			const editedCourse = req.body;
 			const { courseId } = req.params;
 
 			// Check if the edited course already exist
-			const course = await Course.findOne(newCourseInformation);
-			const courseAlreadyExist = course;
-
+			const courseAlreadyExist = await Course.findOne({ _id: { $ne: editedCourse.id }, name: editedCourse.name });
 			if (courseAlreadyExist) return res.status(409).json('COURSE_ALREADY_EXIST');
+
+			const course = await Course.findById(editedCourse.id);
 
 			const editor = req.user;
 			const creatorId = String(course.creator);
 
 			if (editor.id !== creatorId) return res.status(401).json('USER_NOT_AUTHORIZED');
 
+			fs.rmSync(`${BASE_MEDIA_PATH}/${course.folder}/${course.cover}`);
+
+			const modifiedCourse = {
+				name: editedCourse.name,
+				level: editedCourse.level,
+				tags: editedCourse.tags,
+				cover,
+			};
+
 			// Edit the course
-			const updatedCourse = await Course.findByIdAndUpdate(courseId, modifiedInformation, { new: true });
+			const updatedCourse = await Course.findByIdAndUpdate(courseId, modifiedCourse, { new: true }).populate('creator', {
+				courses: 0,
+				mail: 0,
+				name: 0,
+				lastName: 0,
+				role: 0,
+			});
 			return res.status(200).json(updatedCourse);
 		} catch (error) {
 			next(error);
@@ -106,9 +126,9 @@ class Courses {
 	}
 
 	async remove(req, res, next) {
-		const courseToRemoveId = req.params.courseId;
-
 		try {
+			const courseToRemoveId = req.params.courseId;
+
 			// Check if the course exist
 			const courseToRemove = await Course.findById(courseToRemoveId);
 
@@ -121,11 +141,17 @@ class Courses {
 			// Remove the course
 			await Course.findByIdAndRemove(courseToRemoveId);
 
+			fs.rmdirSync(`${BASE_MEDIA_PATH}/${courseToRemove.folder}`);
+
 			// Unsuscribe all the users
 			await User.updateMany({ courses: { $in: courseToRemoveId } }, { $pull: { courses: courseToRemoveId } });
 
 			// Delete all episodes
 			await Episode.deleteMany({ course: courseToRemoveId });
+			await Test.deleteMany({ course: courseToRemoveId });
+			await Question.deleteMany({ course: courseToRemoveId });
+			await Comment.deleteMany({ course: courseToRemoveId });
+
 			return res.status(200).json({ removedCourse: courseToRemove });
 		} catch (error) {
 			next(error);

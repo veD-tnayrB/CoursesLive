@@ -17,9 +17,7 @@ class Comments {
 			}
 
 			// Get all the comments and the answers
-			const comments = await Comment.find({ episode: episodeId })
-				.populate('creator', { mail: 0 })
-				.sort({ date: 'desc' });
+			const comments = await Comment.find({ episode: episodeId }).populate('creator', { mail: 0 }).sort({ date: 'desc' });
 			return res.status(200).json(comments);
 		} catch (error) {
 			next(error);
@@ -27,10 +25,9 @@ class Comments {
 	}
 
 	async create(req, res, next) {
-		const { episodeId } = req.params;
-		const commentInfo = req.body;
-
 		try {
+			const { courseId, episodeId } = req.params;
+			const commentInfo = req.body;
 			const creator = req.user;
 
 			// Check if the episode exist
@@ -49,6 +46,7 @@ class Comments {
 				episode: episodeId,
 				date: today.toISOString(),
 				edited: false,
+				course: courseId,
 			};
 
 			// Create the comment

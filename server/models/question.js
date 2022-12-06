@@ -16,6 +16,12 @@ const questionSchema = new Schema({
 		type: { id: String, value: String },
 		required: true,
 	},
+
+	course: {
+		type: Schema.Types.ObjectId,
+		ref: 'Course',
+		required: true,
+	},
 });
 
 questionSchema.set('toJSON', {

@@ -1,7 +1,7 @@
 import Episode from '../models/episode.js';
 import path from 'path';
 
-const BASE_MEDIA_PATH = 'storage/courses-content';
+export const BASE_MEDIA_PATH = 'storage/courses-content';
 
 class MediaController {
 	async getEpisodeVideo(req, res, next) {

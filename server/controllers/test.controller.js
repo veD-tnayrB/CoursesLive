@@ -16,11 +16,10 @@ class Tests {
 	}
 
 	async create(req, res, next) {
-		const { authorization: token } = req.headers;
-		const { episodeId } = req.params;
-		const testInformation = req.body;
-
 		try {
+			const { authorization: token } = req.headers;
+			const { courseId, episodeId } = req.params;
+			const testInformation = req.body;
 			const creator = jwt.verify(token, process.env.JWT_SECRET);
 
 			// Check if the episode exist
@@ -46,6 +45,7 @@ class Tests {
 				episode: episodeId,
 				questions: questionsId,
 				test_takers: [],
+				course: courseId,
 			});
 			test.save();
 
@@ -54,7 +54,6 @@ class Tests {
 
 			return res.status(202).json(test);
 		} catch (error) {
-			console.log(error);
 			next(error);
 		}
 	}

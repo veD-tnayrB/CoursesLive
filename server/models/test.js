@@ -24,6 +24,12 @@ const testSchema = new Schema({
 		ref: 'User',
 		required: true,
 	},
+
+	course: {
+		type: Schema.Types.ObjectId,
+		ref: 'Course',
+		required: true,
+	},
 });
 
 testSchema.set('toJSON', {
