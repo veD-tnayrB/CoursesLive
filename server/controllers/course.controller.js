@@ -141,7 +141,7 @@ class Courses {
 			// Remove the course
 			await Course.findByIdAndRemove(courseToRemoveId);
 
-			fs.rmdirSync(`${BASE_MEDIA_PATH}/${courseToRemove.folder}`);
+			fs.rmdirSync(`${BASE_MEDIA_PATH}/${courseToRemove.folder}`, { recursive: true, force: true });
 
 			// Unsuscribe all the users
 			await User.updateMany({ courses: { $in: courseToRemoveId } }, { $pull: { courses: courseToRemoveId } });
@@ -154,6 +154,7 @@ class Courses {
 
 			return res.status(200).json({ removedCourse: courseToRemove });
 		} catch (error) {
+			console.log(error);
 			next(error);
 		}
 	}
