@@ -62,6 +62,16 @@ class EpisodeService {
 		}
 	}
 
+	async edit(courseId, courseFolder, episodeId, episode) {
+		try {
+			const { data } = await axios.patch(`${ENVIRONMENT}course/${courseId}/${courseFolder}/episodes/${episodeId}/edit`, episode);
+			return data;
+		} catch ({ response: { data: errors } }) {
+			console.error(errors);
+			throw new Error(errors.message);
+		}
+	}
+
 	async createComment(episodeId, comment) {
 		try {
 			const { data } = await axios.post(`${ENVIRONMENT}episode/${episodeId}/comment/create`, comment);

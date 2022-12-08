@@ -37,7 +37,8 @@ class Tests {
 				throw Error('user not authorized');
 			}
 
-			const questions = await Question.insertMany(testInformation.questions);
+			const formatedQuestions = testInformation.questions.map((question) => ({ ...question, episode: episodeId }));
+			const questions = await Question.insertMany();
 			const questionsId = questions.map((question) => question._id);
 
 			const test = await Test.create({
@@ -48,6 +49,7 @@ class Tests {
 				course: courseId,
 			});
 			test.save();
+			console.log(test);
 
 			// Add the test to the episode
 			await Episode.findByIdAndUpdate(episodeId, { test: test._id });

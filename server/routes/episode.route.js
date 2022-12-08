@@ -16,7 +16,7 @@ episodeRouter.get('/:courseId/episode/:episodeId', episodes.getById);
 episodeRouter.post('/:courseId/:courseFolder/episodes/create', isUserAdminOrTeacher, episodeUploader.fields([{ name: 'video' }, { name: 'miniature' }]), isBodyAEpisode, episodes.create);
 
 // Edit
-episodeRouter.patch('/:courseId/episodes/:episodeId/edit', isUserAdminOrTeacher, isBodyAEpisode, episodes.edit);
+episodeRouter.patch('/:courseId/:courseFolder/episodes/:episodeId/edit', isUserAdminOrTeacher, episodeUploader.fields([{ name: 'video' }, { name: 'miniature' }]), isBodyAEpisode, episodes.edit);
 
 // Remove
 episodeRouter.delete('/:courseId/episodes/:episodeId/delete', isUserAdminOrTeacher, episodes.remove);

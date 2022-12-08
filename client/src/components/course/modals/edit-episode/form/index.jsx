@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useCourseContext } from 'src/contexts/course/course.context';
 import { episodeService } from 'src/services/episodes';
 import ValidationInput from 'src/components/common/validation-input';
@@ -20,8 +20,7 @@ const INITIAL_VALUES = {
 const TOTAL_INPUTS = Object.keys(INITIAL_VALUES);
 
 export default function CreateEpisodeForm() {
-	const { courseId } = useParams();
-	const { setCourse, course, setModals, setSelectedEpisode } = useCourseContext();
+	const { setCourse, course, setModals, setSelectedEpisode, selectedEpisode } = useCourseContext();
 	const [files, setFiles] = React.useState({ video: {}, image: {} });
 	const { form, handleChanges } = useForm(INITIAL_VALUES);
 	const navigateTo = useNavigate();
@@ -29,33 +28,34 @@ export default function CreateEpisodeForm() {
 	const correctInputs = Object.keys(form).filter((prop) => form[prop].isCorrect);
 	const isInfoCorrect = correctInputs.length === TOTAL_INPUTS.length;
 
-	function create(event) {
+	function edit(event) {
 		event.preventDefault();
 
 		const formData = new FormData();
 		formData.append('video', files.video);
+		formData.append('miniature', files.image);
 		formData.append('title', form.title.value);
 		formData.append('description', form.description.value);
-		formData.append('videoName', videoFile.name);
+		formData.append('videoName', files.video.name);
 
-		episodeService.uploadEpisode(course.id, formData).then((newEpisode) => {
+		episodeService.edit(course.id, course.folder, selectedEpisode.id, formData).then((editedEpisode) => {
 			setCourse((otherProperties) => ({
 				...otherProperties,
-				episodes: [...otherProperties.episodes, newEpisode],
+				episodes: [...otherProperties.episodes, editedEpisode],
 			}));
 
 			setModals((otherModals) => ({
 				...otherModals,
-				create: { ...otherModals.create, show: false },
+				edit: { ...otherModals.edit, show: false },
 			}));
 
-			setSelectedEpisode(newEpisode);
-			navigateTo(`/courses/course/${courseId}/episode/${newEpisode.id}`);
+			setSelectedEpisode(editedEpisode);
+			navigateTo(0);
 		});
 	}
 
 	return (
-		<form className="edit-course-form" onSubmit={create}>
+		<form className="edit-course-form" onSubmit={edit}>
 			<VideoDropzone files={files} setFiles={setFiles} />
 			<ValidationInput type="text" name="title" value={form.title.value} onChange={handleChanges} placeholder="Title" autoComplete="off" isCorrect={form.title.isCorrect} />
 
