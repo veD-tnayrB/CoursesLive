@@ -17,6 +17,12 @@ const questionSchema = new Schema({
 		required: true,
 	},
 
+	episode: {
+		type: Schema.Types.ObjectId,
+		ref: 'Episode',
+		required: true,
+	},
+
 	course: {
 		type: Schema.Types.ObjectId,
 		ref: 'Course',

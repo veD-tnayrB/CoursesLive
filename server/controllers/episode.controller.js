@@ -1,6 +1,10 @@
 import Course from '../models/course.js';
 import Episode from '../models/episode.js';
-import { unlink } from 'fs';
+import Test from '../models/test.js';
+import Result from '../models/result.js';
+import Question from '../models/question.js';
+import fs from 'fs';
+import { BASE_MEDIA_PATH } from './media.controller.js';
 
 const VIDEOS_LOCATION = 'storage/videos';
 const IMAGES_LOCATION = 'storage/images';
@@ -78,36 +82,28 @@ class Episodes {
 			await Course.findByIdAndUpdate(courseId, { $push: { episodes: episode.id } }, { new: true });
 			return res.status(201).json(episode);
 		} catch (error) {
-			unlink(`${VIDEOS_LOCATION}/${video}`, (err) => next(err));
-			unlink(`${IMAGES_LOCATION}/${miniature}`, (err) => next(err));
+			fs.unlink(`${VIDEOS_LOCATION}/${video}`, (err) => next(err));
+			fs.unlink(`${IMAGES_LOCATION}/${miniature}`, (err) => next(err));
 			next(error);
 		}
 	}
 
 	async edit(req, res, next) {
 		try {
+			const video = req.files.video[0].filename;
+			const miniature = req.files.miniature[0].filename;
 			const { courseId, episodeId } = req.params;
 			const modifiedEpisodeInfo = req.body;
 			const editor = req.user;
 
 			// Check if the user is creator otherwise check if is admin
-			const episode = await Episode.findOne({ _id: episodeId, course: courseId, creator: editor.id });
+			const episode = await Episode.findOne({ _id: episodeId, course: courseId, creator: editor.id }).populate('course', { folder: 1 });
 			const userIsntAdmin = editor.role !== 'admin';
 
 			if (!episode || userIsntAdmin) return res.status(401).json('USER_NOT_AUTHORIZED');
 
-			// Check if the course exist
-			const course = await Course.findById(courseId);
-			const courseDoesntExist = !course;
-
-			if (courseDoesntExist) return res.status(404).json('COURSE_DOESNT_EXISTS');
-
 			// Check if the modified episode already exist
-			const episodeAlreadyExist = await Episode.findOne({
-				course: courseId,
-				$and: [{ $or: [{ title: modifiedEpisodeInfo.title }, { video: modifiedEpisodeInfo.video }] }],
-			});
-
+			const episodeAlreadyExist = await Episode.findOne({ _id: { $ne: episode.id }, course: courseId, name: episode.title });
 			if (episodeAlreadyExist) return res.status(409).json('EPISODE_ALREADY_EXISTS');
 
 			// Modify the episode and check if it was modified
@@ -116,11 +112,14 @@ class Episodes {
 				{
 					title: modifiedEpisodeInfo.title,
 					description: modifiedEpisodeInfo.description,
-					video: modifiedEpisodeInfo.video,
+					video,
+					miniature,
 				},
 				{ new: true }
 			);
-			if (!modifiedEpisode) return res.status(304).json('EPISODE_WASNT_MODIFIED');
+
+			fs.unlinkSync(`${BASE_MEDIA_PATH}/${episode.course.folder}/${episode.video}`);
+			fs.unlinkSync(`${BASE_MEDIA_PATH}/${episode.course.folder}/${episode.miniature}`);
 
 			return res.status(202).json(modifiedEpisode);
 		} catch (error) {
@@ -134,7 +133,7 @@ class Episodes {
 			const remover = req.user;
 
 			// Check if the episode exist
-			const episodeToRemove = await Episode.findById(episodeId);
+			const episodeToRemove = await Episode.findById(episodeId).populate('course', { folder: 1 });
 
 			if (!episodeToRemove) return res.status(404).json('EPISODE_DOESNT_EXISTS');
 
@@ -144,13 +143,20 @@ class Episodes {
 			if (userIsntOwner) return res.status(304).json('USER_NOT_AUTHORIZED');
 
 			// Remove the episode
-			const episode = await Episode.findByIdAndRemove(episodeId);
+			await Episode.findByIdAndRemove(episodeId);
+			fs.unlinkSync(`${BASE_MEDIA_PATH}/${episodeToRemove.course.folder}/${episodeToRemove.video}`);
+			fs.unlinkSync(`${BASE_MEDIA_PATH}/${episodeToRemove.course.folder}/${episodeToRemove.miniature}`);
+
+			await Test.findByIdAndRemove(episodeToRemove.test);
+			await Question.findOneAndRemove({ episode: episodeId });
+			await Result.findOneAndRemove({ test: episodeToRemove.test });
 
 			// Update the course information
-			const updatedCourse = await Course.findByIdAndUpdate(courseId, { $pull: { episodes: episodeId } }, { new: true });
+			await Course.findByIdAndUpdate(courseId, { $pull: { episodes: episodeId } }, { new: true });
 
-			return res.status(202).json(updatedCourse);
+			return res.status(202).json({ removedEpisode: episodeToRemove });
 		} catch (error) {
+			console.log(error);
 			next(error);
 		}
 	}

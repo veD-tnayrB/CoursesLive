@@ -3,11 +3,11 @@ import Dropzone from 'src/components/common/dropzone';
 import { useDropzone } from 'react-dropzone';
 
 export default function VideoDropzone({ files, setFiles }) {
-	const image = files?.image;
+	const video = files?.video;
 
 	const onDrop = React.useCallback((files) => {
-		const imageFile = files[0];
-		setFiles((otherValues) => ({ ...otherValues, image: imageFile }));
+		const videoFile = files[0];
+		setFiles((otherValues) => ({ ...otherValues, video: videoFile }));
 	}, []);
 	const { getRootProps, getInputProps } = useDropzone({
 		onDrop,
@@ -20,5 +20,5 @@ export default function VideoDropzone({ files, setFiles }) {
 	const rootProps = getRootProps();
 	const inputProps = getInputProps();
 
-	return <Dropzone rootProps={rootProps} inputProps={inputProps} filledMessage="The thumbnail has been saved" emptyMessage="Insert the thumbnail of your episode here" fileExist={image.name} />;
+	return <Dropzone rootProps={rootProps} inputProps={inputProps} filledMessage="The thumbnail has been saved" emptyMessage="Insert the thumbnail of your episode here" fileExist={video.name} />;
 }
