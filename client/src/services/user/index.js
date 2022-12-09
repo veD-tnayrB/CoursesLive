@@ -42,7 +42,7 @@ class UserService {
 		}
 	}
 
-	async getUserById(signal, userId) {
+	async getById(signal, userId) {
 		try {
 			const { data } = await axios.get(`${ENVIRONMENT}users/user/${userId}`, { signal });
 			return data;

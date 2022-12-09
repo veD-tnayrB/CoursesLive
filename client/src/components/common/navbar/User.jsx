@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { IMAGES_ROUTES } from 'src/services/config';
-import { useUserContext } from 'src/contexts/user/user.context';
+import { useAuthContext } from 'src/contexts/auth/auth.context';
 import UserConfigTab from './config-tab';
 
 export default function User() {
-	const { user, isUserLogged } = useUserContext();
+	const { user, isUserLogged } = useAuthContext();
 	const [showConfig, setShowConfig] = React.useState(false);
 	const profileImg = isUserLogged ? `${IMAGES_ROUTES}${user.profileImage}` : '/src/assets/user/default-user.svg';
 	const showConfigTab = isUserLogged && showConfig;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useUserContext } from 'src/contexts/user/user.context';
+import { useAuthContext } from 'src/contexts/auth/auth.context';
 import useForm from 'src/hooks/useForm';
 import ValidationInput from 'src/components/common/validation-input';
 import './form.scss';
@@ -19,7 +19,7 @@ const INITIAL_VALUES = {
 const TOTAL_INPUTS = Object.keys(INITIAL_VALUES);
 
 export default function SignupForm() {
-	const { error, signup } = useUserContext();
+	const { error, signup } = useAuthContext();
 	const { form, handleChanges } = useForm(INITIAL_VALUES);
 	const navigateTo = useNavigate();
 
@@ -42,44 +42,12 @@ export default function SignupForm() {
 	return (
 		<form onSubmit={handleSubmit} className="sign-up-form">
 			<div className="first-row">
-				<ValidationInput
-					type="text"
-					name="name"
-					value={form.name.value}
-					onChange={handleChanges}
-					placeholder="Name"
-					autoComplete="off"
-					isCorrect={form.name.isCorrect}
-				/>
-				<ValidationInput
-					type="text"
-					name="lastName"
-					value={form.lastName.value}
-					onChange={handleChanges}
-					placeholder="Last Name"
-					autoComplete="off"
-					isCorrect={form.lastName.isCorrect}
-				/>
+				<ValidationInput type="text" name="name" value={form.name.value} onChange={handleChanges} placeholder="Name" autoComplete="off" isCorrect={form.name.isCorrect} />
+				<ValidationInput type="text" name="lastName" value={form.lastName.value} onChange={handleChanges} placeholder="Last Name" autoComplete="off" isCorrect={form.lastName.isCorrect} />
 			</div>
 
-			<ValidationInput
-				type="text"
-				name="mail"
-				value={form.mail.value}
-				onChange={handleChanges}
-				placeholder="Mail"
-				autoComplete="off"
-				isCorrect={form.mail.isCorrect}
-			/>
-			<ValidationInput
-				type="password"
-				name="password"
-				value={form.password.value}
-				onChange={handleChanges}
-				placeholder="Password"
-				autoComplete="off"
-				isCorrect={form.password.isCorrect}
-			/>
+			<ValidationInput type="text" name="mail" value={form.mail.value} onChange={handleChanges} placeholder="Mail" autoComplete="off" isCorrect={form.mail.isCorrect} />
+			<ValidationInput type="password" name="password" value={form.password.value} onChange={handleChanges} placeholder="Password" autoComplete="off" isCorrect={form.password.isCorrect} />
 
 			<div className="errors-container">
 				<p className="errors">{error}</p>

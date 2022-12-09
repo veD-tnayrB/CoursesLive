@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useUserContext } from 'src/contexts/user/user.context';
+import { useAuthContext } from 'src/contexts/auth/auth.context';
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
 import { courseService } from 'src/services/courses';
 import { CourseContext } from 'src/contexts/course/course.context';
@@ -42,7 +42,7 @@ export const DEFAULT_SELECTED_EPISODE = {
 
 export default function Course() {
 	const { courseId, episodeId } = useParams();
-	const { user, isUserLogged } = useUserContext();
+	const { user, isUserLogged } = useAuthContext();
 	const [modals, setModals] = React.useState({ ...MODALS, register: { show: !isUserLogged } });
 	const [course, setCourse] = React.useState(DEFAULT_COURSE);
 	const [selectedEpisode, setSelectedEpisode] = React.useState(DEFAULT_SELECTED_EPISODE);

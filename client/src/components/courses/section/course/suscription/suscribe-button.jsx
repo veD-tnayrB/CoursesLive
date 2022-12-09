@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { courseService } from 'src/services/courses';
 import { useCoursesContext } from 'src/contexts/courses/courses.context';
-import { useUserContext } from 'src/contexts/user/user.context';
+import { useAuthContext } from 'src/contexts/auth/auth.context';
 import { useCourseItemContext } from '../context';
 import ActionButton from 'src/components/common/action-button';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -11,7 +11,7 @@ export default function SuscribeButton({ courseId }) {
 	const [isButtonHovered, setIsButtonHovered] = React.useState(false);
 	const { setIsSuscribed } = useCourseItemContext();
 	const { modals, setModals } = useCoursesContext();
-	const { isUserLogged } = useUserContext();
+	const { isUserLogged } = useAuthContext();
 
 	function suscribe({ isLoading, setIsLoading }) {
 		if (isLoading) return;

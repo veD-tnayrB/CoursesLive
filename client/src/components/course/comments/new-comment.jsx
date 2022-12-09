@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useParams } from 'react-router-dom';
-import { useUserContext } from 'src/contexts/user/user.context';
+import { useAuthContext } from 'src/contexts/auth/auth.context';
 import { IMAGES_ROUTES } from 'src/services/config';
 import { episodeService } from 'src/services/episodes';
 import { useCommentsContext } from './context';
@@ -11,7 +11,7 @@ export default function NewComment() {
 	const { setComments } = useCommentsContext();
 	const { isUserSuscribed, isCourseCreator, selectedEpisode } = useCourseContext();
 	const { form, handleChange, setFormValues } = useForm({ comment: '' });
-	const { user, isUserLogged } = useUserContext();
+	const { user, isUserLogged } = useAuthContext();
 	const { episodeId } = useParams();
 	const disabled = (!isCourseCreator && !isUserSuscribed) || selectedEpisode?.itsEmpty;
 	const cls = disabled ? 'disabled' : '';

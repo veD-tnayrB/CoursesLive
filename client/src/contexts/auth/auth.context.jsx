@@ -1,10 +1,10 @@
 import * as React from 'react';
 import axios from 'axios';
-import { ACTIONS, userReducer } from './user.reducer';
+import { ACTIONS, authReducer } from './auth.reducer';
 import { authService } from 'src/services/auth';
 
-export const UserContext = React.createContext();
-export const useUserContext = () => React.useContext(UserContext);
+export const AuthContext = React.createContext();
+export const useAuthContext = () => React.useContext(AuthContext);
 
 const savedUser = JSON.parse(localStorage.getItem('user')) ?? {};
 const thereSavedUser = Object.entries(savedUser).length > 0;
@@ -16,8 +16,8 @@ const USER_INITIAL_STATE = thereSavedUser
 			fetched: false,
 	  };
 
-export default function UserContextProvider({ children }) {
-	const [state, dispatch] = React.useReducer(userReducer, USER_INITIAL_STATE);
+export default function AuthContextProvider({ children }) {
+	const [state, dispatch] = React.useReducer(authReducer, USER_INITIAL_STATE);
 	axios.defaults.headers.common['Authorization'] = state.user.token ?? '';
 	const isUserLogged = state.fetched && state.user;
 
@@ -64,5 +64,5 @@ export default function UserContextProvider({ children }) {
 		updateInfo,
 	};
 
-	return <UserContext.Provider value={contextValue}>{children}</UserContext.Provider>;
+	return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>;
 }

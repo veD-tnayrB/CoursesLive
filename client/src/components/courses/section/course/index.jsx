@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useUserContext } from 'src/contexts/user/user.context';
+import { useAuthContext } from 'src/contexts/auth/auth.context';
 import { Link } from 'react-router-dom';
 import { IMAGES_ROUTES } from 'src/services/config';
 import { CourseItemContext } from './context';
@@ -16,7 +16,7 @@ const COLORS_BY_LEVEL = {
 };
 
 export default function Course({ course }) {
-	const { user } = useUserContext();
+	const { user } = useAuthContext();
 	const isUserSuscribed = course.subscribers?.some((suscriber) => suscriber === user.id);
 	const [isSuscribed, setIsSuscribed] = React.useState(isUserSuscribed);
 	const isUserAdmin = user.role === 'admin';

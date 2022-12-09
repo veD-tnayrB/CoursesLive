@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useParams } from 'react-router-dom';
 import { episodeService } from 'src/services/episodes';
-import { useUserContext } from 'src/contexts/user/user.context';
+import { useAuthContext } from 'src/contexts/auth/auth.context';
 import { IMAGES_ROUTES } from 'src/services/config';
 import { useCommentsContext } from './context';
 import useForm from 'src/hooks/useForm';
@@ -9,7 +9,7 @@ import useForm from 'src/hooks/useForm';
 export default function EditComment({ prevComment, setInEdition }) {
 	const { setComments } = useCommentsContext();
 	const { form, handleChange, setFormValues } = useForm({ comment: prevComment.content });
-	const { user } = useUserContext();
+	const { user } = useAuthContext();
 	const { episodeId } = useParams();
 
 	function handleSubmit(event) {

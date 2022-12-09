@@ -2,13 +2,13 @@ import * as React from 'react';
 import { useParams } from 'react-router-dom';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
-import { useUserContext } from 'src/contexts/user/user.context';
+import { useAuthContext } from 'src/contexts/auth/auth.context';
 import { useCourseContext } from 'src/contexts/course/course.context';
 import { episodeService } from 'src/services/episodes';
 
 export default function Like() {
 	const { courseId, episodeId } = useParams();
-	const { user } = useUserContext();
+	const { user } = useAuthContext();
 	const { selectedEpisode, setSelectedEpisode, isUserSuscribed, isCourseCreator, course } = useCourseContext();
 	const itsLikeIt = selectedEpisode.peopleWhoLikedIt.some((person) => person === user.id);
 	const numberOfLikes = selectedEpisode.peopleWhoLikedIt.length;

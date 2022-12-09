@@ -6,12 +6,12 @@ import { VideoContext } from './context';
 import EpisodeDurationController from './duration-controller';
 import EpisodeVolumeController from './volume-controller';
 import PlayButton from './play-button';
-import { useUserContext } from 'src/contexts/user/user.context';
+import { useAuthContext } from 'src/contexts/auth/auth.context';
 
 export default function Video() {
 	const [isVideoPlaying, setIsVideoPlaying] = React.useState(false);
 	const { course, selectedEpisode } = useCourseContext();
-	const { user } = useUserContext();
+	const { user } = useAuthContext();
 	const { episodeId } = useParams();
 	const videoRef = React.useRef(null);
 

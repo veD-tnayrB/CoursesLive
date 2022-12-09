@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Navigate } from 'react-router-dom';
-import { useUserContext } from 'src/contexts/user/user.context';
+import { useAuthContext } from 'src/contexts/auth/auth.context';
 import { UsersContext } from 'src/contexts/users/users.context';
 import { userService } from 'src/services/user';
 import UserSection from 'src/components/user/section';
@@ -12,7 +12,7 @@ import useDocumentTitle from 'src/hooks/useDocumentTitle';
 
 export default function Users() {
 	useDocumentTitle('Users - CoursesLive');
-	const { user } = useUserContext();
+	const { user } = useAuthContext();
 	if (user.role !== 'admin') return <Navigate to="/" />;
 	const [users, setUsers] = React.useState([]);
 	const [search, setSearch] = React.useState({ selectedFilter: '', value: '' });

@@ -5,7 +5,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { IMAGES_ROUTES } from 'src/services/config';
 import Tools from './tools';
 import EditComment from './edit-comment';
-import { useUserContext } from 'src/contexts/user/user.context';
+import { useAuthContext } from 'src/contexts/auth/auth.context';
 
 TimeAgo.addDefaultLocale(en);
 const timeAgo = new TimeAgo('en-US');
@@ -13,7 +13,7 @@ const timeAgo = new TimeAgo('en-US');
 export default function EpisodeComment({ comment }) {
 	const [showTools, setShowTools] = React.useState(false);
 	const [inEdition, setInEdition] = React.useState(false);
-	const { user } = useUserContext();
+	const { user } = useAuthContext();
 	const formatedDate = timeAgo.format(new Date(comment.date).getTime());
 	const hasPermitions = user.id === comment.creator.id;
 
