@@ -4,7 +4,6 @@ import Navbar from './components/common/navbar';
 import Footer from 'src/components/common/footer';
 import AuthContextProvider from 'src/contexts/auth/auth.context';
 import { BrowserRouter } from 'react-router-dom';
-
 import App from './App';
 import 'src/global/global.scss';
 

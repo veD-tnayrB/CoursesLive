@@ -6,7 +6,7 @@ import cors from 'cors';
 // Routers imports
 import authRouter from './routes/auth.route.js';
 import courseRouter from './routes/course.route.js';
-import userRouter from './routes/user.js';
+import userRouter from './routes/user.route.js';
 import episodeRouter from './routes/episode.route.js';
 import commentRouter from './routes/comment.route.js';
 import testRouter from './routes/test.route.js';

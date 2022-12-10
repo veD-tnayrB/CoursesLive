@@ -1,0 +1,39 @@
+.info-modifier {
+	padding: 0 2rem;
+
+	form {
+		width: 100%;
+		height: 100%;
+		display: grid;
+		grid-template-rows: 75% 25%;
+		gap: 1rem;
+
+		.inputs {
+			display: flex;
+			flex-direction: column;
+			gap: 1.2rem;
+
+			.profile-dropzone {
+				border-radius: 50%;
+				aspect-ratio: 1/1;
+				height: 40%;
+				padding: 0 1rem;
+				text-align: center;
+				align-self: center;
+			}
+
+			.first-row {
+				width: 100%;
+				display: grid;
+				grid-template-columns: 50% calc(50% - 1rem);
+				gap: 1rem;
+			}
+		}
+
+		.actions-container {
+			height: 25%;
+			display: flex;
+			justify-content: end;
+		}
+	}
+}

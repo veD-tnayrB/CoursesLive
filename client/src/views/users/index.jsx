@@ -3,11 +3,11 @@ import { Navigate } from 'react-router-dom';
 import { useAuthContext } from 'src/contexts/auth/auth.context';
 import { UsersContext } from 'src/contexts/users/users.context';
 import { userService } from 'src/services/user';
-import UserSection from 'src/components/user/section';
+import UserSection from 'src/components/users/section';
 import Header from 'src/components/common/header';
-import SearchUsers from 'src/components/user/search';
-import DeleteUsersModal from 'src/components/user/modals/delete-modal';
-import EditUsersModal from 'src/components/user/modals/edit-modal';
+import SearchUsers from 'src/components/users/search';
+import DeleteUsersModal from 'src/components/users/modals/delete-modal';
+import EditUsersModal from 'src/components/users/modals/edit-modal';
 import useDocumentTitle from 'src/hooks/useDocumentTitle';
 
 export default function Users() {

@@ -33,7 +33,7 @@ export default function User({ user }) {
 				{!isTheLoggedUser && <UserActions user={user} />}
 
 				<div className="end-button">
-					<Link to={`/users/user/${user.id}`} className="default-button">
+					<Link to={`/user/${user.id}`} className="default-button">
 						See profile
 					</Link>
 				</div>

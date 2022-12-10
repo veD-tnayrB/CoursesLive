@@ -23,14 +23,13 @@ function App() {
 			{/* Initial */}
 			<Route path="/" element={<Home />} />
 			<Route path="/courses" element={<Courses />} />
-			<Route path="/users" element={<Users />} />
+			<Route path="/users/" element={<Users />} />
 
 			{/* Detailed */}
 			<Route path="/courses/course/:courseId/episode/:episodeId/" element={<Course />}>
 				<Route path="test/:testId" element={<Test />} />
 			</Route>
-
-			<Route path="/users/user/:userId" element={<User />} />
+			<Route path="user/:userId" element={<User />} />
 
 			<Route path="*" element={<Error404 />} />
 			<Route path="/404" element={<Error404 />} />
