@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { userService } from 'src/services/user';
 import useForm from 'src/hooks/useForm';
 import ValidationInput from 'src/components/common/validation-input';
 import ProfileDropzone from './profile-dropzone';
@@ -21,22 +21,21 @@ const TOTAL_INPUTS = Object.keys(INITIAL_VALUES);
 export default function InfoModifier() {
 	const { form, handleChanges } = useForm(INITIAL_VALUES);
 	const [profileImage, setProfileImage] = React.useState({});
-	const navigateTo = useNavigate();
 
 	const correctInputs = Object.keys(form).filter((prop) => form[prop].isCorrect);
 	const isInfoCorrect = correctInputs.length === TOTAL_INPUTS.length;
 
 	async function editInformation(event) {
 		event.preventDefault();
-		const formatedUser = {
-			name: form.name.value,
-			lastName: form.lastName.value,
-			mail: form.mail.value,
-			password: form.password.value,
-		};
+		const formData = new FormData();
 
-		const isEverythingOk = await signup(formatedUser);
-		if (isEverythingOk) navigateTo('/');
+		formData.append('name', form.name.value);
+		formData.append('lastName', form.lastName.value);
+		formData.append('mail', form.mail.value);
+		formData.append('password', form.password.value);
+		formData.append('profile', profileImage);
+
+		userService.edit();
 	}
 
 	return (

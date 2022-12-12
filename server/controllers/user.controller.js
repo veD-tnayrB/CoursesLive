@@ -36,23 +36,15 @@ class UserController {
 	async edit(req, res, next) {
 		const newUserInfo = req.body;
 
-		const editedUser = {
-			name: newUserInfo.name,
-			lastName: newUserInfo.lastName,
-			mail: newUserInfo.mail,
-			password: newUserInfo.password,
-		};
-
 		try {
 			const user = req.user;
+			const userToModify = req.params.userId;
 
 			// Check if the user already exist and update it
-			const newUser = await User.findByIdAndUpdate(user.id, editedUser, { new: true });
+			const newUser = await User.findByIdAndUpdate(userToModify, { ...newUserInfo }, { new: true });
 			const userDoesntExist = !newUser;
 
-			if (userDoesntExist) {
-				throw Error('user not found');
-			}
+			if (userDoesntExist) return res.status(404).json('USER_NOT_FOUND');
 
 			return res.status(200).json({ editedUser: newUser });
 		} catch (error) {

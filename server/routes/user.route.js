@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import userController from '../controllers/user.controller.js';
+import { imageUploader } from './images.route.js';
 import { isUserAdmin, isUser } from '../middlewares/isUserRole.js';
 import isBodyAUser from '../dtos/isBodyAUser.js';
 
@@ -12,7 +13,7 @@ userRouter.get('/', isUserAdmin, userController.getAll);
 userRouter.get('/user/:id', userController.getOne);
 
 // Edit user info
-userRouter.patch('/me/edit', isBodyAUser, isUser, userController.edit);
+userRouter.patch('/:userId/edit', isBodyAUser, isUser, imageUploader.single('profile'), userController.edit);
 
 // Promote the user
 userRouter.patch('/edit/range/:userId/:rank', isUserAdmin, userController.editRange);

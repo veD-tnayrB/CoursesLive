@@ -10,7 +10,7 @@ import userRouter from './routes/user.route.js';
 import episodeRouter from './routes/episode.route.js';
 import commentRouter from './routes/comment.route.js';
 import testRouter from './routes/test.route.js';
-import imagesRouter from './routes/images.js';
+import imagesRouter from './routes/images.route.js';
 import mediaRouter from './routes/media.route.js';
 
 // Middlewares imports
