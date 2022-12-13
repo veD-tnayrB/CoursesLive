@@ -34,7 +34,7 @@ class UserService {
 
 	async changeUserRank(userId, rank) {
 		try {
-			const { data } = await axios.patch(`${ENVIRONMENT}users/'/edit/range/${userId}/${rank}'0`);
+			const { data } = await axios.patch(`${ENVIRONMENT}users/edit/range/${userId}/${rank}`);
 			return data;
 		} catch ({ response: { data: errors } }) {
 			console.error(errors);

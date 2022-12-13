@@ -74,7 +74,7 @@ class UserController {
 
 		try {
 			// Check if the role is correct
-			if (rank !== 'admin' && rank !== 'teacher' && rank) {
+			if (rank !== 'admin' && rank !== 'teacher' && rank !== 'student') {
 				throw Error('role invalid');
 			}
 
