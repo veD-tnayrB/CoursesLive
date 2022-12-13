@@ -23,7 +23,12 @@ class UserController {
 	async getOne(req, res, next) {
 		try {
 			const userId = req.params.id;
-			const user = await User.findById(userId).populate('courses');
+			const user = await User.findById(userId).populate({
+				path: 'courses',
+				populate: {
+					path: 'creator',
+				},
+			});
 
 			if (!user) throw new Error('ERROR');
 

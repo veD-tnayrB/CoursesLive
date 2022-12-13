@@ -1,0 +1,99 @@
+@use 'src/global/_variables.scss';
+
+.course {
+	border-radius: 15px;
+	width: 22rem;
+	height: fit-content;
+
+	.cover-container {
+		border-radius: 15px 15px 0 0;
+		aspect-ratio: 16/9;
+		width: 100%;
+		height: 12.375rem;
+		overflow: hidden;
+
+		.cover {
+			border-radius: 15px 15px 0 0;
+			width: 100%;
+			transition: transform 0.2s ease-in-out;
+		}
+	}
+
+	&:hover {
+		.cover-container {
+			.cover {
+				transform: scale(1.15);
+			}
+		}
+	}
+
+	.card-item {
+		display: flex;
+		width: -moz-fit-content;
+		width: fit-content;
+
+		.card.course-item {
+			border-radius: 0 0 15px 15px;
+
+			.actions-container {
+				&.suscribed {
+					grid-template-columns: 3rem 3rem 3rem 1fr;
+					grid-template-areas: 'delete modify suscription profile';
+
+					.course-button {
+						grid-area: profile;
+						padding: 0.8rem 1rem;
+					}
+
+					.end-button {
+						grid-area: suscription;
+						justify-content: center;
+
+						button {
+							width: 3rem;
+							display: flex;
+							justify-content: center;
+							align-items: center;
+
+							img {
+								margin: 0;
+							}
+						}
+					}
+				}
+
+				.default-button {
+					display: flex;
+					justify-content: center;
+					align-items: center;
+
+					&.suscription {
+						width: 8.4rem;
+					}
+
+					&.loading {
+						padding: 0.5rem 0;
+
+						.loading-icon::after {
+							width: 15px;
+							height: 15px;
+						}
+					}
+				}
+
+				.end-button {
+					.default-button {
+						display: flex;
+						gap: 0.5rem;
+
+						.icon {
+							aspect-ratio: 1/1;
+							width: 22px;
+							height: 22px;
+						}
+					}
+				}
+			}
+		}
+	}
+}

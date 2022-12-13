@@ -8,7 +8,7 @@ import Roles from './roles';
 import './edit-modal.scss';
 
 export default function EditUsersModal() {
-	const { modals, setModals, setUsers, users } = useUsersContext();
+	const { modals, setModals, setUsers } = useUsersContext();
 	const { userId, user } = modals.edit.payload;
 	const [selectedRole, setSelectedRole] = React.useState(user?.role ?? 'student');
 
@@ -16,6 +16,7 @@ export default function EditUsersModal() {
 		setIsLoading(true);
 		userService.changeUserRank(userId, selectedRole).then((response) => {
 			setIsLoading(false);
+
 			setUsers((prevUsers) =>
 				prevUsers.map((user) => {
 					if (user.id === userId) return response;
