@@ -40,13 +40,12 @@ class UserController {
 
 	async edit(req, res, next) {
 		const newUserInfo = req.body;
-
+		const profileImage = req.file.filename;
 		try {
-			const user = req.user;
 			const userToModify = req.params.userId;
 
 			// Check if the user already exist and update it
-			const newUser = await User.findByIdAndUpdate(userToModify, { ...newUserInfo }, { new: true });
+			const newUser = await User.findByIdAndUpdate(userToModify, { ...newUserInfo, profileImage }, { new: true });
 			const userDoesntExist = !newUser;
 
 			if (userDoesntExist) return res.status(404).json('USER_NOT_FOUND');

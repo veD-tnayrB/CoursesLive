@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuthContext } from 'src/contexts/auth/auth.context';
-import ValidationInput from 'src/components/common/validation-input';
+import ValidationInput from 'src/components/common/form/validation-input';
 import useForm from 'src/hooks/useForm';
 import './form.scss';
 

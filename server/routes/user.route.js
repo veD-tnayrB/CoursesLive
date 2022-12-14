@@ -13,7 +13,7 @@ userRouter.get('/', isUserAdmin, userController.getAll);
 userRouter.get('/user/:id', userController.getOne);
 
 // Edit user info
-userRouter.patch('/:userId/edit', isBodyAUser, isUser, imageUploader.single('profile'), userController.edit);
+userRouter.patch('/:userId/edit', isUser, imageUploader.single('profileImage'), isBodyAUser, userController.edit);
 
 // Promote the user
 userRouter.patch('/edit/range/:userId/:rank', isUserAdmin, userController.editRange);

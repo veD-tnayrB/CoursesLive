@@ -1,12 +1,4 @@
 @use 'src/global/_variables.scss';
 
 .user-page {
-	height: fit-content;
-	display: grid;
-	grid-template-columns: 25% 75%;
-
-	.dashboard {
-		display: flex;
-		flex-direction: column;
-	}
 }

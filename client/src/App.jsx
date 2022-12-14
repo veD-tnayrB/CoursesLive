@@ -5,11 +5,9 @@ import Courses from 'src/views/courses';
 import Home from 'src/views/home';
 import Users from 'src/views/users';
 import User from 'src/views/user';
-import UserCourses from 'src/components/user/courses';
-import UserInfoModifier from 'src/components/user/info-modifier';
 import Signup from 'src/views/signup';
 import Login from 'src/views/login';
-import Course from 'src/views/course';
+import Episode from 'src/views/episode';
 import Test from 'src/views/test';
 import Error404 from 'src/views/errors/404';
 
@@ -28,13 +26,10 @@ function App() {
 			<Route path="/users/" element={<Users />} />
 
 			{/* Detailed */}
-			<Route path="/courses/course/:courseId/episode/:episodeId/" element={<Course />}>
+			<Route path="/courses/course/:courseId/episode/:episodeId/" element={<Episode />}>
 				<Route path="test/:testId" element={<Test />} />
 			</Route>
-			<Route path="user/:userId/" element={<User />}>
-				<Route path="settings" element={<UserInfoModifier />} />
-				<Route path="courses" element={<UserCourses />} />
-			</Route>
+			<Route path="user/:userId/" element={<User />} />
 
 			<Route path="*" element={<Error404 />} />
 			<Route path="/404" element={<Error404 />} />

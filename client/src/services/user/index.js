@@ -22,9 +22,9 @@ class UserService {
 		}
 	}
 
-	async edit(newUserInfo) {
+	async edit(newUserInfo, userId) {
 		try {
-			const { data } = await axios.delete(`${ENVIRONMENT}users/me/edit`, newUserInfo);
+			const { data } = await axios.patch(`${ENVIRONMENT}users/${userId}/edit`, newUserInfo);
 			return data;
 		} catch ({ response: { data: errors } }) {
 			console.error(errors);

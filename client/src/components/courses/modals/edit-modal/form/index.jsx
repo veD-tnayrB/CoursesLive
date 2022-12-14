@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useCoursesContext } from 'src/contexts/courses/courses.context';
 import { courseService } from 'src/services/courses';
-import ValidationInput from 'src/components/common/validation-input';
+import ValidationInput from 'src/components/common/form/validation-input';
 import CreationModalActions from './actions';
 import useForm from 'src/hooks/useForm';
 import Levels from '../../../levels';

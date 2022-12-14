@@ -1,9 +1,9 @@
 import './style.scss';
 
-export default function NoContentMessage({ text }) {
+export default function NoContentMessage({ text, className = '' }) {
 	return (
-		<div className="no-content-message">
-			<p>{text} 😴</p>
+		<div className={`no-content-message ${className}`}>
+			<p>{text}</p>
 		</div>
 	);
 }

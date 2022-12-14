@@ -1,10 +1,9 @@
 import * as React from 'react';
-import { Navigate, Outlet, useNavigate, useParams } from 'react-router-dom';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import { useAuthContext } from 'src/contexts/auth/auth.context';
 import { userService } from 'src/services/user';
 import { UserContext } from 'src/contexts/user/user.context';
 import UserInfo from 'src/components/user/info';
-import Tabs from 'src/components/user/tabs';
 import './user.scss';
 
 const DEFAULT_USER_STATE = {
@@ -49,10 +48,6 @@ export default function User() {
 		<UserContext.Provider value={contextValue}>
 			<div className="user-page">
 				<UserInfo />
-				<div className="dashboard">
-					<Tabs />
-					<Outlet />
-				</div>
 			</div>
 		</UserContext.Provider>
 	);
