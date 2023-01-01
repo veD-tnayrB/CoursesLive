@@ -1,94 +1,95 @@
 @use 'src/global/_variables.scss';
 
 .primary-navbar {
-    padding: 1rem 2rem;
+	padding: 1rem 2rem;
 
-    ul {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+	ul {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
 
-        .actions-container {
-            display: flex;
-            gap: 1.5rem;
-            align-items: center;
+		.actions-container {
+			display: flex;
+			gap: 1.5rem;
+			align-items: center;
 
-            .user-config-wrapper {
-                display: flex;
-                align-items: center;
-                position: relative;
+			.user-config-wrapper {
+				display: flex;
+				align-items: center;
+				position: relative;
 
-                img {
-                    width: 36px;
-                    height: 36px;
-                    aspect-ratio: 1/1;
-                }
+				img {
+					border-radius: 50%;
+					width: 36px;
+					height: 36px;
+					aspect-ratio: 1/1;
+				}
 
-                .card {
-                    border-radius: 10px;
-                    width: -moz-fit-content;
-                    width: fit-content;
-                    height: auto;
-                    width: 8rem;
-                    padding: 1rem 0rem;
-                    margin: 0 1rem 0 0;
+				.card {
+					border-radius: 10px;
+					width: -moz-fit-content;
+					width: fit-content;
+					height: auto;
+					width: 8rem;
+					padding: 1rem 0rem;
+					margin: 0 1rem 0 0;
 
-                    position: absolute;
-                    top: 100%;
-                    right: -100%;
+					position: absolute;
+					top: 100%;
+					right: -100%;
 
-                    z-index: 2;
+					z-index: 2;
 
-                    ul {
-                        width: 100%;
-                        display: flex;
-                        flex-direction: column;
-                        gap: 0.2rem;
+					ul {
+						width: 100%;
+						display: flex;
+						flex-direction: column;
+						gap: 0.2rem;
 
-                        li {
-                            width: 100%;
+						li {
+							width: 100%;
 
-                            button {
-                                width: 100%;
-                                padding: 0.6rem 1rem;
+							button {
+								width: 100%;
+								padding: 0.6rem 1rem;
 
-                                &:hover {
-                                    background: variables.$primary-background;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+								&:hover {
+									background: variables.$primary-background;
+								}
+							}
+						}
+					}
+				}
+			}
 
-            .routes-list {
-                display: flex;
-                gap: 1.8rem;
+			.routes-list {
+				display: flex;
+				gap: 1.8rem;
 
-                .nav-route {
-                    text-decoration: none;
-                    font-family: variables.$secondary-font;
-                    font-weight: bold;
-                    color: variables.$main-text-color;
-                    font-size: 1.05rem;
+				.nav-route {
+					text-decoration: none;
+					font-family: variables.$secondary-font;
+					font-weight: bold;
+					color: variables.$main-text-color;
+					font-size: 1.05rem;
 
-                    &:hover {
-                        text-decoration: underline;
-                    }
-                }
-            }
-        }
-    }
+					&:hover {
+						text-decoration: underline;
+					}
+				}
+			}
+		}
+	}
 }
 
 @media (max-width: variables.$mobile-breakpoint) {
-    .primary-navbar {
-        ul {
-            .logo-container {
-                h1 {
-                    display: none;
-                }
-            }
-        }
-    }
+	.primary-navbar {
+		ul {
+			.logo-container {
+				h1 {
+					display: none;
+				}
+			}
+		}
+	}
 }
